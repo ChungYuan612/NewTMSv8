@@ -1,0 +1,4 @@
+name: NewTMSv7
+version: '${project.version}'
+main: me.cyperion.ntms.NewTMSv7
+api-version: '1.20'
