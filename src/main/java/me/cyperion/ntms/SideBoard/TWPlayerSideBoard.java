@@ -4,6 +4,7 @@ import me.cyperion.ntms.NewTMSv7;
 import me.cyperion.ntms.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -13,11 +14,11 @@ import org.bukkit.scoreboard.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static me.cyperion.ntms.Utils.SpecialChar;
 import static me.cyperion.ntms.Utils.colors;
 
 public class TWPlayerSideBoard extends BukkitRunnable {
     private NewTMSv7 plugin;
-    private TMWorldTimer timerClass;
 
     final String MONEY_SBTEAM = "moneyTeam",
             TIMER_DATE_SBTEAM = "moneyTeam",
@@ -26,19 +27,14 @@ public class TWPlayerSideBoard extends BukkitRunnable {
 
     public TWPlayerSideBoard(NewTMSv7 plugin) {
         this.plugin = plugin;
-        timerClass = new TMWorldTimer(plugin);
     }
 
     @Override
     public void run() {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            PersistentDataContainer data = p.getPersistentDataContainer();
             float player_coins = plugin.getDatabase().getMoney(p);
             Scoreboard scoreboard = p.getScoreboard();
-            String HourTimerString
-                    = "";//TODO
-            scoreboard.getTeam("timerHour_team")
-                    .setPrefix(ChatColor.GRAY + timer2_setup(Bukkit.getServer().getWorld("world").getTime(), p) + colors('&', DandN));
+            refreshTimer(p);
             scoreboard.getTeam("money_team")
                     .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + player_coins);
         }
@@ -93,8 +89,20 @@ public class TWPlayerSideBoard extends BukkitRunnable {
 
     }
 
+    /**
+     *  July 9th
+     *  10:30pm☽
+     */
     public void refreshTimer(Player player){
-
+        Scoreboard scoreboard = player.getScoreboard();
+        World world = player.getWorld();
+        scoreboard.getTeam(TIMER_HOUR_SBTEAM)
+                .setPrefix(plugin.getTmWorldTimer().getHourDisplayString(world));
+        //有需要更新日期，就更新
+        if(plugin.getTmWorldTimer().needChangeDateString(world)){
+            scoreboard.getTeam(TIMER_DATE_SBTEAM)
+                    .setPrefix(plugin.getTmWorldTimer().getDateDisplayString(world));
+        }
     }
 
     private String getFormattedDate(String format) {

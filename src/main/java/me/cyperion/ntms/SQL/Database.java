@@ -14,8 +14,7 @@ import java.util.logging.Level;
 public abstract class Database {
     NewTMSv7 plugin;
     Connection connection;
-    // The name of the table we created back in SQLite class.
-    public String table = "table_name";
+    public String table = "Players_Eco";
     public int tokens = 0;
     public Database(NewTMSv7 instance){
         plugin = instance;
@@ -55,6 +54,7 @@ public abstract class Database {
             }
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, SQLErrors.sqlConnectionExecute(), ex);
+
         } finally {
             try {
                 if (ps != null)
@@ -65,7 +65,7 @@ public abstract class Database {
                 plugin.getLogger().log(Level.SEVERE, SQLErrors.sqlConnectionClose(), ex);
             }
         }
-        return 0f;
+        return -1f;
     }
 
     //

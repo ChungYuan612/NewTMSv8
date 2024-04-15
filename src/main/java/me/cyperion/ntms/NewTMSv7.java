@@ -8,6 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class NewTMSv7 extends JavaPlugin {
     private TMWorldTimer tmWorldTimer;
     private Database database;
+    public final String MAIN_WORLD_NAME = "world";
+
     @Override
     public void onEnable() {
         this.tmWorldTimer = new TMWorldTimer(this);
