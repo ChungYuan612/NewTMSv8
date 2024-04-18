@@ -36,5 +36,5 @@
 ***
 ## 台灣地圖(4/7下注活動後新增鐵路與公路)
 #### 青色為公路；橘色為鐵路；紫色點為火車站。
-![台灣地圖](https://cdn.discordapp.com/attachments/865008260532666371/1226502516850688061/7.jpg?ex=6625007b&is=66128b7b&hm=f1b8beb1c21d15c061d13fd3d27aadcc96c31e88127ae3d7f761ecc86b91df29&)
+![台灣地圖](https://cdn.discordapp.com/attachments/934694320236277791/1230442009198596127/94ce61142657b262.png?ex=6633556b&is=6620e06b&hm=f2f1cd9a071fadd5bbc92e74108bd6f2dec3ce46805d2d0e8e57e8e4a61141f2&)
 
