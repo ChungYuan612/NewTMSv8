@@ -23,6 +23,7 @@ public class SQLite extends Database{
         sqlName = plugin.getConfig().getString("SQLite.Filename", "NTMS_PlayerData");
         initTable();
         initialize();
+
     }
 
     public void initTable(){

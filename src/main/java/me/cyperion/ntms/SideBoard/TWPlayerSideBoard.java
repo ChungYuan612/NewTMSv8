@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,13 +18,14 @@ import java.util.Date;
 import static me.cyperion.ntms.Utils.SpecialChar;
 import static me.cyperion.ntms.Utils.colors;
 
-public class TWPlayerSideBoard extends BukkitRunnable {
+public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     private NewTMSv7 plugin;
 
     final String MONEY_SBTEAM = "moneyTeam",
             TIMER_DATE_SBTEAM = "moneyTeam",
             TIMER_HOUR_SBTEAM = "moneyTeam",
-            DATE_SBTEAM = "moneyTeam";
+            DATE_SBTEAM = "moneyTeam",
+            LOCATION_SBTEAM = "locateTeam";
 
     public TWPlayerSideBoard(NewTMSv7 plugin) {
         this.plugin = plugin;
@@ -55,18 +57,22 @@ public class TWPlayerSideBoard extends BukkitRunnable {
 
         Team date_team = scoreboard.registerNewTeam(DATE_SBTEAM);
         date_team.addEntry(colors("&a &f"));
-        objective.getScore(colors("&a &f")).setScore(8);
+        objective.getScore(colors("&a &f")).setScore(9);
 
         Score lore_1_null = objective.getScore("   ");
-        lore_1_null.setScore(7);
+        lore_1_null.setScore(8);
 
         Team timer1_team = scoreboard.registerNewTeam(TIMER_DATE_SBTEAM);
         timer1_team.addEntry(colors("&b &f"));
-        objective.getScore(colors("&b &f")).setScore(6);
+        objective.getScore(colors("&b &f")).setScore(7);
 
         Team timer2_team = scoreboard.registerNewTeam(TIMER_HOUR_SBTEAM);
         timer2_team.addEntry(colors("&c &f"));//RED+WHITE
-        objective.getScore(colors("&c &f")).setScore(5);
+        objective.getScore(colors("&c &f")).setScore(6);
+
+        Team locate_team = scoreboard.registerNewTeam(LOCATION_SBTEAM);
+        locate_team.addEntry(colors("&c &a"));//RED+AQUA
+        objective.getScore(colors("&c &a")).setScore(5);
 
         Score lore_4_null = objective.getScore("  ");
         lore_4_null.setScore(4);
@@ -92,10 +98,15 @@ public class TWPlayerSideBoard extends BukkitRunnable {
     /**
      *  July 9th
      *  10:30pm☽
+     *  如果在地獄或終界，則顯示台灣的基礎時間
      */
     public void refreshTimer(Player player){
         Scoreboard scoreboard = player.getScoreboard();
         World world = player.getWorld();
+        if(world.getName().equals("world_nether")
+                || world.getName().equals("world_the_end")){
+            world = Bukkit.getWorld(plugin.MAIN_WORLD_NAME);
+        }
         scoreboard.getTeam(TIMER_HOUR_SBTEAM)
                 .setPrefix(plugin.getTmWorldTimer().getHourDisplayString(world));
         //有需要更新日期，就更新
@@ -103,6 +114,24 @@ public class TWPlayerSideBoard extends BukkitRunnable {
             scoreboard.getTeam(TIMER_DATE_SBTEAM)
                     .setPrefix(plugin.getTmWorldTimer().getDateDisplayString(world));
         }
+    }
+
+    //更新玩家的所在世界顯示
+    public void refreshTimerLocation(Player player){
+        Scoreboard scoreboard = player.getScoreboard();
+        World world = player.getWorld();
+        String worldText="未知世界";
+        if(world.getName().equals("world")){
+            worldText = "&d台灣地圖";
+        }else if(world.getName().equals("world_nether")){
+            worldText = "&4地獄";
+        }else if(world.getName().equals("world_the_end")){
+            worldText = "&7終界";
+        }else if(world.getName().equals("world_resource")){
+            worldText = "&a資源世界";
+        }
+        scoreboard.getTeam(LOCATION_SBTEAM)
+                .setPrefix(colors("&7⏣ &r" +worldText));
     }
 
     private String getFormattedDate(String format) {
