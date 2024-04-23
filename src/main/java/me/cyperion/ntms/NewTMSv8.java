@@ -1,22 +1,18 @@
 package me.cyperion.ntms;
 
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
-import net.milkbowl.vault.VaultEco;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.permission.Permission;
 
-import me.cyperion.ntms.SQL.Database;
-import me.cyperion.ntms.SQL.SQLite;
 import me.cyperion.ntms.SideBoard.TMWorldTimer;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class NewTMSv7 extends JavaPlugin {
+public final class NewTMSv8 extends JavaPlugin {
     private TMWorldTimer tmWorldTimer;
     private TWPlayerSideBoard twPlayerSideBoard;
-    private Database database;
+    //private Database database;
     public final String MAIN_WORLD_NAME = "world";
 
     private static Economy econ = null;
@@ -35,8 +31,8 @@ public final class NewTMSv7 extends JavaPlugin {
         setupChat();
 
         //my
-        this.database = new SQLite(this);
-        this.database.load();
+        //this.database = new SQLite(this);
+        //this.database.load();
         //記分板系統
         this.tmWorldTimer = new TMWorldTimer(this);
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
@@ -88,7 +84,8 @@ public final class NewTMSv7 extends JavaPlugin {
         return tmWorldTimer;
     }
 
-    public Database getDatabase() {
-        return this.database;
-    }
+
+//    public Database getDatabase() {
+//        return this.database;
+//    }
 }

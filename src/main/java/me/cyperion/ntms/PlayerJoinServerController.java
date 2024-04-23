@@ -7,9 +7,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoinServerController implements Listener {
 
-    public NewTMSv7 plugin;
+    public NewTMSv8 plugin;
 
-    public PlayerJoinServerController(NewTMSv7 plugin) {
+    public PlayerJoinServerController(NewTMSv8 plugin) {
         this.plugin = plugin;
     }
 

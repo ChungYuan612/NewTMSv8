@@ -1,25 +1,21 @@
 package me.cyperion.ntms.SideBoard;
 
-import me.cyperion.ntms.NewTMSv7;
-import me.cyperion.ntms.Utils;
+import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static me.cyperion.ntms.Utils.SpecialChar;
 import static me.cyperion.ntms.Utils.colors;
 
 public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
-    private NewTMSv7 plugin;
+    private final NewTMSv8 plugin;
 
     final String MONEY_SBTEAM = "moneyTeam",
             TIMER_DATE_SBTEAM = "moneyTeam",
@@ -27,14 +23,14 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
             DATE_SBTEAM = "moneyTeam",
             LOCATION_SBTEAM = "locateTeam";
 
-    public TWPlayerSideBoard(NewTMSv7 plugin) {
+    public TWPlayerSideBoard(NewTMSv8 plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public void run() {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            float player_coins = plugin.getDatabase().getMoney(p);
+            double player_coins = plugin.getEconomy().getBalance(p);
             Scoreboard scoreboard = p.getScoreboard();
             refreshTimer(p);
             scoreboard.getTeam("money_team")

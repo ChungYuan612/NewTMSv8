@@ -1,6 +1,6 @@
 package me.cyperion.ntms.SQL;
 
-import me.cyperion.ntms.NewTMSv7;
+import me.cyperion.ntms.NewTMSv8;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,10 +14,10 @@ public class SQLite extends Database{
 
     private Connection connection;
     private String sqlName;
-    private NewTMSv7 plugin;
+    private NewTMSv8 plugin;
     private String tableCreation;
 
-    public SQLite(NewTMSv7 plugin) {
+    public SQLite(NewTMSv8 plugin) {
         super(plugin);
         this.plugin = plugin;
         sqlName = plugin.getConfig().getString("SQLite.Filename", "NTMS_PlayerData");

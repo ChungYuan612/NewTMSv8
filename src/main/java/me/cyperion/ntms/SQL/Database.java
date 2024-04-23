@@ -1,6 +1,6 @@
 package me.cyperion.ntms.SQL;
 
-import me.cyperion.ntms.NewTMSv7;
+import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.SQL.SQLError.SQLError;
 import me.cyperion.ntms.SQL.SQLError.SQLErrors;
 import org.bukkit.entity.Player;
@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 public abstract class Database {
-    NewTMSv7 plugin;
+    NewTMSv8 plugin;
     Connection connection;
     public String table = "Players_Eco";
     public int tokens = 0;
-    public Database(NewTMSv7 instance){
+    public Database(NewTMSv8 instance){
         plugin = instance;
     }
 

@@ -1,6 +1,6 @@
 package me.cyperion.ntms.SideBoard;
 
-import me.cyperion.ntms.NewTMSv7;
+import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.World;
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import static me.cyperion.ntms.Utils.colors;
  * 使用BingAI輔助製作(但是大部分都還是我...)
  */
 public class TMWorldTimer {
-    private NewTMSv7 plugin;
+    private NewTMSv8 plugin;
 
     public static final String
             WT_YEAR="years",
@@ -22,7 +22,7 @@ public class TMWorldTimer {
             WT_HOUR="hours",
             WT_MINUTE="minutes";
 
-    public TMWorldTimer(NewTMSv7 plugin) {
+    public TMWorldTimer(NewTMSv8 plugin) {
         this.plugin = plugin;
     }
 
