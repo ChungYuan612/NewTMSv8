@@ -4,11 +4,14 @@ import org.bukkit.ChatColor;
 
 public class Utils {
 
+
+
+    //轉換顏色文字
     public static String colors(String text){
         return ChatColor.translateAlternateColorCodes('&',text);
     }
 
-
+    //特殊字元
     public static final char[] allowedCharacters
             = new char[] { '/', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':'};
 

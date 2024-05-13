@@ -1,23 +1,34 @@
 package me.cyperion.ntms;
 
+import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import me.cyperion.ntms.SideBoard.TMWorldTimer;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
 
 public final class NewTMSv8 extends JavaPlugin {
     private TMWorldTimer tmWorldTimer;
     private TWPlayerSideBoard twPlayerSideBoard;
     //private Database database;
     public final String MAIN_WORLD_NAME = "world";
+    public final String RESOURCE_WORLD_NAME = "resource";
 
-    private static Economy econ = null;
-    private static Permission perms = null;
-    private static Chat chat = null;
+    public HashMap<Player, PlayerData> playerData = new HashMap<>();
+
+    private Economy econ = null;
+    private Permission perms = null;
+    private Chat chat = null;
+
+    private NSKeyRepo nsKeyRepo;
+    private Mana mana;
 
     @Override
     public void onEnable() {
@@ -33,6 +44,10 @@ public final class NewTMSv8 extends JavaPlugin {
         //my
         //this.database = new SQLite(this);
         //this.database.load();
+        nsKeyRepo = new NSKeyRepo();
+        mana = new Mana(this);
+        mana.runTaskTimer(this,0L,20L);
+
         //記分板系統
         this.tmWorldTimer = new TMWorldTimer(this);
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
@@ -68,15 +83,15 @@ public final class NewTMSv8 extends JavaPlugin {
         return twPlayerSideBoard;
     }
 
-    public static Economy getEconomy() {
+    public Economy getEconomy() {
         return econ;
     }
 
-    public static Permission getPermissions() {
+    public Permission getPermissions() {
         return perms;
     }
 
-    public static Chat getChat() {
+    public Chat getChat() {
         return chat;
     }
 
@@ -84,6 +99,13 @@ public final class NewTMSv8 extends JavaPlugin {
         return tmWorldTimer;
     }
 
+    public NSKeyRepo getNsKeyRepo() {
+        return nsKeyRepo;
+    }
+
+    public PlayerData getPlayerData(Player player){
+        return playerData.get(player);
+    }
 
 //    public Database getDatabase() {
 //        return this.database;
