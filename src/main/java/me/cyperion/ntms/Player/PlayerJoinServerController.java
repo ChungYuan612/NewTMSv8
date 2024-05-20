@@ -20,6 +20,6 @@ public class PlayerJoinServerController implements Listener {
         //記分板
         plugin.getTwPlayerSideBoard().createPlayerBoard(player);
         plugin.getTwPlayerSideBoard().refreshTimerLocation(player);
-
+        plugin.getTwPlayerSideBoard().refreshTimer(player,true);
     }
 }

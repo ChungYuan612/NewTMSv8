@@ -3,6 +3,7 @@ package me.cyperion.ntms;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -48,6 +49,7 @@ public class Mana extends BukkitRunnable {
                 plugin.getPlayerData(player).setMana(mana - amount);
                 return true;
             }else{
+                showManaNotEnough(player);
                 return false;
             }
         }else{
@@ -88,5 +90,13 @@ public class Mana extends BukkitRunnable {
                     colors("&b&l魔力✯ " + (int)mana + "/" + (int)maxMana)
             ));
         }
+    }
+
+    public void showManaNotEnough(Player player){
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,new TextComponent(
+                colors("&c&l魔力不足")
+        ));
+        player.playSound(player.getLocation(),
+                Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
     }
 }

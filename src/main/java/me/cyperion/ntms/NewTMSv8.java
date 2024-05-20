@@ -1,6 +1,7 @@
 package me.cyperion.ntms;
 
 import me.cyperion.ntms.Player.PlayerData;
+import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -32,6 +33,16 @@ public final class NewTMSv8 extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+
+        //my
+        //this.database = new SQLite(this);
+        //this.database.load();
+        nsKeyRepo = new NSKeyRepo();
+        //Mana system
+        mana = new Mana(this);
+        //mana.runTaskTimer(this,0L,20L);
+
         //Vault
         if (!setupEconomy() ) {
             getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -39,28 +50,28 @@ public final class NewTMSv8 extends JavaPlugin {
             return;
         }
         setupPermissions();
-        setupChat();
-
-        //my
-        //this.database = new SQLite(this);
-        //this.database.load();
-        nsKeyRepo = new NSKeyRepo();
-        mana = new Mana(this);
-        mana.runTaskTimer(this,0L,20L);
+        //setupChat();
 
         //記分板系統
         this.tmWorldTimer = new TMWorldTimer(this);
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
         this.twPlayerSideBoard.runTaskTimer(this,0L,8L);//8刻跑一次，一秒2.5次
 
+
+
+        getServer().getPluginManager().registerEvents(new PlayerJoinServerController(this),this);
+
     }
 
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            System.out.println("cannot find Vault!");
             return false;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        System.out.println(getServer().getServicesManager().getKnownServices());
         if (rsp == null) {
+            System.out.println("rsp is null!");
             return false;
         }
         econ = rsp.getProvider();
@@ -107,7 +118,11 @@ public final class NewTMSv8 extends JavaPlugin {
         return playerData.get(player);
     }
 
-//    public Database getDatabase() {
+    public Mana getMana() {
+        return mana;
+    }
+
+    //    public Database getDatabase() {
 //        return this.database;
 //    }
 }

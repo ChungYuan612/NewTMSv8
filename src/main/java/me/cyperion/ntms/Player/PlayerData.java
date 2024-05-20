@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Player;
 
+import me.cyperion.ntms.Class.ClassType;
 import me.cyperion.ntms.Mana;
 import me.cyperion.ntms.NSKeyRepo;
 import me.cyperion.ntms.NewTMSv8;
@@ -19,8 +20,15 @@ public class PlayerData {
      */
     private double maxMana,mana,manaReg;
 
+    //職業，沒有的話為None
+    private ClassType classType;
+
     //透支魔力
     private boolean allowOverMana;
+
+    private int perkFirst,perkSecond,perkThird;
+
+    private int advancePoint;
 
     private UUID uuid;
 
@@ -47,10 +55,18 @@ public class PlayerData {
                     PersistentDataType.DOUBLE,0.0);
         }
 
-        checkAndSetData_Double(repo.getKey(repo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
-        checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
-        checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA),0.0);
+        this.maxMana = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
+        this.manaReg = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
+        this.mana = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA),0.0);
 
+        this.classType = ClassType.valueOf(checkAndSetData_String(repo.getKey(repo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString());
+
+
+        this.perkFirst = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_FIRST),0);
+        this.perkSecond = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_SECOND),0);
+        this.perkThird = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_THIRD),0);
+
+        this.advancePoint = checkAndSetData_Int(repo.getKey(repo.KEY_PD_ADVANCE_POINT),0);
         //---更新區---
         String updateKey = "";//這個做為之後更新時的地方
         if( container.has(
@@ -62,21 +78,73 @@ public class PlayerData {
             //       PersistentDataType.INTEGER,50);
         }
         //---更新結束---
-
-
         return this;
-    }
-
-    private void checkAndSetData_Double(NamespacedKey key, double value){
-        Player player = Bukkit.getPlayer(uuid);
-        PersistentDataContainer container = player.getPersistentDataContainer();
-        if( container.has(key))
-            container.set(key,PersistentDataType.DOUBLE,value);
-
     }
 
     public void savePlayerData(){
         //TODO
+
+    }
+
+    private double checkAndSetData_Double(NamespacedKey key, double value){
+        Player player = Bukkit.getPlayer(uuid);
+        PersistentDataContainer container = player.getPersistentDataContainer();
+        if(!container.has(key)){
+            container.set(key,PersistentDataType.DOUBLE,value);
+            return value;
+        }
+        return container.get(key,PersistentDataType.DOUBLE);
+    }
+
+    private String checkAndSetData_String(NamespacedKey key, String v){
+        Player player = Bukkit.getPlayer(uuid);
+        PersistentDataContainer container = player.getPersistentDataContainer();
+        if(!container.has(key)){
+            container.set(key,PersistentDataType.STRING,v);
+            return v;
+        }
+        return container.get(key,PersistentDataType.STRING);
+    }
+    private int checkAndSetData_Int(NamespacedKey key, int v){
+        Player player = Bukkit.getPlayer(uuid);
+        PersistentDataContainer container = player.getPersistentDataContainer();
+        if(!container.has(key)){
+            container.set(key,PersistentDataType.INTEGER,v);
+            return v;
+        }
+        return container.get(key,PersistentDataType.INTEGER);
+    }
+
+    public int getAdvancePoint() {
+        return advancePoint;
+    }
+
+    public void setAdvancePoint(int advancePoint) {
+        this.advancePoint = advancePoint;
+    }
+
+    public void setPerkFirst(int perkFirst) {
+        this.perkFirst = perkFirst;
+    }
+
+    public void setPerkSecond(int perkSecond) {
+        this.perkSecond = perkSecond;
+    }
+
+    public void setPerkThird(int perkThird) {
+        this.perkThird = perkThird;
+    }
+
+    public int getPerkFirst() {
+        return perkFirst;
+    }
+
+    public int getPerkSecond() {
+        return perkSecond;
+    }
+
+    public int getPerkThird() {
+        return perkThird;
     }
 
     public double getMaxMana() {
@@ -109,5 +177,17 @@ public class PlayerData {
 
     public void setAllowOverMana(boolean allowOverMana) {
         this.allowOverMana = allowOverMana;
+    }
+
+    public ClassType getClassType() {
+        return classType;
+    }
+
+    public void setClassType(ClassType classType) {
+        this.classType = classType;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 }

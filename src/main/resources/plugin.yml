@@ -1,4 +1,5 @@
-name: NewTMSv7
+name: NewTMSv8
 version: '${project.version}'
-main: me.cyperion.ntms.NewTMSv7
+main: me.cyperion.ntms.NewTMSv8
+softdepend: [Vault,Essentials,PlaceholderAPI]
 api-version: '1.20'

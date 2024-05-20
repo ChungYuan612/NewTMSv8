@@ -17,10 +17,10 @@ import static me.cyperion.ntms.Utils.colors;
 public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     private final NewTMSv8 plugin;
 
-    final String MONEY_SBTEAM = "moneyTeam",
-            TIMER_DATE_SBTEAM = "moneyTeam",
-            TIMER_HOUR_SBTEAM = "moneyTeam",
-            DATE_SBTEAM = "moneyTeam",
+    final String MONEY_SBTEAM = "MoneyTeam",
+            TIMER_DATE_SBTEAM = "TimerDateTeam",
+            TIMER_HOUR_SBTEAM = "TimerTeam",
+            DATE_SBTEAM = "DateTeam",
             LOCATION_SBTEAM = "locateTeam";
 
     public TWPlayerSideBoard(NewTMSv8 plugin) {
@@ -32,8 +32,8 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         for (Player p : Bukkit.getOnlinePlayers()) {
             double player_coins = plugin.getEconomy().getBalance(p);
             Scoreboard scoreboard = p.getScoreboard();
-            refreshTimer(p);
-            scoreboard.getTeam("money_team")
+            refreshTimer(p,false);
+            scoreboard.getTeam(MONEY_SBTEAM)
                     .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + player_coins);
         }
     }
@@ -48,7 +48,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         Objective objective = scoreboard.registerNewObjective(
                 "NTMScoreBoard",
                 Criteria.DUMMY,
-                colors("&6&l新臺灣地圖 第7季"));
+                colors("&6&l新臺灣地圖 第8季"));
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         Team date_team = scoreboard.registerNewTeam(DATE_SBTEAM);
@@ -80,7 +80,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         Score lore_6_null = objective.getScore(" ");
         lore_6_null.setScore(2);
 
-        Score lore_7_IP = objective.getScore(colors("&e"+plugin.getServer().getIp()));
+        Score lore_7_IP = objective.getScore(colors("&e118.233.28.38"));
         lore_7_IP.setScore(1);
 
         player.setScoreboard(scoreboard);
@@ -92,11 +92,11 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     }
 
     /**
-     *  July 9th
-     *  10:30pm☽
+     *  July 9th <br>
+     *  10:30pm☽ <br>
      *  如果在地獄或終界，則顯示台灣的基礎時間
      */
-    public void refreshTimer(Player player){
+    public void refreshTimer(Player player,boolean allUpdate){
         Scoreboard scoreboard = player.getScoreboard();
         World world = player.getWorld();
         if(world.getName().equals("world_nether")
@@ -106,7 +106,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         scoreboard.getTeam(TIMER_HOUR_SBTEAM)
                 .setPrefix(plugin.getTmWorldTimer().getHourDisplayString(world));
         //有需要更新日期，就更新
-        if(plugin.getTmWorldTimer().needChangeDateString(world)){
+        if(plugin.getTmWorldTimer().needChangeDateString(world) || allUpdate){
             scoreboard.getTeam(TIMER_DATE_SBTEAM)
                     .setPrefix(plugin.getTmWorldTimer().getDateDisplayString(world));
         }
@@ -127,7 +127,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
             worldText = "&a資源世界";
         }
         scoreboard.getTeam(LOCATION_SBTEAM)
-                .setPrefix(colors("&7⏣ &r" +worldText));
+                .setPrefix(colors(" &7⏣ &r" +worldText));
     }
 
     private String getFormattedDate(String format) {

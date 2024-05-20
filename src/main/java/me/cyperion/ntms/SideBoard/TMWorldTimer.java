@@ -30,7 +30,7 @@ public class TMWorldTimer {
         return world.getTime()+6000;
     }
     private int convertTimeToHours(long time){
-        return (int) ((time / 1000 + 6) % 24);
+        return (int) ((time / 1000) % 24);
     }
 
     private int convertTimeToMinutes(long time){
@@ -74,7 +74,8 @@ public class TMWorldTimer {
      */
     public String getHourDisplayString(World world){
         Map<String, Integer> map = getTime(world);
-        String display = " "+map.get(WT_HOUR)+":"+map.get(WT_MINUTE)+getAmPm(world)+" "+getIcon(world);
+        String display = " "+map.get(WT_HOUR)%12+":"+map.get(WT_MINUTE).toString().formatted("%02d")
+                +getAmPm(world)+" "+getIcon(world);
         // 2:00pm ☀
         return colors(display);
     }
@@ -99,7 +100,7 @@ public class TMWorldTimer {
 
     public Map<String, Integer> getDate(World world) {
         long days = (world.getFullTime() + 6000) / 24000;  // Shift time by 6000 ticks
-        int years = (int) (days / 365);
+        int years = (int) (days / 365)+1;
         days %= 365;
 
         int[] monthDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
