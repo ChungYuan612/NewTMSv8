@@ -59,8 +59,7 @@ public class PlayerData {
         this.manaReg = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
         this.mana = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA),0.0);
 
-        this.classType = ClassType.valueOf(checkAndSetData_String(repo.getKey(repo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString());
-
+        this.classType = ClassType.valueOf(checkAndSetData_String(repo.getKey(repo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString()));
 
         this.perkFirst = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_FIRST),0);
         this.perkSecond = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_SECOND),0);

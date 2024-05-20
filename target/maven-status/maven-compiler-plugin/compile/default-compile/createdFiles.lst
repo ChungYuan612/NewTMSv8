@@ -1,4 +1,5 @@
 me\cyperion\ntms\Player\PlayerQuitServerController.class
+me\cyperion\ntms\Player\PlayerAdvanceDoneHandler.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
 me\cyperion\ntms\SideBoard\TWPlayerSideBoard.class
@@ -13,5 +14,6 @@ me\cyperion\ntms\SQL\SQLite.class
 me\cyperion\ntms\Class\ClassType.class
 me\cyperion\ntms\Class\Terminator.class
 me\cyperion\ntms\SQL\SQLError\SQLError.class
+me\cyperion\ntms\Player\PlayerAdvanceDoneHandler$1.class
 me\cyperion\ntms\Mana.class
 me\cyperion\ntms\NewTMSv8.class
