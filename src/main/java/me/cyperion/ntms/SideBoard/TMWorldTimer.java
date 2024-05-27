@@ -54,9 +54,9 @@ public class TMWorldTimer {
     private String getIcon(World world){
         long time = convertToTime(world);
         int hours = convertTimeToHours(time);
-        String icon = SpecialChar("&e☀");
+        String icon = SpecialChar("&b☽");
         if ( hours >=6 && hours <18){
-            icon = SpecialChar("&b☽");
+            icon = SpecialChar("&e☀");
         }
         return icon;
     }
@@ -74,8 +74,8 @@ public class TMWorldTimer {
      */
     public String getHourDisplayString(World world){
         Map<String, Integer> map = getTime(world);
-        String display = " "+map.get(WT_HOUR)%12+":"+map.get(WT_MINUTE).toString().formatted("%02d")
-                +getAmPm(world)+" "+getIcon(world);
+        String display = " "+map.get(WT_HOUR)%12+":"+String.format("%02d", map.get(WT_MINUTE))+
+                getAmPm(world)+" "+getIcon(world);
         // 2:00pm ☀
         return colors(display);
     }

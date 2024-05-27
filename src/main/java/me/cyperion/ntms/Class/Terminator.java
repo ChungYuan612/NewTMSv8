@@ -28,6 +28,7 @@ public class Terminator extends Class implements Listener {
         return ClassType.TERMINATOR;
     }
 
+    @Override
     public String getName() {
         return colors("&dTerminator");
     }
@@ -77,7 +78,7 @@ public class Terminator extends Class implements Listener {
     }
 
     private boolean isTripleShot(Player player) {
-        return plugin.getPlayerData(player).getPerkSecond() == 1;
+        return this.getUnlockPerk(player,2) == 1;
     }
 
     private void shootArrow(Location location, Vector direction) {

@@ -21,5 +21,12 @@ public class PlayerJoinServerController implements Listener {
         plugin.getTwPlayerSideBoard().createPlayerBoard(player);
         plugin.getTwPlayerSideBoard().refreshTimerLocation(player);
         plugin.getTwPlayerSideBoard().refreshTimer(player,true);
+
+        //初始化或載入玩家資料到plugin.playerData的Map內。
+        plugin.playerData.put(
+                player,
+                new PlayerData(plugin,player)
+        );
+
     }
 }

@@ -26,7 +26,9 @@ public class PlayerData {
     //透支魔力
     private boolean allowOverMana;
 
+    //從0沒有升級~
     private int perkFirst,perkSecond,perkThird;
+
 
     private int advancePoint;
 
@@ -37,8 +39,8 @@ public class PlayerData {
      * @param player 玩家
      * @return 玩家特殊資料
      */
-    public PlayerData getPlayerData(NewTMSv8 plugin, Player player){
-        PlayerData data = new PlayerData();
+    public PlayerData(NewTMSv8 plugin, Player player){
+        this.uuid = player.getUniqueId();
         PersistentDataContainer container = player.getPersistentDataContainer();
         NSKeyRepo repo = plugin.getNsKeyRepo();
 
@@ -55,17 +57,17 @@ public class PlayerData {
                     PersistentDataType.DOUBLE,0.0);
         }
 
-        this.maxMana = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
-        this.manaReg = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
-        this.mana = checkAndSetData_Double(repo.getKey(repo.KEY_PD_MANA),0.0);
+        this.maxMana = checkAndSetData(repo.getKey(repo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
+        this.manaReg = checkAndSetData(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
+        this.mana = checkAndSetData(repo.getKey(repo.KEY_PD_MANA),0.0);
 
-        this.classType = ClassType.valueOf(checkAndSetData_String(repo.getKey(repo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString()));
+        this.classType = ClassType.valueOf(checkAndSetData(repo.getKey(repo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString()));
 
-        this.perkFirst = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_FIRST),0);
-        this.perkSecond = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_SECOND),0);
-        this.perkThird = checkAndSetData_Int(repo.getKey(repo.KEY_PD_PERK_THIRD),0);
+        this.perkFirst = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_FIRST),0);
+        this.perkSecond = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_SECOND),0);
+        this.perkThird = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_THIRD),0);
 
-        this.advancePoint = checkAndSetData_Int(repo.getKey(repo.KEY_PD_ADVANCE_POINT),0);
+        this.advancePoint = checkAndSetData(repo.getKey(repo.KEY_PD_ADVANCE_POINT),0);
         //---更新區---
         String updateKey = "";//這個做為之後更新時的地方
         if( container.has(
@@ -77,7 +79,7 @@ public class PlayerData {
             //       PersistentDataType.INTEGER,50);
         }
         //---更新結束---
-        return this;
+
     }
 
     public void savePlayerData(){
@@ -85,7 +87,7 @@ public class PlayerData {
 
     }
 
-    private double checkAndSetData_Double(NamespacedKey key, double value){
+    private double checkAndSetData(NamespacedKey key, double value){
         Player player = Bukkit.getPlayer(uuid);
         PersistentDataContainer container = player.getPersistentDataContainer();
         if(!container.has(key)){
@@ -95,7 +97,7 @@ public class PlayerData {
         return container.get(key,PersistentDataType.DOUBLE);
     }
 
-    private String checkAndSetData_String(NamespacedKey key, String v){
+    private String checkAndSetData(NamespacedKey key, String v){
         Player player = Bukkit.getPlayer(uuid);
         PersistentDataContainer container = player.getPersistentDataContainer();
         if(!container.has(key)){
@@ -104,7 +106,7 @@ public class PlayerData {
         }
         return container.get(key,PersistentDataType.STRING);
     }
-    private int checkAndSetData_Int(NamespacedKey key, int v){
+    private int checkAndSetData(NamespacedKey key, int v){
         Player player = Bukkit.getPlayer(uuid);
         PersistentDataContainer container = player.getPersistentDataContainer();
         if(!container.has(key)){

@@ -1,5 +1,6 @@
 package me.cyperion.ntms;
 
+import me.cyperion.ntms.Player.PlayerAdvanceDoneHandler;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
@@ -10,6 +11,7 @@ import net.milkbowl.vault.permission.Permission;
 import me.cyperion.ntms.SideBoard.TMWorldTimer;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -57,7 +59,7 @@ public final class NewTMSv8 extends JavaPlugin {
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
         this.twPlayerSideBoard.runTaskTimer(this,0L,8L);//8刻跑一次，一秒2.5次
 
-
+        getServer().getPluginManager().registerEvents(new PlayerAdvanceDoneHandler(this),this);
 
         getServer().getPluginManager().registerEvents(new PlayerJoinServerController(this),this);
 
