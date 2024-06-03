@@ -2,6 +2,7 @@ package me.cyperion.ntms.Player;
 
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
@@ -16,6 +17,7 @@ public class PlayerAdvanceDoneHandler implements Listener {
         this.plugin = plugin;
     }
 
+    @EventHandler
     public void onPlayerAdvanceDone(PlayerAdvancementDoneEvent event){
         Player player = event.getPlayer();
 
@@ -30,7 +32,7 @@ public class PlayerAdvanceDoneHandler implements Listener {
             case TASK -> //普通成就
                     addPoint = 1 ;
         }
-        playerData.setAdvancePoint(point);
+        playerData.addAdvancePoint(point);
         player.sendMessage(colors("&a已獲得成就點數 &6" + addPoint + " &a點!"));
     }
 }

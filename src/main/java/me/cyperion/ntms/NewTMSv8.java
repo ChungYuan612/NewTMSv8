@@ -36,8 +36,7 @@ public final class NewTMSv8 extends JavaPlugin {
     @Override
     public void onEnable() {
 
-
-        //my
+        //mySQL
         //this.database = new SQLite(this);
         //this.database.load();
         nsKeyRepo = new NSKeyRepo();
@@ -67,7 +66,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            System.out.println("cannot find Vault!");
+            System.out.println("can't find Vault!");
             return false;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
@@ -124,7 +123,7 @@ public final class NewTMSv8 extends JavaPlugin {
         return mana;
     }
 
-    //    public Database getDatabase() {
+//    public Database getDatabase() {
 //        return this.database;
 //    }
 }

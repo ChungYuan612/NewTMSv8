@@ -17,7 +17,7 @@ public abstract class ClassUpgrade {
 
     /**
      *
-     * @param data
+     * @param data PlayerData
      * @param whichPerk First是1，Second是2，Third是3
      * @return 0沒解鎖，1為升級到一階
      */

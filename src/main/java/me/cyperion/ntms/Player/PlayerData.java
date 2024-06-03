@@ -124,6 +124,10 @@ public class PlayerData {
         this.advancePoint = advancePoint;
     }
 
+    public void addAdvancePoint(int advancePoint) {
+        this.advancePoint += advancePoint;
+    }
+
     public void setPerkFirst(int perkFirst) {
         this.perkFirst = perkFirst;
     }

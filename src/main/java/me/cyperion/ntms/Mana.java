@@ -13,16 +13,24 @@ import java.util.HashMap;
 
 import static me.cyperion.ntms.Utils.colors;
 
+/**
+ * <h2>魔力系統</h2>
+ * 主管所有魔力裝置 需要與 PlayerData 互動<br>
+ * 由 NewTMSv8 主程式控制
+ */
 public class Mana extends BukkitRunnable {
 
     private NewTMSv8 plugin;
-
     public Mana(NewTMSv8 plugin){
         this.plugin = plugin;
     }
 
     public final static double defaultMaxMana = 50;
 
+    /**
+     * 自然回復魔力
+     * @param player 玩家
+     */
     public void regenMana(Player player){
         double maxMana = plugin.getPlayerData(player).getMaxMana();
         double mana = plugin.getPlayerData(player).getMana();
@@ -41,6 +49,12 @@ public class Mana extends BukkitRunnable {
         }
     }
 
+    /**
+     * 扣掉魔力
+     * @param player 玩家
+     * @param amount 魔力數量
+     * @return 有沒有執行成功(魔力是否夠扣)
+     */
     public boolean costMana(Player player, double amount){
         double mana = plugin.getPlayerData(player).getMana();
         boolean allowOverMana = plugin.getPlayerData(player).isAllowOverMana();
@@ -58,6 +72,11 @@ public class Mana extends BukkitRunnable {
         return true;
     }
 
+    /**
+     * 非自然魔力回復(可以指定數量)
+     * @param player 玩家
+     * @param amount 魔力數量
+     */
     public void addMana(Player player, double amount){
         double mana = plugin.getPlayerData(player).getMana();
         double maxMana = plugin.getPlayerData(player).getMaxMana();
@@ -69,6 +88,11 @@ public class Mana extends BukkitRunnable {
         plugin.getPlayerData(player).setMana(mana);
     }
 
+    /**
+     * 檢查該玩家是否達到魔力上限
+     * @param player
+     * @return 是否魔力滿了
+     */
     public boolean hasMaxMana(Player player){
         double maxMana = plugin.getPlayerData(player).getMaxMana();
         double mana = plugin.getPlayerData(player).getMana();
