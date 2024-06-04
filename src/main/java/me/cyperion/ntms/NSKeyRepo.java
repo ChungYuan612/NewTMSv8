@@ -20,6 +20,7 @@ public class NSKeyRepo {
     public final String KEY_PD_PERK_FIRST = "player_data_perk_first";
     public final String KEY_PD_PERK_SECOND = "player_data_perk_second";
     public final String KEY_PD_PERK_THIRD = "player_data_perk_third";
+    public final String KEY_PD_ALLOW_OVER_MANA = "player_data_allow_over_mana";
 
     public NSKeyRepo() {
         this.keyMap = new HashMap<>();

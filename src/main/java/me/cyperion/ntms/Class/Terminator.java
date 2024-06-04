@@ -37,8 +37,8 @@ public class Terminator extends Class implements Listener {
     public void onLeftClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
 
-        if(plugin.getPlayerData(player)
-                .getClassType() != ClassType.TERMINATOR){
+        if(!plugin.getPlayerData(player)
+                .getClassType().equals(ClassType.TERMINATOR)){
             return;
         }
 
@@ -55,15 +55,10 @@ public class Terminator extends Class implements Listener {
                     Vector direction = player.getLocation().getDirection();
                     Arrow arrow = player.launchProjectile(Arrow.class, direction.multiply(5));
 
-                    if (isTripleShot(player)) {
-                        shootArrow(arrow.getLocation().add(direction.multiply(2)), direction.rotateAroundY(Math.PI / 4));
-                        shootArrow(arrow.getLocation().add(direction.multiply(-2)), direction.rotateAroundY(-Math.PI / 4));
-                    }else if (isPentaShot(player)) {
-                        shootArrow(arrow.getLocation().add(direction.multiply(2)), direction.rotateAroundY(Math.PI / 4));
-                        shootArrow(arrow.getLocation().add(direction.multiply(-2)), direction.rotateAroundY(-Math.PI / 4));
-                        shootArrow(arrow.getLocation().add(direction.multiply(4)), direction.rotateAroundY(Math.PI));
-                        shootArrow(arrow.getLocation().add(direction.multiply(-4)), direction.rotateAroundY(-Math.PI));
-                    }
+
+                    shootArrow(arrow.getLocation().add(direction.multiply(2)), direction.rotateAroundY(Math.PI / 4));
+                    shootArrow(arrow.getLocation().add(direction.multiply(-2)), direction.rotateAroundY(-Math.PI / 4));
+
                     shootArrow(arrow.getLocation(), direction);
                     player.playSound(player.getLocation(),
                             Sound.ENTITY_SKELETON_SHOOT, 1, 1);
@@ -71,14 +66,6 @@ public class Terminator extends Class implements Listener {
                 }
             }
         }
-    }
-
-    private boolean isPentaShot(Player player) {
-        return plugin.getPlayerData(player).getPerkSecond() == 2;
-    }
-
-    private boolean isTripleShot(Player player) {
-        return this.getUnlockPerk(player,2) == 1;
     }
 
     private void shootArrow(Location location, Vector direction) {

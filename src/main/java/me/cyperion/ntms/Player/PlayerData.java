@@ -13,9 +13,11 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.UUID;
 
 public class PlayerData {
+
+    private NewTMSv8 plugin;
     /**
-     * maxMana 最大魔力
-     * mana 目前魔力
+     * maxMana 最大魔力<br>
+     * mana 目前魔力<br>
      * manaReg 每秒增加的魔力
      */
     private double maxMana,mana,manaReg;
@@ -26,7 +28,7 @@ public class PlayerData {
     //透支魔力
     private boolean allowOverMana;
 
-    //從0沒有升級~
+    //從0沒有升級~ (目前棄用)
     private int perkFirst,perkSecond,perkThird;
 
 
@@ -40,6 +42,7 @@ public class PlayerData {
      * @return 玩家特殊資料
      */
     public PlayerData(NewTMSv8 plugin, Player player){
+        this.plugin = plugin;
         this.uuid = player.getUniqueId();
         PersistentDataContainer container = player.getPersistentDataContainer();
         NSKeyRepo repo = plugin.getNsKeyRepo();
@@ -56,6 +59,8 @@ public class PlayerData {
             container.set(repo.getKey(repo.KEY_PD_MANA),
                     PersistentDataType.DOUBLE,0.0);
         }
+
+        this.allowOverMana = checkAndSetData(repo.getKey(repo.KEY_PD_ALLOW_OVER_MANA),false);
 
         this.maxMana = checkAndSetData(repo.getKey(repo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
         this.manaReg = checkAndSetData(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
@@ -82,11 +87,7 @@ public class PlayerData {
 
     }
 
-    public void savePlayerData(){
-        //TODO
-
-    }
-
+    /* 初始化玩家資料 泛型實作 */
     private double checkAndSetData(NamespacedKey key, double value){
         Player player = Bukkit.getPlayer(uuid);
         PersistentDataContainer container = player.getPersistentDataContainer();
@@ -106,6 +107,7 @@ public class PlayerData {
         }
         return container.get(key,PersistentDataType.STRING);
     }
+
     private int checkAndSetData(NamespacedKey key, int v){
         Player player = Bukkit.getPlayer(uuid);
         PersistentDataContainer container = player.getPersistentDataContainer();
@@ -116,83 +118,171 @@ public class PlayerData {
         return container.get(key,PersistentDataType.INTEGER);
     }
 
+    private boolean checkAndSetData(NamespacedKey key, boolean v){
+        Player player = Bukkit.getPlayer(uuid);
+        PersistentDataContainer container = player.getPersistentDataContainer();
+        if(!container.has(key)){
+            container.set(key,PersistentDataType.BOOLEAN,v);
+            return v;
+        }
+        return container.get(key,PersistentDataType.BOOLEAN);
+    }
+
+    /* 初始化玩家資料 結束 */
+
+    /*成就點數*/
+
     public int getAdvancePoint() {
-        return advancePoint;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_ADVANCE_POINT),PersistentDataType.INTEGER
+        );
     }
 
     public void setAdvancePoint(int advancePoint) {
-        this.advancePoint = advancePoint;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_ADVANCE_POINT),PersistentDataType.INTEGER,advancePoint
+        );
     }
 
     public void addAdvancePoint(int advancePoint) {
-        this.advancePoint += advancePoint;
+        int oldAdvancePoint = getAdvancePoint();
+        setAdvancePoint(oldAdvancePoint + advancePoint);
     }
 
+    /* Perk (目前棄用)*/
+
+    @Deprecated
     public void setPerkFirst(int perkFirst) {
         this.perkFirst = perkFirst;
     }
 
+    @Deprecated
     public void setPerkSecond(int perkSecond) {
         this.perkSecond = perkSecond;
     }
 
+    @Deprecated
     public void setPerkThird(int perkThird) {
         this.perkThird = perkThird;
     }
 
+    @Deprecated
     public int getPerkFirst() {
         return perkFirst;
     }
 
+    @Deprecated
     public int getPerkSecond() {
         return perkSecond;
     }
 
+    @Deprecated
     public int getPerkThird() {
         return perkThird;
     }
 
+    /** <h1>魔力方面的東西都寫在Mana.java內 這裡只負責資料存取</h1> **/
+    /* 魔力上限數值 */
+
     public double getMaxMana() {
-        return maxMana;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_MAX_MANA),PersistentDataType.DOUBLE
+        );
     }
 
     public void setMaxMana(double maxMana) {
-        this.maxMana = maxMana;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_MAX_MANA),PersistentDataType.DOUBLE,maxMana
+        );
     }
 
+    private void addMaxMana(double maxMana) {
+        double oldMaxMana = getMaxMana();
+        setMaxMana(oldMaxMana + maxMana);
+    }
+
+    /* 魔力數值 */
+
     public double getMana() {
-        return mana;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_MANA),PersistentDataType.DOUBLE
+        );
     }
 
     public void setMana(double mana) {
-        this.mana = mana;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_MANA),PersistentDataType.DOUBLE,mana
+        );
     }
 
+    /* 魔力恢復速度數值 */
+
     public double getManaReg() {
-        return manaReg;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_MANA_REG),PersistentDataType.DOUBLE
+        );
     }
 
     public void setManaReg(double manaReg) {
-        this.manaReg = manaReg;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_MANA_REG),PersistentDataType.DOUBLE,manaReg
+        );
     }
 
+    /* 是否允許透支魔力 */
     public boolean isAllowOverMana() {
-        return allowOverMana;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_ALLOW_OVER_MANA),PersistentDataType.BOOLEAN
+        );
     }
 
     public void setAllowOverMana(boolean allowOverMana) {
-        this.allowOverMana = allowOverMana;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_ALLOW_OVER_MANA),PersistentDataType.BOOLEAN,allowOverMana
+        );
     }
 
+    /* 職業類別 */
+
     public ClassType getClassType() {
-        return classType;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return ClassType.valueOf(
+                getPlayerPesistentData().get(
+                        repo.getKey(repo.KEY_PD_CLASS_TYPE),PersistentDataType.STRING
+                )
+        );
     }
 
     public void setClassType(ClassType classType) {
-        this.classType = classType;
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_CLASS_TYPE),PersistentDataType.STRING,classType.name()
+        );
     }
+
+    /* ----- */
+
 
     public UUID getUuid() {
         return uuid;
     }
+
+    public Player getPlayer(){
+        return Bukkit.getPlayer(uuid);
+    }
+
+    private PersistentDataContainer getPlayerPesistentData(){
+        return getPlayer().getPersistentDataContainer();
+    }
+
 }
