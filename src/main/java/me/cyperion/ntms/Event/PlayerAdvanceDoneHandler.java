@@ -1,6 +1,7 @@
-package me.cyperion.ntms.Player;
+package me.cyperion.ntms.Event;
 
 import me.cyperion.ntms.NewTMSv8;
+import me.cyperion.ntms.Player.PlayerData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

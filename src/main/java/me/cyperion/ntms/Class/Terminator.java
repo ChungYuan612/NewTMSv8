@@ -52,14 +52,13 @@ public class Terminator extends Class implements Listener {
 
                 boolean success = plugin.getMana().costMana(player,costManaOnShot);
                 if (success) {
-                    Vector direction = player.getLocation().getDirection();
-                    Arrow arrow = player.launchProjectile(Arrow.class, direction.multiply(5));
+                    //發射三支箭矢，一支箭矢往前，另外左右15度的地方各射出一支
 
-
-                    shootArrow(arrow.getLocation().add(direction.multiply(2)), direction.rotateAroundY(Math.PI / 4));
-                    shootArrow(arrow.getLocation().add(direction.multiply(-2)), direction.rotateAroundY(-Math.PI / 4));
-
-                    shootArrow(arrow.getLocation(), direction);
+                    Location location = player.getEyeLocation();
+                    Vector direction = location.getDirection();
+                    shootArrow(location,direction);
+                    shootArrow(location,direction.rotateAroundY(15));
+                    shootArrow(location,direction.rotateAroundY(-15));
                     player.playSound(player.getLocation(),
                             Sound.ENTITY_SKELETON_SHOOT, 1, 1);
 

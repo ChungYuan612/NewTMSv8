@@ -6,6 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import static me.cyperion.ntms.Utils.colors;
+
 public class PlayerJoinServerController implements Listener {
 
     public NewTMSv8 plugin;
@@ -21,6 +23,8 @@ public class PlayerJoinServerController implements Listener {
         plugin.getTwPlayerSideBoard().createPlayerBoard(player);
         plugin.getTwPlayerSideBoard().refreshTimerLocation(player);
         plugin.getTwPlayerSideBoard().refreshTimer(player,true);
+
+        player.sendMessage(colors("&6[NTMS] &a歡迎來到台灣地圖伺服器！/ntms help 可以查詢所有指令"));
 
         //初始化或載入玩家資料到plugin.playerData的Map內。
         plugin.playerData.put(

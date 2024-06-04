@@ -4,6 +4,7 @@ import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
 import org.bukkit.entity.Player;
 
+@Deprecated
 public abstract class ClassUpgrade {
     protected NewTMSv8 plugin;
 
