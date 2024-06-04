@@ -21,6 +21,7 @@ public class NSKeyRepo {
     public final String KEY_PD_PERK_SECOND = "player_data_perk_second";
     public final String KEY_PD_PERK_THIRD = "player_data_perk_third";
     public final String KEY_PD_ALLOW_OVER_MANA = "player_data_allow_over_mana";
+    public final String KEY_PD_RAID_POINT = "player_data_raid_point";
 
     public NSKeyRepo() {
         this.keyMap = new HashMap<>();
@@ -37,12 +38,17 @@ public class NSKeyRepo {
         keyMap.put(KEY_PD_CLASS_TYPE, NamespacedKey.minecraft(KEY_PD_CLASS_TYPE));
         //string
 
-        keyMap.put(KEY_PD_PERK_FIRST, NamespacedKey.minecraft(KEY_PD_CLASS_TYPE));
+        keyMap.put(KEY_PD_PERK_FIRST, NamespacedKey.minecraft(KEY_PD_PERK_FIRST));
         //string
-        keyMap.put(KEY_PD_PERK_SECOND, NamespacedKey.minecraft(KEY_PD_CLASS_TYPE));
+        keyMap.put(KEY_PD_PERK_SECOND, NamespacedKey.minecraft(KEY_PD_PERK_SECOND));
         //string
-        keyMap.put(KEY_PD_PERK_THIRD, NamespacedKey.minecraft(KEY_PD_CLASS_TYPE));
+        keyMap.put(KEY_PD_PERK_THIRD, NamespacedKey.minecraft(KEY_PD_PERK_THIRD));
         //string
+
+        keyMap.put(KEY_PD_ALLOW_OVER_MANA, NamespacedKey.minecraft(KEY_PD_ALLOW_OVER_MANA));
+        //boolean
+        keyMap.put(KEY_PD_RAID_POINT, NamespacedKey.minecraft(KEY_PD_RAID_POINT));
+        //int
 
     }
 

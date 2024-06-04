@@ -32,7 +32,7 @@ public class PlayerData {
     private int perkFirst,perkSecond,perkThird;
 
 
-    private int advancePoint;
+    private int advancePoint,raidPoint;
 
     private UUID uuid;
 
@@ -73,6 +73,8 @@ public class PlayerData {
         this.perkThird = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_THIRD),0);
 
         this.advancePoint = checkAndSetData(repo.getKey(repo.KEY_PD_ADVANCE_POINT),0);
+
+        this.raidPoint = checkAndSetData(repo.getKey(repo.KEY_PD_RAID_POINT),0);
         //---更新區---
         String updateKey = "";//這個做為之後更新時的地方
         if( container.has(
@@ -267,6 +269,29 @@ public class PlayerData {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
                 repo.getKey(repo.KEY_PD_CLASS_TYPE),PersistentDataType.STRING,classType.name()
+        );
+    }
+
+    /* 突襲計算次數 */
+
+    public int getRaidPoint() {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER
+        );
+    }
+
+    public void setRaidPoint(int integer) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER, + integer
+        );
+    }
+
+    public void addRaidPoint(int integer) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER,getRaidPoint() + integer
         );
     }
 

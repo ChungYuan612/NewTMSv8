@@ -7,13 +7,24 @@ PlayerData 來存取所有玩家自定義的數值，如：Mana、ManaReg...。�
 Mana 主要控制魔力系統的 onEnable內有控制的，關聯的類有以下，要找設定到這裡找
 - Main
 - PlayerJoinServerController
-- PlayerQuitServerController
 
 SQL 目前廢掉了，改用Vault
 
 TMWorldTimer 記分板顯示的時間項目，主要負責掌握台灣地圖時間
 
 TWPlayerSideBoard 主要掌握右邊記分板的內容
+
+DamageIcon 主管傷害顯示
+
+待做清單：
+1.指令系統
+2.合成系統(地球生存有)
+3.測試功能
+4.EssentialsX設定
+5.火車站連線
+6.
+
+-------------
 
 職業perks:
 終結者:

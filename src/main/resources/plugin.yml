@@ -3,3 +3,6 @@ version: '${project.version}'
 main: me.cyperion.ntms.NewTMSv8
 softdepend: [Vault,Essentials,PlaceholderAPI]
 api-version: '1.20'
+commands:
+  admin:
+    description: 管理員專用指令，用於開發插件的。

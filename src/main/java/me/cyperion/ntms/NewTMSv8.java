@@ -2,6 +2,7 @@ package me.cyperion.ntms;
 
 import me.cyperion.ntms.Event.DamageIcon;
 import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
+import me.cyperion.ntms.Event.RaidEvent;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
@@ -32,6 +33,8 @@ public final class NewTMSv8 extends JavaPlugin {
     private NSKeyRepo nsKeyRepo;
     private Mana mana;
 
+    public final boolean enableMana = false;
+
     @Override
     public void onEnable() {
 
@@ -40,9 +43,10 @@ public final class NewTMSv8 extends JavaPlugin {
         //this.database.load();
         nsKeyRepo = new NSKeyRepo();
         //Mana system
-        mana = new Mana(this);
-        //mana.runTaskTimer(this,0L,20L);
-
+        if(enableMana){
+            mana = new Mana(this);
+            mana.runTaskTimer(this,0L,20L);
+        }
         //Vault
         if (!setupEconomy() ) {
             getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -61,8 +65,11 @@ public final class NewTMSv8 extends JavaPlugin {
         DamageIcon damageIcon = new DamageIcon(this);
         getServer().getPluginManager().registerEvents(damageIcon,this);
 
+        //突襲
+        getServer().getPluginManager().registerEvents(new RaidEvent(this),this);
+        //成就
         getServer().getPluginManager().registerEvents(new PlayerAdvanceDoneHandler(this),this);
-
+        //玩家登入
         getServer().getPluginManager().registerEvents(new PlayerJoinServerController(this),this);
 
     }
