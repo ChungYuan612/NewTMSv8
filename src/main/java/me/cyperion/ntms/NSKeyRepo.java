@@ -49,6 +49,8 @@ public class NSKeyRepo {
         //boolean
         keyMap.put(KEY_PD_RAID_POINT, NamespacedKey.minecraft(KEY_PD_RAID_POINT));
         //int
+        keyMap.put(KEY_PD_ADVANCE_POINT, NamespacedKey.minecraft(KEY_PD_ADVANCE_POINT));
+        //int
 
     }
 

@@ -55,7 +55,9 @@ public class WarpCommand implements CommandExecutor {
                 case "taiwan", "tw", "taipei" -> {
                     World world = plugin.getTWWorld();
                     Location teleport = world.getSpawnLocation();
-                    if (player.getRespawnLocation().getWorld().getName().equals(plugin.MAIN_WORLD_NAME)) {
+
+                    if (player.getRespawnLocation() != null &&
+                            player.getRespawnLocation().getWorld().getName().equals(plugin.MAIN_WORLD_NAME)) {
                         teleport = player.getRespawnLocation();
                     }
                     player.teleport(teleport);

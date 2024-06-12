@@ -1,5 +1,8 @@
 package me.cyperion.ntms;
 
+import me.cyperion.ntms.Command.AdminCommand;
+import me.cyperion.ntms.Command.EnderChestCommand;
+import me.cyperion.ntms.Command.WarpCommand;
 import me.cyperion.ntms.Event.DamageIcon;
 import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
 import me.cyperion.ntms.Event.RaidEvent;
@@ -81,6 +84,10 @@ public final class NewTMSv8 extends JavaPlugin {
         //玩家登入
         getServer().getPluginManager().registerEvents(new PlayerJoinServerController(this),this);
 
+        /* Command */
+        getCommand("warp").setExecutor(new WarpCommand(this));
+        getCommand("enderchest").setExecutor(new EnderChestCommand());
+        getCommand("admin").setExecutor(new AdminCommand(this));
     }
 
     private boolean setupEconomy() {

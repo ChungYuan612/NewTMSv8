@@ -76,7 +76,7 @@ public class PlayerData {
 
         this.raidPoint = checkAndSetData(repo.getKey(repo.KEY_PD_RAID_POINT),0);
         //---更新區---
-        String updateKey = "";//這個做為之後更新時的地方
+        String updateKey = repo.KEY_PD_RAID_POINT;//這個做為之後更新時的地方
         if( container.has(
                 repo.getKey(updateKey))
         ){
