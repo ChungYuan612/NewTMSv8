@@ -11,11 +11,13 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import me.cyperion.ntms.SideBoard.TMWorldTimer;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 public final class NewTMSv8 extends JavaPlugin {
     private TMWorldTimer tmWorldTimer;
@@ -37,6 +39,13 @@ public final class NewTMSv8 extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        //資源界
+        getServer().createWorld(new org.bukkit.WorldCreator(RESOURCE_WORLD_NAME));
+        System.out.println("NTMS伺服器註冊世界：");
+        getServer().getWorlds().forEach(world ->
+                System.out.println(world.getName())
+        );
 
         //mySQL
         //this.database = new SQLite(this);
@@ -99,6 +108,14 @@ public final class NewTMSv8 extends JavaPlugin {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         perms = rsp.getProvider();
         return perms != null;
+    }
+
+    public World getResourceWorld(){
+        return getServer().getWorld(RESOURCE_WORLD_NAME);
+    }
+
+    public World getTWWorld(){
+        return getServer().getWorld(MAIN_WORLD_NAME);
     }
 
     public TWPlayerSideBoard getTwPlayerSideBoard() {
