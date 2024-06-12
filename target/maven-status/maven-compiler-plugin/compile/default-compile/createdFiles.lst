@@ -10,6 +10,7 @@ me\cyperion\ntms\Event\PlayerAdvanceDoneHandler.class
 me\cyperion\ntms\SideBoard\TWPlayerSideBoard.class
 me\cyperion\ntms\Class\Explosion.class
 me\cyperion\ntms\NSKeyRepo.class
+me\cyperion\ntms\Command\WarpCommand.class
 me\cyperion\ntms\Player\PlayerJoinServerController.class
 me\cyperion\ntms\Event\DamageIcon$1.class
 me\cyperion\ntms\Player\PlayerData.class
@@ -20,4 +21,5 @@ me\cyperion\ntms\Event\PlayerAdvanceDoneHandler$1.class
 me\cyperion\ntms\Class\Terminator.class
 me\cyperion\ntms\Command\AdminCommand.class
 me\cyperion\ntms\Class\ClassUpgrade.class
+me\cyperion\ntms\Command\EnderChestCommand.class
 me\cyperion\ntms\NewTMSv8.class
