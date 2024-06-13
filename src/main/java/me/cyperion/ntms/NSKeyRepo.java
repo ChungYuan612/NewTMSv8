@@ -29,7 +29,7 @@ public class NSKeyRepo {
         keyMap.put(KEY_PD_MANA, NamespacedKey.minecraft(KEY_PD_MANA));
         //double
 
-        keyMap.put(KEY_PD_MAX_MANA, NamespacedKey.minecraft(KEY_PD_MANA));
+        keyMap.put(KEY_PD_MAX_MANA, NamespacedKey.minecraft(KEY_PD_MAX_MANA));
         //double
 
         keyMap.put(KEY_PD_MANA_REG, NamespacedKey.minecraft(KEY_PD_MANA_REG));

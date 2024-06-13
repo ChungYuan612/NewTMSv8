@@ -6,6 +6,8 @@ import me.cyperion.ntms.Command.WarpCommand;
 import me.cyperion.ntms.Event.DamageIcon;
 import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
 import me.cyperion.ntms.Event.RaidEvent;
+import me.cyperion.ntms.Menu.MenuListener;
+import me.cyperion.ntms.Menu.PlayerMenuUtility;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
@@ -30,6 +32,8 @@ public final class NewTMSv8 extends JavaPlugin {
     public final String RESOURCE_WORLD_NAME = "resource";
 
     public HashMap<Player, PlayerData> playerData = new HashMap<>();
+
+    public static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
 
     private Economy econ = null;
     private Permission perms = null;
@@ -83,6 +87,8 @@ public final class NewTMSv8 extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerAdvanceDoneHandler(this),this);
         //玩家登入
         getServer().getPluginManager().registerEvents(new PlayerJoinServerController(this),this);
+        //選單控制(這個類別放在./Menu底下)
+        getServer().getPluginManager().registerEvents(new MenuListener(),this);
 
         /* Command */
         getCommand("warp").setExecutor(new WarpCommand(this));
@@ -155,6 +161,18 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public Mana getMana() {
         return mana;
+    }
+
+    //特別實作kody simpson的程式
+    public static PlayerMenuUtility getPlayerMenuUtility(Player player){
+        PlayerMenuUtility utility;
+        if(playerMenuUtilityMap.containsKey(player)){
+            utility = playerMenuUtilityMap.get(player);
+        }else{
+            utility = new PlayerMenuUtility(player);
+            playerMenuUtilityMap.put(player,utility);
+        }
+        return utility;
     }
 
 //    public Database getDatabase() {

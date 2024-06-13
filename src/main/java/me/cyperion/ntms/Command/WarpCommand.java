@@ -13,6 +13,12 @@ import java.util.Random;
 
 import static me.cyperion.ntms.Utils.colors;
 
+/**
+ * 可以傳送輸入者到指定位置 <br>
+ * /warp <資源界/床/台灣> <br>
+ * 代號: rs,resource,bed,taiwan,tw <br>
+ * 管理員用的: chunghua (彰化)
+ */
 public class WarpCommand implements CommandExecutor {
 
     private NewTMSv8 plugin;
@@ -65,7 +71,7 @@ public class WarpCommand implements CommandExecutor {
                 }
             }
         }else{
-            player.sendMessage(colors("&c使用方法(無視大小寫)：/warp <資源界/床/台灣> "));
+            player.sendMessage(colors("&f使用方法(無視大小寫)：&3/warp <資源界/床/台灣> "));
             player.sendMessage(colors("&2資源界：rs,resource"));
             player.sendMessage(colors("&7床：bed"));
             player.sendMessage(colors("&6台灣：tw,taiwan"));
