@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Command;
 
 import me.cyperion.ntms.NewTMSv8;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -68,6 +69,13 @@ public class WarpCommand implements CommandExecutor {
                     }
                     player.teleport(teleport);
                     player.sendMessage(colors("&6[提示] &d傳送至台灣地圖。"));
+                }
+                case "end" -> {
+                    World w = Bukkit.getWorld("world_the_end");
+                    Location rs = w.getSpawnLocation();
+                    player.teleport(rs);
+                    player.sendMessage(colors("&6[提示] &d正在傳送至終界。"));
+
                 }
             }
         }else{

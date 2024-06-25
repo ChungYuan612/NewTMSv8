@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="NewTMSv8" />
+        <module name="NewTMSv7" />
       </profile>
     </annotationProcessing>
   </component>

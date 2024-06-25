@@ -24,6 +24,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+/**
+ * 第8季 臺灣地圖伺服器插件
+ */
 public final class NewTMSv8 extends JavaPlugin {
     private TMWorldTimer tmWorldTimer;
     private TWPlayerSideBoard twPlayerSideBoard;

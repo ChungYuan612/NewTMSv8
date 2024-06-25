@@ -50,5 +50,10 @@ public class TWMainMenu extends Menu {
         goBedMeta.setLore(clickLore);
         goBed.setItemMeta(goBedMeta);
 
+        ItemStack background = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        ItemMeta backgroundMeta = background.getItemMeta();
+        backgroundMeta.setDisplayName(" ");
+        background.setItemMeta(backgroundMeta);
+
     }
 }
