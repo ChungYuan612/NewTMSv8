@@ -111,7 +111,7 @@ public class Mana extends BukkitRunnable {
             regenMana(player);
             //顯示在玩家Actionbar上面 (之後程式再搬走)
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR,new TextComponent(
-                    colors("&b&l魔力✯ " + (int)mana + "/" + (int)maxMana)
+                    colors("&b魔力✯ " + (int)mana + "/" + (int)maxMana)
             ));
         }
     }

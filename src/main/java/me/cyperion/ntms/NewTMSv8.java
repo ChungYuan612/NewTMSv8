@@ -5,11 +5,13 @@ import me.cyperion.ntms.Command.EnderChestCommand;
 import me.cyperion.ntms.Command.WarpCommand;
 import me.cyperion.ntms.Event.DamageIcon;
 import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
+import me.cyperion.ntms.Event.PlayerChatHandler;
 import me.cyperion.ntms.Event.RaidEvent;
 import me.cyperion.ntms.Menu.MenuListener;
 import me.cyperion.ntms.Menu.PlayerMenuUtility;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
+import me.cyperion.ntms.Player.PlayerQuitServer;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -53,8 +55,8 @@ public final class NewTMSv8 extends JavaPlugin {
     public void onEnable() {
 
         getServer().setMotd(colors(
-                "&6&lNTMS &e臺灣地圖伺服器 &av8.0.0\n " +
-                "      "+"&c生存開始！歡迎加入!"));
+                "              "+"&6&lNTMS &e臺灣地圖伺服器 &av8.0.0\n " +
+                "                    "+"&c生存開始！歡迎加入!"));
 
 
         //資源界
@@ -97,6 +99,10 @@ public final class NewTMSv8 extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerAdvanceDoneHandler(this),this);
         //玩家登入
         getServer().getPluginManager().registerEvents(new PlayerJoinServerController(this),this);
+        //玩家登出
+        getServer().getPluginManager().registerEvents(new PlayerQuitServer(this),this);
+        //玩家聊天
+        getServer().getPluginManager().registerEvents(new PlayerChatHandler(this),this);
         //選單控制(這個類別放在./Menu底下)
         getServer().getPluginManager().registerEvents(new MenuListener(),this);
 

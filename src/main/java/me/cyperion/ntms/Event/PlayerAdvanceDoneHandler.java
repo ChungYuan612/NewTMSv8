@@ -21,9 +21,9 @@ public class PlayerAdvanceDoneHandler implements Listener {
     @EventHandler
     public void onPlayerAdvanceDone(PlayerAdvancementDoneEvent event){
         Player player = event.getPlayer();
-
-        PlayerData playerData = plugin.getPlayerData(player);
-        int point = playerData.getAdvancePoint();
+        if(event.getAdvancement().getDisplay() == null){
+            return;
+        }
         int addPoint = 0;
         switch (event.getAdvancement().getDisplay().getType()) {
             case CHALLENGE -> //挑戰成就
@@ -33,7 +33,7 @@ public class PlayerAdvanceDoneHandler implements Listener {
             case TASK -> //普通成就
                     addPoint = 1 ;
         }
-        playerData.addAdvancePoint(point);
+        plugin.getPlayerData(player).addAdvancePoint(addPoint);
         player.sendMessage(colors("&a已獲得成就點數 &6" + addPoint + " &a點!"));
     }
 }
