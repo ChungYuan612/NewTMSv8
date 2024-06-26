@@ -43,6 +43,9 @@ public class TMWorldTimer {
         int minutes = convertTimeToMinutes(time);
         minutes = minutes - minutes % 10;  // Round down to nearest 10 minutes
 
+        hours %= 12;
+        if(hours == 0)
+            hours = 12;
         Map<String, Integer> realTime = new HashMap<>();
         realTime.put(WT_HOUR, hours);
         realTime.put(WT_MINUTE, minutes);
@@ -74,7 +77,7 @@ public class TMWorldTimer {
      */
     public String getHourDisplayString(World world){
         Map<String, Integer> map = getTime(world);
-        String display = " "+map.get(WT_HOUR)%12+":"+String.format("%02d", map.get(WT_MINUTE))+
+        String display = " "+map.get(WT_HOUR)+":"+String.format("%02d", map.get(WT_MINUTE))+
                 getAmPm(world)+" "+getIcon(world);
         // 2:00pm ☀
         return colors(display);

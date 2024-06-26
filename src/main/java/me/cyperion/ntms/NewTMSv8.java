@@ -24,6 +24,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+import static me.cyperion.ntms.Utils.colors;
+
 /**
  * 第8季 臺灣地圖伺服器插件
  */
@@ -45,10 +47,15 @@ public final class NewTMSv8 extends JavaPlugin {
     private NSKeyRepo nsKeyRepo;
     private Mana mana;
 
-    public final boolean enableMana = false;
+    public final boolean enableMana = true;
 
     @Override
     public void onEnable() {
+
+        getServer().setMotd(colors(
+                "&6&lNTMS &e臺灣地圖伺服器 &av8.0.0\n " +
+                "      "+"&c生存開始！歡迎加入!"));
+
 
         //資源界
         getServer().createWorld(new org.bukkit.WorldCreator(RESOURCE_WORLD_NAME));
