@@ -12,3 +12,7 @@ commands:
     usage: /warp <rs/bed/tw>
   enderchest:
     description: 可以隨時隨地開啟終界箱
+    usage: /enderchest
+  menu:
+    description: 打開臺灣地圖的主選單
+    usage: /menu

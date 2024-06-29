@@ -85,6 +85,6 @@ public class WarpCommand implements CommandExecutor {
             player.sendMessage(colors("&6台灣：tw,taiwan"));
         }
 
-        return false;
+        return true;
     }
 }

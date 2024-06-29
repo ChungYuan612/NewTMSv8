@@ -25,8 +25,8 @@ public class PlayerData {
     //職業，沒有的話為None
     private ClassType classType;
 
-    //透支魔力
-    private boolean allowOverMana;
+    //透支魔力、顯示魔力
+    private boolean allowOverMana,showMana;
 
     //從0沒有升級~ (目前棄用)
     private int perkFirst,perkSecond,perkThird;
@@ -65,6 +65,7 @@ public class PlayerData {
         this.maxMana = checkAndSetData(repo.getKey(repo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
         this.manaReg = checkAndSetData(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
         this.mana = checkAndSetData(repo.getKey(repo.KEY_PD_MANA),0.0);
+        this.showMana = checkAndSetData(repo.getKey(repo.KEY_PD_SHOW_MANA),true);
 
         this.classType = ClassType.valueOf(checkAndSetData(repo.getKey(repo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString()));
 
@@ -272,6 +273,22 @@ public class PlayerData {
         );
     }
 
+    /* 是否顯示魔力在物品來上方 */
+
+    public boolean getShowManaOnActionbar() {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_SHOW_MANA),PersistentDataType.BOOLEAN
+        );
+    }
+
+    public void setShowManaOnActionbar(boolean showMana) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_SHOW_MANA),PersistentDataType.BOOLEAN, showMana
+        );
+    }
+
     /* 突襲計算次數 */
 
     public int getRaidPoint() {
@@ -284,7 +301,7 @@ public class PlayerData {
     public void setRaidPoint(int integer) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER, + integer
+                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER, integer
         );
     }
 

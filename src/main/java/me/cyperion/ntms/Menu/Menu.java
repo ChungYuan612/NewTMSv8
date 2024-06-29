@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Menu;
 
+import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -15,7 +16,10 @@ public abstract class Menu implements InventoryHolder {
 
     protected PlayerMenuUtility playerMenuUtility;
 
-    public Menu(PlayerMenuUtility utility) {
+    protected NewTMSv8 plugin;
+
+    public Menu(PlayerMenuUtility utility,NewTMSv8 plugin) {
+        this.plugin = plugin;
         this.playerMenuUtility = utility;
     }
 

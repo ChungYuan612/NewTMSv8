@@ -27,6 +27,7 @@ me\cyperion\ntms\Command\AdminCommand.class
 me\cyperion\ntms\Class\ClassUpgrade.class
 me\cyperion\ntms\Player\PlayerQuitServer.class
 me\cyperion\ntms\Menu\TWMainMenu.class
+me\cyperion\ntms\Command\MenuCommand.class
 me\cyperion\ntms\Menu\PlayerMenuUtility.class
 me\cyperion\ntms\Monster\LootItem.class
 me\cyperion\ntms\Menu\MenuListener.class

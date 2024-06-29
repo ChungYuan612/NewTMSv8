@@ -80,7 +80,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         Score lore_6_null = objective.getScore(" ");
         lore_6_null.setScore(2);
 
-        Score lore_7_IP = objective.getScore(colors("&e118.233.28.38"));
+        Score lore_7_IP = objective.getScore(colors("&eNTMStore.com"));
         lore_7_IP.setScore(1);
 
         player.setScoreboard(scoreboard);
