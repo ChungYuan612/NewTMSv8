@@ -20,6 +20,7 @@ public class PlayerAdvanceDoneHandler implements Listener {
 
     @EventHandler
     public void onPlayerAdvanceDone(PlayerAdvancementDoneEvent event){
+
         Player player = event.getPlayer();
         if(event.getAdvancement().getDisplay() == null){
             return;

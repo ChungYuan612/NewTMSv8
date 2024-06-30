@@ -1,11 +1,13 @@
 package me.cyperion.ntms.Command;
 
+import me.cyperion.ntms.ItemStacks.Item.Item_InfiniteWindCharge;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -41,6 +43,11 @@ public class AdminCommand implements CommandExecutor {
             player.sendMessage(colors("&6成就點數："+data.getAdvancePoint()));
             player.sendMessage(colors("&6現金："+plugin.getEconomy().getBalance(player)));
             return true;
+        }else if ( args.length == 1){
+            if(args[0].equals("wind")){
+                ItemStack windCharge = new Item_InfiniteWindCharge().toItemStack();
+                player.getInventory().addItem(windCharge);
+            }
         }
 
         return true;

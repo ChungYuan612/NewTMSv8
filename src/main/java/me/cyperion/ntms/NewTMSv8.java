@@ -8,6 +8,7 @@ import me.cyperion.ntms.Event.DamageIcon;
 import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
 import me.cyperion.ntms.Event.PlayerChatHandler;
 import me.cyperion.ntms.Event.RaidEvent;
+import me.cyperion.ntms.ItemStacks.ItemRegister;
 import me.cyperion.ntms.Menu.MenuListener;
 import me.cyperion.ntms.Menu.PlayerMenuUtility;
 import me.cyperion.ntms.Player.PlayerData;
@@ -112,6 +113,9 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("enderchest").setExecutor(new EnderChestCommand());
         getCommand("admin").setExecutor(new AdminCommand(this));
         getCommand("menu").setExecutor(new MenuCommand(this));
+
+        ItemRegister register = new ItemRegister(this);
+        register.register();
     }
 
     private boolean setupEconomy() {

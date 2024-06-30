@@ -5,6 +5,7 @@ me\cyperion\ntms\SideBoard\TMWorldTimer.class
 me\cyperion\ntms\SQL\SQLError\SQLErrors.class
 me\cyperion\ntms\Class\ClassType.class
 me\cyperion\ntms\SQL\SQLError\SQLError.class
+me\cyperion\ntms\ItemStacks\Item\Item_InfiniteWindCharge.class
 me\cyperion\ntms\Monster\MonsterRegister.class
 me\cyperion\ntms\Event\DamageIcon.class
 me\cyperion\ntms\Mana.class
@@ -23,6 +24,7 @@ me\cyperion\ntms\Class\Class.class
 me\cyperion\ntms\SQL\SQLite.class
 me\cyperion\ntms\Event\PlayerAdvanceDoneHandler$1.class
 me\cyperion\ntms\Class\Terminator.class
+me\cyperion\ntms\ItemStacks\ItemRegister.class
 me\cyperion\ntms\Command\AdminCommand.class
 me\cyperion\ntms\Class\ClassUpgrade.class
 me\cyperion\ntms\Player\PlayerQuitServer.class

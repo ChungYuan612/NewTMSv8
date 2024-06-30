@@ -72,7 +72,7 @@ public class WarpCommand implements CommandExecutor {
                 }
                 case "end" -> {
                     World w = Bukkit.getWorld("world_the_end");
-                    Location rs = w.getSpawnLocation();
+                    Location rs = new Location(w, 50, 52, 100);
                     player.teleport(rs);
                     player.sendMessage(colors("&6[提示] &d正在傳送至終界。"));
 

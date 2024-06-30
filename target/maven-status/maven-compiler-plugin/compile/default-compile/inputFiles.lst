@@ -13,9 +13,11 @@ D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Event\PlayerAdvanceDoneH
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Event\PlayerChatHandler.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Event\RaidEvent.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\SQL\SQLError\SQLErrors.java
+D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\ItemStacks\ItemRegister.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Player\PlayerQuitServer.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Menu\TWMainMenu.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Command\AdminCommand.java
+D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\ItemStacks\Item\Item_InfiniteWindCharge.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Monster\Creature.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Monster\LootItem.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Class\Terminator.java

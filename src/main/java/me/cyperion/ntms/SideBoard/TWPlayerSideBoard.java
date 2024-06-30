@@ -123,7 +123,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
             worldText = "&4地獄";
         }else if(world.getName().equals("world_the_end")){
             worldText = "&7終界";
-        }else if(world.getName().equals("world_resource")){
+        }else if(world.getName().equals("resource")){
             worldText = "&a資源世界";
         }
         scoreboard.getTeam(LOCATION_SBTEAM)
