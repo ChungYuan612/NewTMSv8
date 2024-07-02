@@ -1,9 +1,6 @@
 package me.cyperion.ntms;
 
-import me.cyperion.ntms.Command.AdminCommand;
-import me.cyperion.ntms.Command.EnderChestCommand;
-import me.cyperion.ntms.Command.MenuCommand;
-import me.cyperion.ntms.Command.WarpCommand;
+import me.cyperion.ntms.Command.*;
 import me.cyperion.ntms.Event.DamageIcon;
 import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
 import me.cyperion.ntms.Event.PlayerChatHandler;
@@ -113,6 +110,13 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("enderchest").setExecutor(new EnderChestCommand());
         getCommand("admin").setExecutor(new AdminCommand(this));
         getCommand("menu").setExecutor(new MenuCommand(this));
+        getCommand("ntms").setExecutor(new NTMSCommand());
+
+        //TPA 3個指令
+        TpaCommand tpaCommand = new TpaCommand();
+        getCommand("tpa").setExecutor(tpaCommand);
+        getCommand("tpaccept").setExecutor(tpaCommand);
+        getCommand("tpadeny").setExecutor(tpaCommand);
 
         ItemRegister register = new ItemRegister(this);
         register.register();

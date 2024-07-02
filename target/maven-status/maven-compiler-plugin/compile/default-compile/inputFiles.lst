@@ -18,10 +18,12 @@ D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Player\PlayerQuitServer.
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Menu\TWMainMenu.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Command\AdminCommand.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\ItemStacks\Item\Item_InfiniteWindCharge.java
+D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Command\TpaCommand.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Monster\Creature.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Monster\LootItem.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Class\Terminator.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Monster\MonsterRegister.java
+D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Command\NTMSCommand.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Command\WarpCommand.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\SQL\Database.java
 D:\Java code jb\NewTMSv7\src\main\java\me\cyperion\ntms\Utils.java

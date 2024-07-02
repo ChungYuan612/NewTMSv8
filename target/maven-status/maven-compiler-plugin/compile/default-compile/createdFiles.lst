@@ -3,8 +3,10 @@ me\cyperion\ntms\Monster\Creature.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
 me\cyperion\ntms\SQL\SQLError\SQLErrors.class
+me\cyperion\ntms\Command\NTMSCommand.class
 me\cyperion\ntms\Class\ClassType.class
 me\cyperion\ntms\SQL\SQLError\SQLError.class
+me\cyperion\ntms\Command\TpaCommand.class
 me\cyperion\ntms\ItemStacks\Item\Item_InfiniteWindCharge.class
 me\cyperion\ntms\Monster\MonsterRegister.class
 me\cyperion\ntms\Event\DamageIcon.class

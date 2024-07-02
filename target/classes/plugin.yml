@@ -16,3 +16,12 @@ commands:
   menu:
     description: 打開臺灣地圖的主選單
     usage: /menu
+  tpa:
+    description: 與上一季一樣有tpa功能，可以透過詢問對方來傳送到對方的位置。接受或拒絕的方法在收到tpa請求時會說明
+  tpaccept:
+    description: 接受tpa請求
+  tpadeny:
+    description: 拒絕tpa請求
+  ntms:
+    description: 介紹台灣的新功能
+    usage: /ntms help
