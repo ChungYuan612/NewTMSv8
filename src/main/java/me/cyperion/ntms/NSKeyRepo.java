@@ -13,6 +13,7 @@ public class NSKeyRepo {
 
     private Map<String, NamespacedKey> keyMap;
     public final String KEY_PD_ADVANCE_POINT = "player_data_advance_point";
+    public final String KEY_PD_LUCK = "player_data_luck";
     public final String KEY_PD_MANA = "player_data_mana";
     public final String KEY_PD_MAX_MANA = "player_data_max_mana";
     public final String KEY_PD_MANA_REG = "player_data_mana_reg";
@@ -23,9 +24,14 @@ public class NSKeyRepo {
     public final String KEY_PD_ALLOW_OVER_MANA = "player_data_allow_over_mana";
     public final String KEY_PD_RAID_POINT = "player_data_raid_point";
     public final String KEY_PD_SHOW_MANA = "player_data_show_mana";
+    public final String KEY_ITEM_STOCK_ID = "item_stock_id";
+    public final String KEY_ITEM_STOCK_LAST_REWARD = "item_stock_last_reward";
 
     public NSKeyRepo() {
         this.keyMap = new HashMap<>();
+
+        keyMap.put(KEY_PD_LUCK, NamespacedKey.minecraft(KEY_PD_LUCK));
+        //double
 
         keyMap.put(KEY_PD_MANA, NamespacedKey.minecraft(KEY_PD_MANA));
         //double
@@ -55,6 +61,12 @@ public class NSKeyRepo {
         //int
         keyMap.put(KEY_PD_ADVANCE_POINT, NamespacedKey.minecraft(KEY_PD_ADVANCE_POINT));
         //int
+
+        keyMap.put(KEY_ITEM_STOCK_ID, NamespacedKey.minecraft(KEY_ITEM_STOCK_ID));
+        //string
+        keyMap.put(KEY_ITEM_STOCK_LAST_REWARD, NamespacedKey.minecraft(KEY_ITEM_STOCK_LAST_REWARD));
+        //int
+
 
     }
 

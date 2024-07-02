@@ -31,8 +31,10 @@ public class PlayerData {
     //從0沒有升級~ (目前棄用)
     private int perkFirst,perkSecond,perkThird;
 
-
     private int advancePoint,raidPoint;
+
+    //幸運等級
+    private double luck;
 
     private UUID uuid;
 
@@ -74,6 +76,7 @@ public class PlayerData {
         this.perkThird = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_THIRD),0);
 
         this.advancePoint = checkAndSetData(repo.getKey(repo.KEY_PD_ADVANCE_POINT),0);
+        this.luck = checkAndSetData(repo.getKey(repo.KEY_PD_LUCK),0.0);
 
         this.raidPoint = checkAndSetData(repo.getKey(repo.KEY_PD_RAID_POINT),0);
         //---更新區---
@@ -309,6 +312,31 @@ public class PlayerData {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
                 repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER,getRaidPoint() + integer
+        );
+    }
+
+    /* ----- */
+
+    /* 幸運點 */
+
+    public double getLuck() {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_LUCK),PersistentDataType.DOUBLE
+        );
+    }
+
+    public void setLuck(double v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_LUCK),PersistentDataType.DOUBLE, v
+        );
+    }
+
+    public void addLuck(double v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_LUCK),PersistentDataType.DOUBLE,getLuck() + v
         );
     }
 

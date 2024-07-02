@@ -1,6 +1,6 @@
 package me.cyperion.ntms.ItemStacks;
 
-import me.cyperion.ntms.ItemStacks.Item.Item_InfiniteWindCharge;
+import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.NewTMSv8;
 
 public class ItemRegister {
@@ -12,7 +12,7 @@ public class ItemRegister {
     }
 
     public void register() {
-        plugin.getServer().getPluginManager().registerEvents(new Item_InfiniteWindCharge(),plugin);
+        plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(),plugin);
 
     }
 }

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -24,10 +23,10 @@ import static me.cyperion.ntms.Utils.colors;
  * 預計售價30萬<br>
  * 關聯只有ItemRegister
  */
-public class Item_InfiniteWindCharge implements Listener {
+public class InfiniteWindCharge implements Listener {
 
     ItemStack infinite_WindCharge;
-    public Item_InfiniteWindCharge() {
+    public InfiniteWindCharge() {
         setupItem();
     }
 

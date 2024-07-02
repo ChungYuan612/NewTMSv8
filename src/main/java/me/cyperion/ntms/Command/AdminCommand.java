@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Command;
 
-import me.cyperion.ntms.ItemStacks.Item.Item_InfiniteWindCharge;
+import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
+import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
 import org.bukkit.command.Command;
@@ -45,11 +46,30 @@ public class AdminCommand implements CommandExecutor {
             return true;
         }else if ( args.length == 1){
             if(args[0].equals("wind")){
-                ItemStack windCharge = new Item_InfiniteWindCharge().toItemStack();
+                ItemStack windCharge = new InfiniteWindCharge().toItemStack();
                 player.getInventory().addItem(windCharge);
             }
+        }if(args.length ==2) {
+            ItemStack item = null;
+            Stocks stocks = new Stocks(plugin);
+            if (args[0].equals("stock")) {
+                switch (args[1]) {
+                    case "3607" -> item = stocks.getItem(Stocks.StockType.s3607);
+                    case "3230" -> item = stocks.getItem(Stocks.StockType.s3230);
+                    case "3391" -> item = stocks.getItem(Stocks.StockType.s3391);
+                    default -> {
+                        if(args[1].equalsIgnoreCase("xaud")){
+                            item = stocks.getItem(Stocks.StockType.xaud);
+                        }
+                    }
+                }
+                if (item == null) {
+                    player.sendMessage(colors("&6[錯誤] &c找不到該股票喔 &7"+args[1]));
+                    return true;
+                }
+                player.getInventory().addItem(item);
+            }
         }
-
         return true;
     }
 }
