@@ -24,8 +24,11 @@ public class NSKeyRepo {
     public final String KEY_PD_ALLOW_OVER_MANA = "player_data_allow_over_mana";
     public final String KEY_PD_RAID_POINT = "player_data_raid_point";
     public final String KEY_PD_SHOW_MANA = "player_data_show_mana";
+    public final String KEY_PD_TOTAL_SIGNIN_COUNT = "player_data_total_signin_count";
+
     public final String KEY_ITEM_STOCK_ID = "item_stock_id";
     public final String KEY_ITEM_STOCK_LAST_REWARD = "item_stock_last_reward";
+
 
     public NSKeyRepo() {
         this.keyMap = new HashMap<>();
@@ -65,6 +68,8 @@ public class NSKeyRepo {
         keyMap.put(KEY_ITEM_STOCK_ID, NamespacedKey.minecraft(KEY_ITEM_STOCK_ID));
         //string
         keyMap.put(KEY_ITEM_STOCK_LAST_REWARD, NamespacedKey.minecraft(KEY_ITEM_STOCK_LAST_REWARD));
+        //int
+        keyMap.put(KEY_PD_TOTAL_SIGNIN_COUNT, NamespacedKey.minecraft(KEY_PD_TOTAL_SIGNIN_COUNT));
         //int
 
 

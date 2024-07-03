@@ -25,3 +25,5 @@ commands:
   ntms:
     description: 介紹台灣的新功能
     usage: /ntms help
+  signin:
+    description: 每次開啟伺服器時，都可以簽到，獲得不一定的現金。

@@ -31,6 +31,8 @@ import static me.cyperion.ntms.Utils.colors;
  * 第8季 臺灣地圖伺服器插件
  */
 public final class NewTMSv8 extends JavaPlugin {
+
+    public boolean UNDER_MAINTENANCE = false; //是否正在維修
     private TMWorldTimer tmWorldTimer;
     private TWPlayerSideBoard twPlayerSideBoard;
     //private Database database;
@@ -111,6 +113,7 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("admin").setExecutor(new AdminCommand(this));
         getCommand("menu").setExecutor(new MenuCommand(this));
         getCommand("ntms").setExecutor(new NTMSCommand());
+        getCommand("signin").setExecutor(new SigninCommand(this));
 
         //TPA 3個指令
         TpaCommand tpaCommand = new TpaCommand();

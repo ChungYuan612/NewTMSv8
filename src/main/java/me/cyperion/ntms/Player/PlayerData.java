@@ -31,7 +31,7 @@ public class PlayerData {
     //從0沒有升級~ (目前棄用)
     private int perkFirst,perkSecond,perkThird;
 
-    private int advancePoint,raidPoint;
+    private int advancePoint,raidPoint,signinCount;
 
     //幸運等級
     private double luck;
@@ -77,6 +77,7 @@ public class PlayerData {
 
         this.advancePoint = checkAndSetData(repo.getKey(repo.KEY_PD_ADVANCE_POINT),0);
         this.luck = checkAndSetData(repo.getKey(repo.KEY_PD_LUCK),0.0);
+        this.signinCount = checkAndSetData(repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),0);
 
         this.raidPoint = checkAndSetData(repo.getKey(repo.KEY_PD_RAID_POINT),0);
         //---更新區---
@@ -315,8 +316,6 @@ public class PlayerData {
         );
     }
 
-    /* ----- */
-
     /* 幸運點 */
 
     public double getLuck() {
@@ -337,6 +336,29 @@ public class PlayerData {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
                 repo.getKey(repo.KEY_PD_LUCK),PersistentDataType.DOUBLE,getLuck() + v
+        );
+    }
+
+    /* 累計簽到次數 */
+
+    public int getSignInCount() {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER
+        );
+    }
+
+    public void setSignInCount(int v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER, v
+        );
+    }
+
+    public void addSignInCount(int v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER,getSignInCount() + v
         );
     }
 
