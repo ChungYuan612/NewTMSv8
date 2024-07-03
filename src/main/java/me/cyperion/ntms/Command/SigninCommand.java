@@ -41,7 +41,8 @@ public class SigninCommand implements CommandExecutor {
         int money = 1500;
         plugin.getEconomy().depositPlayer(player,money);
         plugin.getPlayerData(player).addSignInCount(1);//未來可以拿這個來做新功能
-        player.sendMessage(colors("&6[提示] &a成功簽到，本次簽到獲得&6"+money+"&a元!"));
+        player.sendMessage(colors("&6[提示] &a成功簽到，本次簽到獲得&6"+money+"&a元! 總共累積簽到 &3"
+                +plugin.getPlayerData(player).getSignInCount()+" &a次!"));
         signinedList.add(player.getUniqueId());
 
         return true;

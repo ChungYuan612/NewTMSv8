@@ -42,6 +42,8 @@ public class AdminCommand implements CommandExecutor {
             player.sendMessage(colors("&a突襲計算："+data.getRaidPoint()));
             player.sendMessage(colors("&d職業類別："+data.getClassType().toString()));
             player.sendMessage(colors("&6成就點數："+data.getAdvancePoint()));
+            player.sendMessage(colors("&5幸運點數："+data.getLuck()));
+            player.sendMessage(colors("&2累積簽到："+data.getSignInCount()));
             player.sendMessage(colors("&6現金："+plugin.getEconomy().getBalance(player)));
             return true;
         }else if ( args.length == 1){
