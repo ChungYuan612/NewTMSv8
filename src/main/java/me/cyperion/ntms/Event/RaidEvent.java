@@ -28,7 +28,8 @@ public class RaidEvent implements Listener {
 
     private NewTMSv8 plugin;
 
-    private int RaidBouns = 10000;
+    private int RaidBouns = 4000;
+    private int RaidBounsPerLevel = 400;
 
     public RaidEvent(NewTMSv8 plugin) {
         this.plugin = plugin;
@@ -71,8 +72,10 @@ public class RaidEvent implements Listener {
             String heros = getAllPlayerString(winner);
             Bukkit.broadcastMessage(colors("&6[突襲資訊] &a恭喜玩家&b "
                     +heros+"&a成功打敗了&d"+level+"突襲！"));
+            int bouns = RaidBouns + RaidBounsPerLevel * level;
             for(Player player : winner){
-                plugin.getEconomy().depositPlayer(player, RaidBouns);
+
+                plugin.getEconomy().depositPlayer(player, bouns);
                 player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+RaidBouns+"&a元的獎金！"));
                 plugin.getPlayerData(player).addRaidPoint(1);
             }

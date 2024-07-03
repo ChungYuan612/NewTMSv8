@@ -43,8 +43,8 @@ public class WarpCommand implements CommandExecutor {
                 case "resource", "rs" -> {
                     World w = plugin.getResourceWorld();
                     Location rs = w.getSpawnLocation()
-                            .add(random.nextInt(4, 20000),
-                                    0, random.nextInt(4, 20000));
+                            .add(random.nextInt(4, 5000),
+                                    0, random.nextInt(4, 5000));
                     int y = w.getHighestBlockYAt(rs);
                     rs.setY(y);
                     player.teleport(rs);

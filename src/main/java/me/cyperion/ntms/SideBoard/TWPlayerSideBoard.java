@@ -5,7 +5,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
@@ -14,6 +16,11 @@ import java.util.Date;
 
 import static me.cyperion.ntms.Utils.colors;
 
+/**
+ * 台灣側邊欄的主要控制<br>
+ * 所有的東西都連結到這裡。
+ * 關聯：PLayerJoinServerController玩家加入註冊、NewTMSv8世界轉換事件註冊
+ */
 public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     private final NewTMSv8 plugin;
 
@@ -36,6 +43,12 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
             scoreboard.getTeam(MONEY_SBTEAM)
                     .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + player_coins);
         }
+    }
+
+    @EventHandler
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent event){
+        Player player = event.getPlayer();
+        refreshTimerLocation(player);
     }
 
     //給玩家剛進入伺服器生成一個

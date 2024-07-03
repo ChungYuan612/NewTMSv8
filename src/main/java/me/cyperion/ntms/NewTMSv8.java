@@ -55,9 +55,12 @@ public final class NewTMSv8 extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        saveDefaultConfig();
+
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &av8.0.0\n " +
-                "                    "+"&c生存開始！歡迎加入!"));
+                "                    "+"&c生存開始！歡迎加入!")
+        );
 
 
         //資源界
@@ -88,6 +91,7 @@ public final class NewTMSv8 extends JavaPlugin {
         //記分板系統
         this.tmWorldTimer = new TMWorldTimer(this);
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
+        getServer().getPluginManager().registerEvents(twPlayerSideBoard,this);
         this.twPlayerSideBoard.runTaskTimer(this,0L,8L);//8刻跑一次，一秒2.5次
 
         //傷害顯示
