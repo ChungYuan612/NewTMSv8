@@ -10,8 +10,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -36,31 +38,39 @@ public class Stocks {
         s3607(false, ChatColor.DARK_AQUA,
                 "上華實業","3607",
                 Arrays.asList(
-                        "&f這家公司以各式土木工程為主",
-                        "&f分紅的部分主要以&3建材&f為主。"
+                        colors("&f這家公司以各式土木工程為主"),
+                        colors("&f分紅的部分主要以&3建材&f為主。"),
+                        colors(""),
+                        colors("&6&l金融證券")
                 )
         ),
         s3391(false, ChatColor.DARK_GREEN,
                 "凱薩物流","3391",
                 Arrays.asList(
-                        "&f這家公司以物流為主業",
-                        "&f很樂意以現金回饋給各位股東",
-                        "&f分紅以&3現金&f為主，偶以&3稀有礦物&f代替"
+                        colors("&f這家公司以物流為主業"),
+                        colors("&f很樂意以現金回饋給各位股東"),
+                        colors("&f分紅以&3現金&f為主，偶以&3稀有礦物&f代替"),
+                        colors(""),
+                        colors("&6&l金融證券")
                 )
         ),
         s3230(false, ChatColor.YELLOW,
                 "誠品國際","3230",
                 Arrays.asList(
-                        "&f這家公司以國際貿易為主",
-                        "&f除了會分紅現金，有小機率",
-                        "&f取得&3稀有特殊材料&f、&3各種材料"
+                        colors("&f這家公司以國際貿易為主"),
+                        colors("&f除了會分紅現金，有小機率"),
+                        colors("&f取得&3稀有特殊材料&f、&3各種材料"),
+                        colors(""),
+                        colors("&6&l金融證券")
                 )
         ),
         xaud(true, ChatColor.GOLD,
                 "國際黃金","XAUD",
                 Arrays.asList(
-                        "&f國際金融的硬通貨",
-                        "&f可以用於合成特殊物品"
+                        colors("&f國際金融的硬通貨"),
+                        colors("&f可以用於合成特殊物品"),
+                        colors(""),
+                        colors("&6&l金融證券")
                 )
         );
         boolean isGold;
@@ -74,8 +84,6 @@ public class Stocks {
             this.name = name;
             this.number = number;
             this.lores = lores;
-            lores.add(colors(""));
-            lores.add(colors("&6&l金融證券"));
         }
         public ItemStack getItem(NewTMSv8 plugin){
             ItemStack item;
@@ -87,7 +95,9 @@ public class Stocks {
             meta.setDisplayName(colors(this.color+"&l"+this.name));
             meta.addEnchant(Enchantment.UNBREAKING,1,true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            meta.setLore(this.lores);
+            List<String> array = new ArrayList<>();
+            this.lores.forEach(s -> array.add(colors(s)));
+            meta.setLore(array);
             meta.setCustomModelData(3000+this.ordinal());
             meta.getPersistentDataContainer()
                             .set(

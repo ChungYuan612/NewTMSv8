@@ -12,7 +12,7 @@ public class ItemRegister {
     }
 
     public void register() {
-        plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(),plugin);
+        plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(plugin),plugin);
 
     }
 }

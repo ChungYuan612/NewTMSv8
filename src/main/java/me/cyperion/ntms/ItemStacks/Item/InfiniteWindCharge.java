@@ -1,5 +1,6 @@
 package me.cyperion.ntms.ItemStacks.Item;
 
+import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.WindCharge;
@@ -26,7 +27,11 @@ import static me.cyperion.ntms.Utils.colors;
 public class InfiniteWindCharge implements Listener {
 
     ItemStack infinite_WindCharge;
-    public InfiniteWindCharge() {
+    double manaCost = 2;
+    private NewTMSv8 plugin;
+
+    public InfiniteWindCharge(NewTMSv8 plugin) {
+        this.plugin = plugin;
         setupItem();
     }
 
@@ -36,7 +41,8 @@ public class InfiniteWindCharge implements Listener {
         meta.setDisplayName(colors("&3無限風彈"));
         ArrayList<String> lores = new ArrayList<>();
         lores.add(colors("&f可以無限使用的風彈。"));
-        lores.add(colors("&b冷卻時間&f: 0.5&as"));
+        lores.add(colors("&2冷卻時間&f: 0.5&as"));
+        lores.add(colors("&b魔力消耗&f: &b"+manaCost));
         lores.add(colors(""));
         lores.add(colors("&e右鍵使用"));
         meta.setLore(lores);
@@ -53,6 +59,7 @@ public class InfiniteWindCharge implements Listener {
     private Map<UUID,Long> cooldown = new HashMap<>();
     @EventHandler
     public void onPlayerShootingWindCharge(PlayerInteractEvent event){
+        if(!plugin.enableMana) return;
         Player player = event.getPlayer();
         if(!(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))){
             return;
@@ -68,6 +75,9 @@ public class InfiniteWindCharge implements Listener {
             long lastTimeShoot = cooldown.get(uuid);
             if(System.currentTimeMillis() < lastTimeShoot + 500)
                 return;
+
+            //扣除魔力
+            if(!plugin.getMana().costMana(player,manaCost)) return;
 
             //讓玩家丟出風彈
             player.getWorld().spawn(

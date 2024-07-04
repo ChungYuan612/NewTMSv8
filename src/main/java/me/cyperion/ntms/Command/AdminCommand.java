@@ -48,7 +48,7 @@ public class AdminCommand implements CommandExecutor {
             return true;
         }else if ( args.length == 1){
             if(args[0].equals("wind")){
-                ItemStack windCharge = new InfiniteWindCharge().toItemStack();
+                ItemStack windCharge = new InfiniteWindCharge(plugin).toItemStack();
                 player.getInventory().addItem(windCharge);
             }
         }if(args.length ==2) {

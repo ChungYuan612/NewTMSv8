@@ -18,11 +18,17 @@ import net.milkbowl.vault.permission.Permission;
 
 import me.cyperion.ntms.SideBoard.TMWorldTimer;
 import org.bukkit.World;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Utils.colors;
@@ -58,8 +64,8 @@ public final class NewTMSv8 extends JavaPlugin {
         saveDefaultConfig();
 
         getServer().setMotd(colors(
-                "              "+"&6&lNTMS &e臺灣地圖伺服器 &av8.0.0\n " +
-                "                    "+"&c生存開始！歡迎加入!")
+                "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
+                "                    "+"&c生存開始！&b歡迎加入!")
         );
 
 
@@ -129,6 +135,16 @@ public final class NewTMSv8 extends JavaPlugin {
         register.register();
     }
 
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        DamageIcon.damageIcons
+                .forEach((entity, integer) ->
+                        entity.remove()
+                );
+        
+    }
+
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             System.out.println("can't find Vault!");
@@ -194,6 +210,21 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public Mana getMana() {
         return mana;
+    }
+
+    //自定義Config
+    public Configuration getConfigFile(String name){
+        File file = new File(this.getDataFolder(), name + ".yml");
+
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return YamlConfiguration.loadConfiguration(file);
     }
 
     //特別實作kody simpson的程式
