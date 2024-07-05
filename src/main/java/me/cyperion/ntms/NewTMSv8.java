@@ -5,6 +5,7 @@ import me.cyperion.ntms.Event.DamageIcon;
 import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
 import me.cyperion.ntms.Event.PlayerChatHandler;
 import me.cyperion.ntms.Event.RaidEvent;
+import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
 import me.cyperion.ntms.Menu.MenuListener;
 import me.cyperion.ntms.Menu.PlayerMenuUtility;
@@ -41,6 +42,7 @@ public final class NewTMSv8 extends JavaPlugin {
     public boolean UNDER_MAINTENANCE = false; //是否正在維修
     private TMWorldTimer tmWorldTimer;
     private TWPlayerSideBoard twPlayerSideBoard;
+    private CraftHandler craftHandler;
     //private Database database;
     public final String MAIN_WORLD_NAME = "world";
     public final String RESOURCE_WORLD_NAME = "resource";
@@ -131,8 +133,12 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("tpaccept").setExecutor(tpaCommand);
         getCommand("tpadeny").setExecutor(tpaCommand);
 
+
+        //Craft
+        this.craftHandler = new CraftHandler(this);
+        getServer().getPluginManager().registerEvents(craftHandler,this);
+
         ItemRegister register = new ItemRegister(this);
-        register.register();
     }
 
     @Override
@@ -210,6 +216,10 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public Mana getMana() {
         return mana;
+    }
+
+    public CraftHandler getCraftHandler() {
+        return craftHandler;
     }
 
     //自定義Config

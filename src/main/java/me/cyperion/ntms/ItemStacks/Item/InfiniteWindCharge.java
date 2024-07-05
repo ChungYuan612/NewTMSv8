@@ -81,7 +81,7 @@ public class InfiniteWindCharge implements Listener {
 
             //讓玩家丟出風彈
             player.getWorld().spawn(
-                    player.getLocation().add(0,1.15,0),
+                    player.getEyeLocation(),
                     WindCharge.class,
                     windCharge ->
                             windCharge.setVelocity(player.getLocation().getDirection())
