@@ -126,6 +126,7 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("menu").setExecutor(new MenuCommand(this));
         getCommand("ntms").setExecutor(new NTMSCommand());
         getCommand("signin").setExecutor(new SigninCommand(this));
+        getCommand("pay").setExecutor(new PayCommand(this));
 
         //TPA 3個指令
         TpaCommand tpaCommand = new TpaCommand();
