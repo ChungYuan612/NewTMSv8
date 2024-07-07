@@ -18,7 +18,7 @@ import static me.cyperion.ntms.Utils.colors;
  */
 public abstract class NTMSMaterial {
 
-    private NewTMSv8 plugin;
+    protected NewTMSv8 plugin;
     protected ItemStack itemStack;
 
     public NTMSMaterial(NewTMSv8 plugin) {

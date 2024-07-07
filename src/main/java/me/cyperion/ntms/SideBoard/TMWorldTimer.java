@@ -97,6 +97,8 @@ public class TMWorldTimer {
     //判斷是否需要更新日期(接近午夜，我取400個小刻)
     public boolean needChangeDateString(World world){
         long time = convertToTime(world) % 24000;
+        if(time <6200 && time > 5800)
+            return true;
         return time < 200 || time > 23800;
     }
 

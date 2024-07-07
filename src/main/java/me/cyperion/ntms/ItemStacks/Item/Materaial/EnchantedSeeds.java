@@ -3,7 +3,11 @@ package me.cyperion.ntms.ItemStacks.Item.Materaial;
 import me.cyperion.ntms.ItemStacks.CraftRecipe;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.recipe.CraftingBookCategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;

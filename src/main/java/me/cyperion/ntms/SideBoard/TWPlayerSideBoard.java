@@ -13,6 +13,7 @@ import org.bukkit.scoreboard.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -38,10 +39,11 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     public void run() {
         for (Player p : Bukkit.getOnlinePlayers()) {
             double player_coins = plugin.getEconomy().getBalance(p);
+
             Scoreboard scoreboard = p.getScoreboard();
             refreshTimer(p,false);
             scoreboard.getTeam(MONEY_SBTEAM)
-                    .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + player_coins);
+                    .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + String.format("%.1f", player_coins));
         }
     }
 

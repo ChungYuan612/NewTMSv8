@@ -26,6 +26,7 @@ public class PlayerJoinServerController implements Listener {
         plugin.getTwPlayerSideBoard().refreshTimerLocation(player);
         plugin.getTwPlayerSideBoard().refreshTimer(player,true);
 
+
         if(plugin.getConfig().contains(player.getUniqueId().toString()))
             player.setPlayerListName(
                     colors(

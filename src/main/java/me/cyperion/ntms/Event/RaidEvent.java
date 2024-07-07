@@ -71,12 +71,11 @@ public class RaidEvent implements Listener {
             List<Player> winner = event.getWinners();
             String heros = getAllPlayerString(winner);
             Bukkit.broadcastMessage(colors("&6[突襲資訊] &a恭喜玩家&b "
-                    +heros+"&a成功打敗了&d"+level+"突襲！"));
+                    +heros+"&a成功打敗了 &d"+level+"級 &a的突襲！"));
             int bouns = RaidBouns + RaidBounsPerLevel * level;
             for(Player player : winner){
-
                 plugin.getEconomy().depositPlayer(player, bouns);
-                player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+RaidBouns+"&a元的獎金！"));
+                player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+bouns+"&a元的獎金！"));
                 plugin.getPlayerData(player).addRaidPoint(1);
             }
         }

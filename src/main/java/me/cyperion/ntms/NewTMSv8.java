@@ -103,8 +103,8 @@ public final class NewTMSv8 extends JavaPlugin {
         this.twPlayerSideBoard.runTaskTimer(this,0L,8L);//8刻跑一次，一秒2.5次
 
         //傷害顯示
-        DamageIcon damageIcon = new DamageIcon(this);
-        getServer().getPluginManager().registerEvents(damageIcon,this);
+        //DamageIcon damageIcon = new DamageIcon(this);
+        //getServer().getPluginManager().registerEvents(damageIcon,this);
 
         //突襲
         getServer().getPluginManager().registerEvents(new RaidEvent(this),this);
@@ -144,6 +144,7 @@ public final class NewTMSv8 extends JavaPlugin {
     @Override
     public void onDisable() {
         super.onDisable();
+        
         DamageIcon.damageIcons
                 .forEach((entity, integer) ->
                         entity.remove()

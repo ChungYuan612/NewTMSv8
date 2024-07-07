@@ -15,7 +15,7 @@ public class ItemRegister {
     }
 
     public void register() {
-        registCraftItem();
+        //registCraftItem();
         plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(plugin),plugin);
 
     }
