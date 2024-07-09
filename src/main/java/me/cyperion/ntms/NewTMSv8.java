@@ -1,10 +1,9 @@
 package me.cyperion.ntms;
 
+import me.cyperion.ntms.Class.Class;
+import me.cyperion.ntms.Class.Explosion;
 import me.cyperion.ntms.Command.*;
-import me.cyperion.ntms.Event.DamageIcon;
-import me.cyperion.ntms.Event.PlayerAdvanceDoneHandler;
-import me.cyperion.ntms.Event.PlayerChatHandler;
-import me.cyperion.ntms.Event.RaidEvent;
+import me.cyperion.ntms.Event.*;
 import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
 import me.cyperion.ntms.Menu.MenuListener;
@@ -57,6 +56,8 @@ public final class NewTMSv8 extends JavaPlugin {
 
     private NSKeyRepo nsKeyRepo;
     private Mana mana;
+
+    private Class explosion,terminator;
 
     public final boolean enableMana = true;
 
@@ -116,6 +117,8 @@ public final class NewTMSv8 extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerQuitServer(this),this);
         //玩家聊天
         getServer().getPluginManager().registerEvents(new PlayerChatHandler(this),this);
+        //玩家釣魚
+        getServer().getPluginManager().registerEvents(new PlayerFishingEvent(),this);
         //選單控制(這個類別放在./Menu底下)
         getServer().getPluginManager().registerEvents(new MenuListener(),this);
 
@@ -127,6 +130,7 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("ntms").setExecutor(new NTMSCommand());
         getCommand("signin").setExecutor(new SigninCommand(this));
         getCommand("pay").setExecutor(new PayCommand(this));
+        getCommand("class").setExecutor(new ClassCommand(this));
 
         //TPA 3個指令
         TpaCommand tpaCommand = new TpaCommand();
@@ -140,6 +144,9 @@ public final class NewTMSv8 extends JavaPlugin {
         getServer().getPluginManager().registerEvents(craftHandler,this);
 
         ItemRegister register = new ItemRegister(this);
+
+        explosion = new Explosion(this);
+        terminator = new Explosion(this);
     }
 
     @Override
@@ -251,7 +258,14 @@ public final class NewTMSv8 extends JavaPlugin {
         return utility;
     }
 
-//    public Database getDatabase() {
+    public Class getExplosion() {
+        return explosion;
+    }
+
+    public Class getTerminator() {
+        return terminator;
+    }
+    //    public Database getDatabase() {
 //        return this.database;
 //    }
 }

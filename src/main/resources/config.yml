@@ -1,4 +1,4 @@
-Version: 8.1.0
+Version: 8.1.1
 SQLite:
   Filename: 'NTMS_PlayerData'
 #昇
@@ -126,3 +126,8 @@ d157b93a-e1b8-424d-bfea-447b3716d88e:
   - '&b桃園縣長 - '
   - ''
   - '&b'
+#信使他妹
+32741103-494c-4403-ae44-2fc99cb93853:
+  - '&a中壢市長 - '
+  - ''
+  - '&a'

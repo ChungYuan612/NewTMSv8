@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Command;
 
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
+import me.cyperion.ntms.ItemStacks.Item.JadeCore;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
@@ -49,6 +50,9 @@ public class AdminCommand implements CommandExecutor {
         }else if ( args.length == 1){
             if(args[0].equals("wind")){
                 ItemStack windCharge = new InfiniteWindCharge(plugin).toItemStack();
+                player.getInventory().addItem(windCharge);
+            }else if(args[0].equals("jade")){
+                ItemStack windCharge = new JadeCore().toItemStack();
                 player.getInventory().addItem(windCharge);
             }
         }if(args.length ==2) {

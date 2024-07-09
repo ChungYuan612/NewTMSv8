@@ -33,6 +33,8 @@ public class PlayerData {
 
     private int advancePoint,raidPoint,signinCount;
 
+
+
     //幸運等級
     private double luck;
 

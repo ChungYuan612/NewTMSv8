@@ -1,5 +1,5 @@
 name: NewTMSv8
-version: '8.0.2'
+version: '8.1.1'
 main: me.cyperion.ntms.NewTMSv8
 softdepend: [Vault]
 api-version: '1.20'
@@ -27,3 +27,7 @@ commands:
     usage: /ntms help
   signin:
     description: 每次開啟伺服器時，都可以簽到，獲得不一定的現金。
+  pay:
+    description: 可以給予其他玩家錢的指令
+  class:
+    description: 選擇玩家職業的指令

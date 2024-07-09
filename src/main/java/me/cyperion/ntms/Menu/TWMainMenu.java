@@ -57,28 +57,29 @@ public class TWMainMenu extends Menu {
 
         Player player = playerMenuUtility.getOwner();
         PlayerData playerData = plugin.getPlayerData(player);
+        ItemStack item = event.getCurrentItem();
 
         //warp和關閉選單和終界箱
         if(event.isLeftClick()){
-            if(event.getCurrentItem().equals(close)){
+            if(item.equals(close)){
                 player.closeInventory();
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
-            }else if ( event.getCurrentItem().equals(goBed)) {
+            }else if ( item.equals(goBed)) {
                 player.performCommand("warp bed");
-            }else if ( event.getCurrentItem().equals(goResource)) {
+            }else if ( item.equals(goResource)) {
                 player.performCommand("warp rs");
-            }else if ( event.getCurrentItem().equals(goTW)) {
+            }else if ( item.equals(goTW)) {
                 player.performCommand("warp tw");
-            }else if ( event.getCurrentItem().equals(enderChest)) {
+            }else if ( item.equals(enderChest)) {
                 player.performCommand("enderchest");
             }
         }
 
-        if(event.getCurrentItem().equals(shop) || event.getCurrentItem().equals(market)){
+        if(item.equals(shop) || item.equals(market)){
             player.sendMessage(colors("&c&l正在維修中..."));
         }
 
-        if(event.getCurrentItem().equals(changeMana)){
+        if(item.hasItemMeta() && item.getItemMeta().getCustomModelData() == 1006){
             if(playerData.getShowManaOnActionbar()){
                 player.sendMessage(colors("&c已關閉魔力顯示"));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
@@ -198,7 +199,7 @@ public class TWMainMenu extends Menu {
         enderChest = new ItemStack(Material.ENDER_CHEST);
         ItemMeta enderChestMeta = enderChest.getItemMeta();
         enderChestMeta.setDisplayName(colors("&5終界箱 &8/enderchest"));
-        enderChestMeta.setCustomModelData(1006);//未來做資源包可用
+        enderChestMeta.setCustomModelData(1007);//未來做資源包可用
         enderChestMeta.setLore(clickLore);
         enderChest.setItemMeta(enderChestMeta);
 
@@ -239,7 +240,9 @@ public class TWMainMenu extends Menu {
             changeManaLore.add(colors("&e點擊顯示"));
         }
         changeManaMeta.setLore(changeManaLore);
+        changeManaMeta.setCustomModelData(1006);
         item.setItemMeta(changeManaMeta);
+
         return item;
     }
 }

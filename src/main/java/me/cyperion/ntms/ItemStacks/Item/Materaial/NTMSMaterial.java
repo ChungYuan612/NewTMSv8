@@ -6,8 +6,11 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +57,16 @@ public abstract class NTMSMaterial {
         return itemStack;
     }
 
-    public abstract CraftRecipe getRecipe();
+    @Nullable
+    public CraftRecipe getRecipe(){
+        return null;
+    }
+
+    public ShapedRecipe toNMSRecipe(){
+        return null;
+    }
+
+
 
     public enum MaterailRate{
         NORMAL("&2","普通"),

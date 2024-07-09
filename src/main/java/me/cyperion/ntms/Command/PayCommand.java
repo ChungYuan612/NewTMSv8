@@ -57,6 +57,7 @@ public class PayCommand implements CommandExecutor {
                                 "&6[pay] &a已收到&b"+player.getName()+"&a給的&e"+pay+"元&a!"));
                         return true;
                     }
+                    player.sendMessage(ChatColor.RED+"你並沒有那麼多錢喔");
                     return true;
                 }else{
                     player.sendMessage(ChatColor.RED+"找不到該玩家(或者是沒有上線)");

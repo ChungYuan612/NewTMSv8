@@ -51,6 +51,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event){
         Player player = event.getPlayer();
         refreshTimerLocation(player);
+        refreshTimer(player,true);
     }
 
     //給玩家剛進入伺服器生成一個
@@ -125,6 +126,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
             scoreboard.getTeam(TIMER_DATE_SBTEAM)
                     .setPrefix(plugin.getTmWorldTimer().getDateDisplayString(world));
         }
+
     }
 
     //更新玩家的所在世界顯示
