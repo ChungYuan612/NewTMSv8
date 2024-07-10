@@ -15,7 +15,9 @@ public class PlayerFishingEvent implements Listener {
     public void onPlayerFishing(PlayerFishEvent event){
         if(!event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH))
             return;
-        if(random.nextDouble(0,100)<0.85d){
+        double value = random.nextDouble(0,100);
+        if(value<=0.85d){
+            System.out.println(event.getPlayer().getDisplayName() + " 釣起了 碎玉核心! "+ value + "in 100");
             if(event.getCaught() instanceof Item item)
                 item.setItemStack(jadeCore.toItemStack().clone());
         }

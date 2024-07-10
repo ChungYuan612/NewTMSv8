@@ -58,8 +58,9 @@ public class Mana extends BukkitRunnable {
     public boolean costMana(Player player, double amount){
         double mana = plugin.getPlayerData(player).getMana();
         boolean allowOverMana = plugin.getPlayerData(player).isAllowOverMana();
+
         if(mana - amount < 0){
-            if(allowOverMana){
+            if(allowOverMana && amount == 400){ // EXPLOSION
                 plugin.getPlayerData(player).setMana(mana - amount);
                 return true;
             }else{

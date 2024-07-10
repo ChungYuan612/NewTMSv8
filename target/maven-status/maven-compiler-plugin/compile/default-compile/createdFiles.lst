@@ -50,6 +50,7 @@ me\cyperion\ntms\Event\PlayerFishingEvent.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRedstone.class
 me\cyperion\ntms\Class\Terminator.class
 me\cyperion\ntms\Command\AdminCommand.class
+me\cyperion\ntms\ItemStacks\Item\RedWand.class
 me\cyperion\ntms\ItemStacks\Item\Stocks.class
 me\cyperion\ntms\Player\PlayerQuitServer.class
 me\cyperion\ntms\ItemStacks\Item\JadeCore.class

@@ -15,6 +15,10 @@ import java.util.HashMap;
 import static me.cyperion.ntms.Monster.LootItem.chanceIn;
 import static me.cyperion.ntms.Utils.colors;
 
+/**
+ * 特殊怪物生成
+ * 關聯：NewTMSv8註冊
+ */
 public class MonsterRegister implements Listener {
     public static HashMap<LivingEntity,Creature> twMobs = new HashMap<>();
     private NewTMSv8 plugin;
@@ -31,9 +35,11 @@ public class MonsterRegister implements Listener {
             Location location = entity.getLocation();
             Location check = location.clone();
             check.setY(location.getY()-1);
+            if(!location.getWorld().getName().equals(plugin.MAIN_WORLD_NAME)) return;
             //本島內
             if (check.getX() > 3000 || check.getX() <=-2000 ) return ;
             if (check.getZ() > 3000 || check.getZ() <=-2000 ) return ;
+
 
             if(!check.getBlock().getType().equals(Material.GRASS_BLOCK)){
                 if (chanceIn(Creature.LOG_ZOMBIES.getSpawnChance())){

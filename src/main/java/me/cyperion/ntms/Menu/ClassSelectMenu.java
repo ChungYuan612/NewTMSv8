@@ -92,7 +92,7 @@ public class ClassSelectMenu extends Menu{
         terminatorLore.add(colors(""));
         terminatorLore.add(colors("&f每次施放&6&lSalvation&r&f時會獲得"));
         terminatorLore.add(colors("&f一層&dBEAM&f效果，疊滿&33&f層時，會"));
-        terminatorLore.add(colors("&f重置層數並增加此次箭矢傷害&c15%&f並&2中毒3秒&f。"));
+        terminatorLore.add(colors("&f重置層數且此次箭矢傷害&c+15%&f、&2中毒3秒&f"));
         terminatorLore.add(colors(""));
         if(data.getClassType().equals(ClassType.TERMINATOR)){
             terminatorLore.add(colors("&a您目前選擇這個職業"));
@@ -114,13 +114,13 @@ public class ClassSelectMenu extends Menu{
         ArrayList<String> explosionLore = new ArrayList<>();
         explosionLore.add(colors(""));
         explosionLore.add(colors("&6&l職業技能&r&f：&6&lExplosion"));
-        explosionLore.add(colors("&f玩家要拿著&c紅寶石法杖&f並且蹲下右鍵即可施放"));
+        explosionLore.add(colors("&f玩家要拿著&c紅魔法杖&f並且蹲下右鍵即可施放"));
         explosionLore.add(colors("&f技能，開始為期10秒的&d&l詠唱&r&f效果"));
         explosionLore.add(colors("&f結束後對前方一定範圍內的敵人造成&c600.0&f點"));
-        explosionLore.add(colors("&f傷害，並消耗&3400&f點&b魔力&f，會允許透支魔力"));
+        explosionLore.add(colors("&f傷害，並消耗&3400&f點&b魔力&f，此技能允許透支魔力"));
         explosionLore.add(colors(""));
         explosionLore.add(colors("&d&l詠唱&r&f："));
-        explosionLore.add(colors("&f期間上方進度條會開始充能，並獲得&7緩速效果"));
+        explosionLore.add(colors("&f期間上方進度條會開始充能，並獲得&8緩速效果"));
         explosionLore.add(colors("&f必須蹲著才能完整施放，"));
         explosionLore.add(colors(""));
         if(data.getClassType().equals(ClassType.EXPLOSION)){

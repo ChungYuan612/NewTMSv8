@@ -2,12 +2,14 @@ package me.cyperion.ntms;
 
 import me.cyperion.ntms.Class.Class;
 import me.cyperion.ntms.Class.Explosion;
+import me.cyperion.ntms.Class.Terminator;
 import me.cyperion.ntms.Command.*;
 import me.cyperion.ntms.Event.*;
 import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
 import me.cyperion.ntms.Menu.MenuListener;
 import me.cyperion.ntms.Menu.PlayerMenuUtility;
+import me.cyperion.ntms.Monster.MonsterRegister;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.Player.PlayerQuitServer;
@@ -22,6 +24,7 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -63,7 +66,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        this.getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
         getServer().setMotd(colors(
@@ -143,10 +146,14 @@ public final class NewTMSv8 extends JavaPlugin {
         this.craftHandler = new CraftHandler(this);
         getServer().getPluginManager().registerEvents(craftHandler,this);
 
+        //Monster
+        this.getServer().getPluginManager().registerEvents(new MonsterRegister(this),this);
+
         ItemRegister register = new ItemRegister(this);
 
         explosion = new Explosion(this);
-        terminator = new Explosion(this);
+        terminator = new Terminator(this);
+        getServer().getPluginManager().registerEvents(new Terminator(this),this);
     }
 
     @Override

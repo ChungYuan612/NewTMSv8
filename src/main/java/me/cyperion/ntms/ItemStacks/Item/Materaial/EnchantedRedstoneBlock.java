@@ -2,6 +2,7 @@ package me.cyperion.ntms.ItemStacks.Item.Materaial;
 
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -46,7 +47,7 @@ public class EnchantedRedstoneBlock extends NTMSMaterial{
 
     @Override
     public ShapedRecipe toNMSRecipe() {
-        ShapedRecipe recipe = new ShapedRecipe(this.toItemStack());
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"EnchantedRedstoneBlock"),this.toItemStack());
         recipe.shape("xxx","xxx","xxx");
         recipe.setIngredient('x', new RecipeChoice.ExactChoice(new EnchantedRedstone(plugin).toItemStack()));
         return recipe;
