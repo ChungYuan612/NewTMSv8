@@ -71,19 +71,20 @@ public class Terminator extends Class implements Listener {
                     Location location = player.getEyeLocation();
                     ItemStack itemStack = player.getInventory().getItemInMainHand();
                     int step = playerSteps.get(player.getUniqueId());
-                    playerSteps.replace(player.getUniqueId(),(step+1)%3);
-                    boolean isThird = step == 2;
+                    playerSteps.replace(player.getUniqueId(),step,(step+1)%3);
+                    boolean isThird = (step == 2);
 
-                    Vector direction = player.getEyeLocation().getDirection();
-                    shootArrow(player,itemStack, location,direction,isThird);
-                    shootArrow(player,itemStack,location,direction.rotateAroundY(15),isThird);
-                    shootArrow(player,itemStack,location,direction.rotateAroundY(-15),isThird);
+                    Vector direction = player.getEyeLocation().getDirection().clone();
+                    shootArrow(player,itemStack, location,direction.clone(),isThird);
+                    shootArrow(player,itemStack,location,getLeftOffsetVector(player,15),isThird);
+                    shootArrow(player,itemStack,location,getLeftOffsetVector(player,-15),isThird);
+
                     player.playSound(player.getLocation(),
-                            Sound.ENTITY_SKELETON_SHOOT, 0.5f, 1);
+                            Sound.ENTITY_SKELETON_SHOOT, 1f, 1);
 
                     if(isThird){
                         player.playSound(player.getLocation(),
-                                Sound.ENTITY_SKELETON_AMBIENT, 0.5f, 1);
+                                Sound.ENTITY_SKELETON_AMBIENT, 1f, 1);
                     }
 
                 }
@@ -107,8 +108,31 @@ public class Terminator extends Class implements Listener {
             arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 3, 0), false);
         }
         arrow.setPickupStatus(Arrow.PickupStatus.DISALLOWED);
-        arrow.setDamage(8 + itemStack.getEnchantmentLevel(Enchantment.POWER));
-        arrow.setVelocity(direction);
+        arrow.setDamage(5 + itemStack.getEnchantmentLevel(Enchantment.POWER));
+        arrow.setVelocity(direction.multiply(2.3).clone());
 
+    }
+
+    //ChatGPT: 這個方法可以獲取玩家在指定方向上的偏移量。
+    public Vector getLeftOffsetVector(Player player, double angleDegrees) {
+        Vector direction = player.getEyeLocation().getDirection().normalize().clone();
+        double angleRadians = Math.toRadians(angleDegrees);
+
+        // Calculate left rotation (counter-clockwise)
+        double cosAngle = Math.cos(angleRadians);
+        double sinAngle = Math.sin(angleRadians);
+
+        // Perform rotation in 2D (XZ plane)
+        double newX = direction.getX() * cosAngle - direction.getZ() * sinAngle;
+        double newZ = direction.getX() * sinAngle + direction.getZ() * cosAngle;
+
+        // Create new Vector with adjusted direction
+        return new Vector(newX, 0, newZ).normalize().clone();
+    }
+
+    public Vector getRightOffsetVector(Player player, double angleDegrees) {
+        // Right offset is simply the negative of the left offset vector
+        Vector leftOffset = getLeftOffsetVector(player, angleDegrees);
+        return leftOffset.clone().multiply(-1).clone();
     }
 }
