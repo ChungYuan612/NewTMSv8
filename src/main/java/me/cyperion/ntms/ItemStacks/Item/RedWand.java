@@ -32,7 +32,7 @@ public class RedWand {
         itemStack = new ItemStack(Material.STICK);
         ItemMeta meta = itemStack.getItemMeta();
         meta.setCustomModelData(10001);//優先製作材質包用
-        meta.setDisplayName("&6恵恵の紅魔法杖");
+        meta.setDisplayName(colors("&6恵恵の紅魔法杖"));
         ArrayList<String> lores = new ArrayList<>();
         lores.add(colors("&f嵌入&c紅寶石&f的普通木杖，閃耀的光芒、"));
         lores.add(colors("&f超帥的造型，正是紅魔族的最愛。拿在手中"));

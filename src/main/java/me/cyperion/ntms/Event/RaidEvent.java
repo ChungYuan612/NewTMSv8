@@ -82,9 +82,9 @@ public class RaidEvent implements Listener {
     }
 
     private String getAllPlayerString(List<Player> players) {
-        StringJoiner herosName = new StringJoiner(",");
+        StringJoiner herosName = new StringJoiner("&r&f,");
         for (Player p: players) {
-            herosName.add(p.getDisplayName());
+            herosName.add("&r&b"+p.getDisplayName());
         }
         return herosName.toString();
     }

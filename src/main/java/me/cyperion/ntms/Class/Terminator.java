@@ -74,7 +74,7 @@ public class Terminator extends Class implements Listener {
                     playerSteps.replace(player.getUniqueId(),(step+1)%3);
                     boolean isThird = step == 2;
 
-                    Vector direction = player.getVelocity();
+                    Vector direction = player.getEyeLocation().getDirection();
                     shootArrow(player,itemStack, location,direction,isThird);
                     shootArrow(player,itemStack,location,direction.rotateAroundY(15),isThird);
                     shootArrow(player,itemStack,location,direction.rotateAroundY(-15),isThird);
@@ -102,10 +102,12 @@ public class Terminator extends Class implements Listener {
             arrow.setVisualFire(true);
         }
 
-        if(isThird)
+        if(isThird){
             arrow.setColor(Color.ORANGE);
-        arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 3, 0), false);
+            arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 3, 0), false);
+        }
         arrow.setPickupStatus(Arrow.PickupStatus.DISALLOWED);
+        arrow.setDamage(8 + itemStack.getEnchantmentLevel(Enchantment.POWER));
         arrow.setVelocity(direction);
 
     }

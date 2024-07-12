@@ -66,7 +66,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.getConfig().options().copyDefaults(true);
+        //this.getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
         getServer().setMotd(colors(
