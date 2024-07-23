@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -71,8 +72,9 @@ public class Terminator extends Class implements Listener {
                     Location location = player.getEyeLocation();
                     ItemStack itemStack = player.getInventory().getItemInMainHand();
                     int step = playerSteps.get(player.getUniqueId());
-                    playerSteps.replace(player.getUniqueId(),step,(step+1)%3);
+                    int newValue = (step +1) % 3;
                     boolean isThird = (step == 2);
+                    playerSteps.replace(player.getUniqueId(),newValue);
 
                     Vector direction = player.getEyeLocation().getDirection().clone();
                     shootArrow(player,itemStack, location,direction.clone(),isThird);
@@ -107,9 +109,9 @@ public class Terminator extends Class implements Listener {
             arrow.setColor(Color.ORANGE);
             arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 3, 0), false);
         }
-        arrow.setPickupStatus(Arrow.PickupStatus.DISALLOWED);
-        arrow.setDamage(5 + itemStack.getEnchantmentLevel(Enchantment.POWER));
-        arrow.setVelocity(direction.multiply(2.3).clone());
+        arrow.setPickupStatus(Arrow.PickupStatus.CREATIVE_ONLY);
+        arrow.setDamage(5.5 + itemStack.getEnchantmentLevel(Enchantment.POWER)*0.55);
+        arrow.setVelocity(direction.multiply(2.95).clone());
 
     }
 
@@ -124,10 +126,11 @@ public class Terminator extends Class implements Listener {
 
         // Perform rotation in 2D (XZ plane)
         double newX = direction.getX() * cosAngle - direction.getZ() * sinAngle;
+        double newY = direction.getY();
         double newZ = direction.getX() * sinAngle + direction.getZ() * cosAngle;
 
         // Create new Vector with adjusted direction
-        return new Vector(newX, 0, newZ).normalize().clone();
+        return new Vector(newX, newY, newZ).normalize().clone();
     }
 
     public Vector getRightOffsetVector(Player player, double angleDegrees) {

@@ -4,13 +4,17 @@ import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Monster.LootItem.chanceIn;
 import static me.cyperion.ntms.Utils.colors;
@@ -72,12 +76,14 @@ public class MonsterRegister implements Listener {
         mob.tryLootItem(event.getEntity().getLocation());
         event.setDroppedExp(mob.getExperience());
         twMobs.remove(event.getEntity());
-
+        if(twMobs.isEmpty()) return;
+        List<LivingEntity> removelist = new ArrayList<>();
         for(LivingEntity entity: twMobs.keySet()) {
             if(entity.isDead() || !(entity.isValid())) {
-                twMobs.remove(entity);
+                removelist.add(entity);
             }
         }
+        removelist.forEach(Entity::remove);
 
     }
 

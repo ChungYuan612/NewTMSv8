@@ -62,7 +62,7 @@ public class TpaCommand implements CommandExecutor {
                 if (tpa_player.containsKey(player.getUniqueId())) {
                     Player target = Bukkit.getPlayer(tpa_player.get(player.getUniqueId()));
                     player.sendMessage(colors("&6[tpa] &c你已拒絕了&b"+target.getName()+"&c的傳送請求"));
-                    target.sendMessage("&6[tpa] &b"+player.getName()+"&c不想要你傳送到他那裡");
+                    target.sendMessage(colors("&6[tpa] &b"+player.getName()+"&c不想要你傳送到他那裡"));
                     tpa_player.remove(player.getUniqueId());
                     return true;
                 }
