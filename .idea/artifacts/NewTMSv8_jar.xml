@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="NewTMSv8:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/NewTMSv8_jar</output-path>
+    <root id="archive" name="NewTMSv8.jar">
+      <element id="module-output" name="NewTMSv8" />
+    </root>
+  </artifact>
+</component>
