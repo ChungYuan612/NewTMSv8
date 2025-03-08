@@ -48,7 +48,7 @@ public class RedWand {
         lores.add(colors(""));
         lores.add(colors("&6傳說中的法杖"));
         meta.setLore(lores);
-        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE,
+        meta.addAttributeModifier(Attribute.ATTACK_DAMAGE,
                 new AttributeModifier(new NamespacedKey(plugin,"damage_plus"),
                         5.0d,AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND.MAINHAND)
         );
@@ -73,6 +73,6 @@ public class RedWand {
     }
 
     public ItemStack toItemStack(){
-        return itemStack;
+        return itemStack.clone();
     }
 }

@@ -108,7 +108,7 @@ public enum Creature {
         LivingEntity mob = (LivingEntity) location.getWorld().spawnEntity(location,entityType);
         mob.setCustomNameVisible(true);
         mob.setCustomName(displayName);
-        mob.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
+        mob.getAttribute(Attribute.MAX_HEALTH).setBaseValue(maxHealth);
         mob.setHealth(maxHealth);
         EntityEquipment equipment = mob.getEquipment();
         if(armors != null)

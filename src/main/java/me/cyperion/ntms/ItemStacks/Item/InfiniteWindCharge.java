@@ -53,7 +53,7 @@ public class InfiniteWindCharge implements Listener {
     public ItemStack toItemStack(){
         if(infinite_WindCharge == null)
             setupItem();
-        return infinite_WindCharge;
+        return infinite_WindCharge.clone();
     }
 
     private Map<UUID,Long> cooldown = new HashMap<>();

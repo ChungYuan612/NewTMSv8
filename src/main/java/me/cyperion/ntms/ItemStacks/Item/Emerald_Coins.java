@@ -14,28 +14,29 @@ import static me.cyperion.ntms.Utils.colors;
  * 碎玉核心。<br>
  * 關聯：PlayerFishEvent註冊和/admin jade取得
  */
-public class JadeCore{
+public class Emerald_Coins{
     ItemStack item;
-    public JadeCore() {
-        init();
-    }
+
     private void init(){
-        item = new ItemStack(Material.NETHER_BRICK,1);
+        item = new ItemStack(Material.EMERALD,1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(colors("&5&l碎玉核心"));
+        meta.setDisplayName(colors("&a&l綠寶石貨幣"));
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(colors("&f破碎的玉核心，用來製作紅玉法杖的材料。"));
-        lore.add(colors("&f可以透過&b釣魚&f有&50.85%&f機率掉落此核心"));
+        lore.add(colors("&7七週年晚會活動貨幣，臺灣伺服器第一"));
+        lore.add(colors("&7個貨幣，感覺這個貨幣可以換到什麼好"));
+        lore.add(colors("&7康的東西?又或者有其他用途?"));
         lore.add(colors(""));
-        lore.add(colors("&5超稀有材料"));
+        lore.add(colors("&6紀念幣"));
         meta.setLore(lore);
         meta.addEnchant(Enchantment.UNBREAKING,1,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.setCustomModelData(4006);
+        meta.setCustomModelData(4007);
         item.setItemMeta(meta);
 
     }
     public ItemStack toItemStack(){
+        if(item == null)
+            init();
         return item.clone();
     }
 }

@@ -13,6 +13,7 @@ import me.cyperion.ntms.Monster.MonsterRegister;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.Player.PlayerQuitServer;
+import me.cyperion.ntms.SQL.TradeDatabaseManager;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -40,6 +41,8 @@ import static me.cyperion.ntms.Utils.colors;
  * 第8季 臺灣地圖伺服器插件
  */
 public final class NewTMSv8 extends JavaPlugin {
+
+    private TradeDatabaseManager dbManager;
 
     public boolean UNDER_MAINTENANCE = false; //是否正在維修
     private TMWorldTimer tmWorldTimer;
@@ -81,6 +84,7 @@ public final class NewTMSv8 extends JavaPlugin {
         getServer().getWorlds().forEach(world ->
                 System.out.println(world.getName())
         );
+
 
         //mySQL
         //this.database = new SQLite(this);
@@ -129,6 +133,7 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("warp").setExecutor(new WarpCommand(this));
         getCommand("enderchest").setExecutor(new EnderChestCommand());
         getCommand("admin").setExecutor(new AdminCommand(this));
+        getCommand("admin").setTabCompleter(new AdminCommand(this));
         getCommand("menu").setExecutor(new MenuCommand(this));
         getCommand("ntms").setExecutor(new NTMSCommand());
         getCommand("signin").setExecutor(new SigninCommand(this));
@@ -146,8 +151,8 @@ public final class NewTMSv8 extends JavaPlugin {
         this.craftHandler = new CraftHandler(this);
         getServer().getPluginManager().registerEvents(craftHandler,this);
 
-        //Monster
-        this.getServer().getPluginManager().registerEvents(new MonsterRegister(this),this);
+        //Monster 目前關閉
+        //this.getServer().getPluginManager().registerEvents(new MonsterRegister(this),this);
 
         ItemRegister register = new ItemRegister(this);
 

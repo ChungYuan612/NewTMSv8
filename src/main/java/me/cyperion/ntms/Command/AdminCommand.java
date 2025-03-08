@@ -1,22 +1,35 @@
 package me.cyperion.ntms.Command;
 
+import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.ItemStacks.Item.JadeCore;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstone;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstoneBlock;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSeeds;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSugar;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
+import me.cyperion.ntms.ItemStacks.NTMSItems;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static me.cyperion.ntms.Utils.colors;
 
 /**
  * /Admin 管理員專用指令 使用方法請看說明書
  */
-public class AdminCommand implements CommandExecutor {
+public class AdminCommand implements CommandExecutor, TabCompleter {
 
     private NewTMSv8 plugin;
 
@@ -48,34 +61,57 @@ public class AdminCommand implements CommandExecutor {
             player.sendMessage(colors("&6現金："+plugin.getEconomy().getBalance(player)));
             return true;
         }else if ( args.length == 1){
-            if(args[0].equals("wind")){
-                ItemStack windCharge = new InfiniteWindCharge(plugin).toItemStack();
-                player.getInventory().addItem(windCharge);
-            }else if(args[0].equals("jade")){
-                ItemStack windCharge = new JadeCore().toItemStack();
-                player.getInventory().addItem(windCharge);
+            String name = args[0];
+            ItemStack item;
+            if(name.equals(NTMSItems.RED_WAND.name())){
+                item = new InfiniteWindCharge(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.JADE_CORE.name())){
+                item = new JadeCore().toItemStack();
+            }else if(name.equals(NTMSItems.EMERALD_COINS.name())) {
+                item = new Emerald_Coins().toItemStack();
+            }else if(name.equals(NTMSItems.INFINITE_WIND_CHARGE.name())) {
+                item = new InfiniteWindCharge(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.ENCHANTED_SEEDS.name())) {
+                item = new EnchantedSeeds(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.ENCHANTED_SUGAR.name())) {
+                item = new EnchantedSugar(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.ENCHANTED_RED_STONE.name())) {
+                item = new EnchantedRedstone(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.ENCHANTED_RED_STONE_BLOCK.name())) {
+                item = new EnchantedRedstoneBlock(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.STOCK_3607.name())) {
+                item = new Stocks(plugin).getItem(Stocks.StockType.s3607);
+            }else if(name.equals(NTMSItems.STOCK_3230.name())) {
+                item = new Stocks(plugin).getItem(Stocks.StockType.s3230);
+            }else if(name.equals(NTMSItems.STOCK_3391.name())) {
+                item = new Stocks(plugin).getItem(Stocks.StockType.s3391);
+            }else if(name.equals(NTMSItems.STOCK_XAUD.name())) {
+                item = new Stocks(plugin).getItem(Stocks.StockType.xaud);
+            }else{
+                item = new ItemStack(Material.BARRIER);
             }
-        }if(args.length ==2) {
-            ItemStack item = null;
-            Stocks stocks = new Stocks(plugin);
-            if (args[0].equals("stock")) {
-                switch (args[1]) {
-                    case "3607" -> item = stocks.getItem(Stocks.StockType.s3607);
-                    case "3230" -> item = stocks.getItem(Stocks.StockType.s3230);
-                    case "3391" -> item = stocks.getItem(Stocks.StockType.s3391);
-                    default -> {
-                        if(args[1].equalsIgnoreCase("xaud")){
-                            item = stocks.getItem(Stocks.StockType.xaud);
-                        }
-                    }
-                }
-                if (item == null) {
-                    player.sendMessage(colors("&6[錯誤] &c找不到該股票喔 &7"+args[1]));
-                    return true;
-                }
-                player.getInventory().addItem(item);
-            }
+            player.getInventory().addItem(item);
         }
         return true;
+    }
+
+    List<String> options;
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        List<String> completions = new ArrayList<>();
+
+        if(args.length == 1) {
+            if(options.isEmpty())
+                generateOptions();
+            StringUtil.copyPartialMatches(args[0],options,completions);
+        }
+        return completions;
+    }
+
+    private void generateOptions() {
+        NTMSItems[] items = NTMSItems.values();
+        for(int i = 0; i < items.length; i++){
+            options.add(items[i].name());
+        }
     }
 }

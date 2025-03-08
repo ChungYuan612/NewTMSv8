@@ -54,7 +54,7 @@ public abstract class NTMSMaterial {
     public abstract MaterailRate getMaterailRate();
 
     public ItemStack toItemStack() {
-        return itemStack;
+        return itemStack.clone();
     }
 
     @Nullable
