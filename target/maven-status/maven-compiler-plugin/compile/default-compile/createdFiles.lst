@@ -1,5 +1,6 @@
 me\cyperion\ntms\Event\RaidEvent.class
 me\cyperion\ntms\Menu\ShopMenu$ShopItem.class
+me\cyperion\ntms\ItemStacks\Item\Emerald_Coins.class
 me\cyperion\ntms\SQL\SQLError\SQLErrors.class
 me\cyperion\ntms\Command\NTMSCommand.class
 me\cyperion\ntms\Class\ClassType.class
@@ -35,9 +36,11 @@ me\cyperion\ntms\NewTMSv8.class
 me\cyperion\ntms\Monster\Creature.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
+me\cyperion\ntms\ItemStacks\NTMSItems.class
 me\cyperion\ntms\ItemStacks\CraftHandler.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial.class
 me\cyperion\ntms\ItemStacks\CraftHandler$1.class
+me\cyperion\ntms\SQL\TradeDatabaseManager.class
 me\cyperion\ntms\Event\PlayerChatHandler.class
 me\cyperion\ntms\Event\PlayerAdvanceDoneHandler.class
 me\cyperion\ntms\Command\ClassCommand.class

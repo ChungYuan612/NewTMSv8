@@ -19,6 +19,7 @@ C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\Ev
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\Event\RaidEvent.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\CraftHandler.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\CraftRecipe.java
+C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Emerald_Coins.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\InfiniteWindCharge.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\JadeCore.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRedstone.java
@@ -29,6 +30,7 @@ C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\It
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\RedWand.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Stocks.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\ItemRegister.java
+C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\NTMSItems.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\Mana.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\ClassSelectMenu.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\Menu.java
@@ -50,4 +52,5 @@ C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\SQ
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\SQL\SQLError\SQLError.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\SQL\SQLError\SQLErrors.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\SQL\SQLite.java
+C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\SQL\TradeDatabaseManager.java
 C:\Users\中原\Documents\JavaProject\NewTMSv8\src\main\java\me\cyperion\ntms\Utils.java

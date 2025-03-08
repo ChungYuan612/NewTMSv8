@@ -1,13 +1,10 @@
 package me.cyperion.ntms.Command;
 
-import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
-import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
-import me.cyperion.ntms.ItemStacks.Item.JadeCore;
+import me.cyperion.ntms.ItemStacks.Item.*;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstone;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstoneBlock;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSeeds;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSugar;
-import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.ItemStacks.NTMSItems;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
@@ -64,7 +61,7 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             String name = args[0];
             ItemStack item;
             if(name.equals(NTMSItems.RED_WAND.name())){
-                item = new InfiniteWindCharge(plugin).toItemStack();
+                item = new RedWand(plugin).toItemStack();
             }else if(name.equals(NTMSItems.JADE_CORE.name())){
                 item = new JadeCore().toItemStack();
             }else if(name.equals(NTMSItems.EMERALD_COINS.name())) {
@@ -95,7 +92,7 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    List<String> options;
+    List<String> options = new ArrayList<>();
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
         List<String> completions = new ArrayList<>();

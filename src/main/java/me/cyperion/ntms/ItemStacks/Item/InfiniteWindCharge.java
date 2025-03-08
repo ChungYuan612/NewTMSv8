@@ -1,7 +1,10 @@
 package me.cyperion.ntms.ItemStacks.Item;
 
 import me.cyperion.ntms.NewTMSv8;
+import net.minecraft.network.protocol.game.PacketPlayOutAnimation;
+import net.minecraft.server.level.EntityPlayer;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_21_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.WindCharge;
 import org.bukkit.event.EventHandler;
@@ -21,7 +24,7 @@ import static me.cyperion.ntms.Utils.colors;
 /**
  * <h2>無限風彈</h2>
  * 簡單做一下物品，還沒有架構<br>
- * 預計售價30萬<br>
+ * 預計售價10萬<br>
  * 關聯只有ItemRegister
  */
 public class InfiniteWindCharge implements Listener {
@@ -79,6 +82,8 @@ public class InfiniteWindCharge implements Listener {
             //扣除魔力
             if(!plugin.getMana().costMana(player,manaCost)) return;
 
+            sendSwingAnimation(player);
+
             //讓玩家丟出風彈
             player.getWorld().spawn(
                     player.getEyeLocation(),
@@ -88,6 +93,14 @@ public class InfiniteWindCharge implements Listener {
             );
             cooldown.replace(uuid,System.currentTimeMillis());
         }
+    }
+
+    private void sendSwingAnimation(Player player) {
+        EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
+        PacketPlayOutAnimation packet = new PacketPlayOutAnimation(entityPlayer, 0); // 0 = 主手揮動
+
+        //entityPlayer.a(packet); // b.a() 用來發送封包
+        player.swingMainHand();
     }
 
 }

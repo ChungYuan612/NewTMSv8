@@ -48,7 +48,7 @@ public class PlayerJoinServerController implements Listener {
             event.setJoinMessage(ChatColor.YELLOW +player.getDisplayName()+ " 加入了台灣ouo " + ChatColor.GREEN + "目前在線人數： (" + Bukkit.getServer().getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() + ")");
         }
 
-        player.setPlayerListHeader(colors("&6&l新台灣地圖伺服器第8季 &r&a版本：JE 1.21.1"));
+        player.setPlayerListHeader(colors("&6&l新台灣地圖伺服器第8季 &r&a版本：JE 1.21.4"));
         player.setPlayerListFooter(colors("&b更多資訊歡迎加入我們的Discord社群!"));
 
         player.sendMessage(colors("&6[NTMS] &a歡迎來到台灣地圖伺服器！/ntms help 可以查詢所有指令"));
