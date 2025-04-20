@@ -58,7 +58,7 @@ public class RaidEvent implements Listener {
                     PotionEffectType.STRENGTH, 1000, 0, false, false));
         }
         int i=random.nextInt(10);
-        if(i < 3){
+        if(i < e.getRaid().getBadOmenLevel()){
             Bukkit.broadcastMessage(colors("&6[突襲資訊] &c注意!突襲出現了一波較強的敵人!"));
             for(Raider raider:e.getRaiders()){
                 raider.addPotionEffect(new PotionEffect(
