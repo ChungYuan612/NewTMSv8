@@ -7,9 +7,8 @@ import me.cyperion.ntms.Command.*;
 import me.cyperion.ntms.Event.*;
 import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
-import me.cyperion.ntms.Menu.MenuListener;
-import me.cyperion.ntms.Menu.PlayerMenuUtility;
-import me.cyperion.ntms.Monster.MonsterRegister;
+import me.cyperion.ntms.Menu.BaseMenu.MenuListener;
+import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.Player.PlayerQuitServer;
@@ -23,17 +22,13 @@ import me.cyperion.ntms.SideBoard.TMWorldTimer;
 import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Utils.colors;
 

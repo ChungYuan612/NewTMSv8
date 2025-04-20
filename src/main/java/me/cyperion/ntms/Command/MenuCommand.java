@@ -1,7 +1,7 @@
 package me.cyperion.ntms.Command;
 
-import me.cyperion.ntms.Menu.Menu;
-import me.cyperion.ntms.Menu.PlayerMenuUtility;
+import me.cyperion.ntms.Menu.BaseMenu.Menu;
+import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.Menu.TWMainMenu;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.command.Command;

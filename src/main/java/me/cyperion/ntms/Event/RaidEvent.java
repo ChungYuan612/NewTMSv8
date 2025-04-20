@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Raid;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Raider;
+import org.bukkit.entity.Warden;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.raid.RaidFinishEvent;
@@ -17,6 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.List;
 import java.util.Random;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -51,15 +53,30 @@ public class RaidEvent implements Listener {
     public void onRaidSpawn(RaidSpawnWaveEvent e){
         //10%機率出超強怪物
         Random random = new Random();
+        for(Raider raider:e.getRaiders()) {
+            raider.addPotionEffect(new PotionEffect(
+                    PotionEffectType.STRENGTH, 1000, 0, false, false));
+        }
         int i=random.nextInt(10);
-        if(i == 0){
+        if(i < 3){
             Bukkit.broadcastMessage(colors("&6[突襲資訊] &c注意!突襲出現了一波較強的敵人!"));
             for(Raider raider:e.getRaiders()){
                 raider.addPotionEffect(new PotionEffect(
                         PotionEffectType.RESISTANCE,1000,2,false,true));
                 raider.addPotionEffect(new PotionEffect(
-                        PotionEffectType.STRENGTH,1000,1,false,false));
+                        PotionEffectType.STRENGTH, 1000, 1, false, false));
                 raider.getLootTable();//TODO 完成可以有額外獎勵的選項
+            }
+
+            //嘗試生成伏守者
+            try{
+                Warden warden = e.getWorld().spawn(e.getRaiders().getFirst().getLocation(), Warden.class);
+                Raider war = (Raider) warden;
+                war.setCanJoinRaid(true);
+                war.setRaid(e.getRaid());
+
+            }catch (Exception error){
+                System.out.println("[伏守者突襲 ERROR]: "+error.toString());
             }
         }
     }
@@ -84,7 +101,7 @@ public class RaidEvent implements Listener {
     private String getAllPlayerString(List<Player> players) {
         StringJoiner herosName = new StringJoiner("&r&f,");
         for (Player p: players) {
-            herosName.add("&r&b"+p.getDisplayName());
+            herosName.add("&r&b"+p.getName());
         }
         return herosName.toString();
     }

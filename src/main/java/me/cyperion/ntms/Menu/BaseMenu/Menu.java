@@ -1,4 +1,4 @@
-package me.cyperion.ntms.Menu;
+package me.cyperion.ntms.Menu.BaseMenu;
 
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;

@@ -1,6 +1,8 @@
 package me.cyperion.ntms.Menu;
 
 import me.cyperion.ntms.Class.ClassType;
+import me.cyperion.ntms.Menu.BaseMenu.Menu;
+import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
 import org.bukkit.Material;
@@ -18,7 +20,7 @@ import static me.cyperion.ntms.Utils.colors;
  * 職業選擇介面 目前2個職業而已<br>
  * 關聯：/class指令註冊
  */
-public class ClassSelectMenu extends Menu{
+public class ClassSelectMenu extends Menu {
     ItemStack terminator,explosion;
 
     public ClassSelectMenu(PlayerMenuUtility utility, NewTMSv8 plugin) {
