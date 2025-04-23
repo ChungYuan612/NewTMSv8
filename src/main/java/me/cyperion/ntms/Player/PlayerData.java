@@ -22,6 +22,8 @@ public class PlayerData {
      */
     private double maxMana,mana,manaReg;
 
+    public static final int DEFAULT_MAX_MANA=50;
+
     //職業，沒有的話為None
     private ClassType classType;
 

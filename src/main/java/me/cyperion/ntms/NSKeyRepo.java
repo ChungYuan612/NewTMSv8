@@ -29,6 +29,8 @@ public class NSKeyRepo {
     public final String KEY_ITEM_STOCK_ID = "item_stock_id";
     public final String KEY_ITEM_STOCK_LAST_REWARD = "item_stock_last_reward";
 
+    public final String KEY_ARMOR_MANA_ADD = "key_armor_mana_add";
+
 
     public NSKeyRepo() {
         this.keyMap = new HashMap<>();
@@ -71,6 +73,9 @@ public class NSKeyRepo {
         //int
         keyMap.put(KEY_PD_TOTAL_SIGNIN_COUNT, NamespacedKey.minecraft(KEY_PD_TOTAL_SIGNIN_COUNT));
         //int
+
+        keyMap.put(KEY_ARMOR_MANA_ADD, NamespacedKey.minecraft(KEY_ARMOR_MANA_ADD));
+        //int 魔力回復的裝備標籤
 
 
     }

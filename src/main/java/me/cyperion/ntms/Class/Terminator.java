@@ -53,8 +53,9 @@ public class Terminator extends Class implements Listener {
             return;
         }
 
-        if(event.getAction() == Action.LEFT_CLICK_BLOCK
-         || event.getAction() == Action.LEFT_CLICK_AIR) {
+        Action action = event.getAction();
+        if(action == Action.LEFT_CLICK_BLOCK
+         || action == Action.LEFT_CLICK_AIR) {
             //確定點擊左鍵
             if(player.getInventory()
                     .getItemInMainHand().getType()

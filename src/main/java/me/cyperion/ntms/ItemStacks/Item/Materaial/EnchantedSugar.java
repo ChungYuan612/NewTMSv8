@@ -12,7 +12,7 @@ import java.util.List;
 import static me.cyperion.ntms.Utils.colors;
 
 /**
- * 附魔蔗糖物件
+ * 附魔蔗糖物件 目前無法合成
  */
 public class EnchantedSugar extends NTMSMaterial {
 

@@ -37,7 +37,9 @@ me\cyperion\ntms\NewTMSv8.class
 me\cyperion\ntms\Monster\Creature.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
+me\cyperion\ntms\ItemStacks\Item\Materaial\ReinfinedLapis.class
 me\cyperion\ntms\Menu\BaseMenu\Menu.class
+me\cyperion\ntms\ItemStacks\Armors\LapisArmor.class
 me\cyperion\ntms\ItemStacks\NTMSItems.class
 me\cyperion\ntms\ItemStacks\CraftHandler.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial.class

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import static me.cyperion.ntms.Utils.colors;
 
 /**
- * 碎玉核心。<br>
- * 關聯：PlayerFishEvent註冊和/admin jade取得
+ * 綠報時貨幣。<br>
+ * 關聯：/admin emerald取得
  */
 public class Emerald_Coins{
     ItemStack item;

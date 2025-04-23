@@ -1,10 +1,8 @@
 package me.cyperion.ntms.Command;
 
+import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
 import me.cyperion.ntms.ItemStacks.Item.*;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstone;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstoneBlock;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSeeds;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSugar;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.NTMSItems;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
@@ -25,6 +23,8 @@ import static me.cyperion.ntms.Utils.colors;
 
 /**
  * /Admin 管理員專用指令 使用方法請看說明書
+ * /admin 取得詳細資訊
+ * /admin <ItemName> 取得該物品
  */
 public class AdminCommand implements CommandExecutor, TabCompleter {
 
@@ -84,10 +84,20 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
                 item = new Stocks(plugin).getItem(Stocks.StockType.s3391);
             }else if(name.equals(NTMSItems.STOCK_XAUD.name())) {
                 item = new Stocks(plugin).getItem(Stocks.StockType.xaud);
+            }else if(name.equals(NTMSItems.REINFINED_LAPIS.name())) {
+                item = new ReinfinedLapis(plugin).toItemStack();
             }else{
+                if(name.equals(NTMSItems.LAPIS_ARMOR.name())) {
+                    ItemStack[] items = new LapisArmor(plugin).getItemStacks();
+                    for(ItemStack i : items){
+                        player.getInventory().addItem(i);
+                    }
+                    return true;
+                }
                 item = new ItemStack(Material.BARRIER);
             }
             player.getInventory().addItem(item);
+            player.sendMessage("&a已給予 &2"+name);
         }
         return true;
     }

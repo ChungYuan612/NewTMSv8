@@ -7,6 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ import java.util.List;
 
 import static me.cyperion.ntms.Utils.colors;
 
+/**
+ * 目前無法合成
+ */
 public class EnchantedSeeds extends NTMSMaterial {
 
     public EnchantedSeeds(NewTMSv8 plugin) {
@@ -63,4 +67,13 @@ public class EnchantedSeeds extends NTMSMaterial {
         );
         return recipe;
     }
+
+    @Override
+    public ShapedRecipe toNMSRecipe() {
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"EnchantedSeeds"),this.toItemStack());
+        recipe.shape("xxx","xxx","   ");
+        recipe.setIngredient('x',Material.REDSTONE_BLOCK);
+        return recipe;
+    }
 }
+
