@@ -9,6 +9,7 @@ import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
 import me.cyperion.ntms.Menu.BaseMenu.MenuListener;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
+import me.cyperion.ntms.Monster.MonsterRegister;
 import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.Player.PlayerQuitServer;
@@ -146,8 +147,8 @@ public final class NewTMSv8 extends JavaPlugin {
         this.craftHandler = new CraftHandler(this);
         getServer().getPluginManager().registerEvents(craftHandler,this);
 
-        //Monster 目前關閉
-        //this.getServer().getPluginManager().registerEvents(new MonsterRegister(this),this);
+        //Monster 目前關閉 只開啟突襲的部分
+        this.getServer().getPluginManager().registerEvents(new MonsterRegister(this),this);
 
         ItemRegister register = new ItemRegister(this);
 

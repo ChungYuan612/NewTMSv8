@@ -1,5 +1,7 @@
 package me.cyperion.ntms.Monster;
 
+import me.cyperion.ntms.Event.RaidEvent;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,15 +28,22 @@ import static me.cyperion.ntms.Utils.colors;
 public class MonsterRegister implements Listener {
     public static HashMap<LivingEntity,Creature> twMobs = new HashMap<>();
     private NewTMSv8 plugin;
+    private boolean customMobSpawn = false;
+    private LootItem raidLapis;//突襲掉落物 先放這裡
 
     public MonsterRegister(NewTMSv8 plugin) {
         this.plugin = plugin;
 
+        //突襲掉落物 先放這裡
+        raidLapis = new LootItem(new ReinfinedLapis(plugin).toItemStack(),1,2,3);
     }
+
 
     @EventHandler
     public void onMobSpawning(CreatureSpawnEvent event){
-        if(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)){
+
+
+        if(customMobSpawn && event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)){
             LivingEntity entity = event.getEntity();
             Location location = entity.getLocation();
             Location check = location.clone();
@@ -70,6 +79,12 @@ public class MonsterRegister implements Listener {
 
     @EventHandler
     public void onMobDeathing(EntityDeathEvent event) {
+        if(event.getEntity().hasMetadata(RaidEvent.META_RAID_BUFF)){
+            event.getDrops().clear();
+            raidLapis.tryDropLoot(event.getEntity().getLocation());
+            return;
+        }
+        if(!customMobSpawn) return;
         if (!twMobs.containsKey(event.getEntity())) return;
         event.getDrops().clear();
         Creature mob = twMobs.get(event.getEntity());

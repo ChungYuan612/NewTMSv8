@@ -12,6 +12,7 @@ public interface PieceFullBouns {
      * 需自行檢查是否沒有裝備(null)
      */
     void checkAllArmor(Player player, ItemStack[] armors);
+
     boolean isFullSet(ItemStack[] armors);
 
     void addFullBouns(NewTMSv8 plugin, Player player);

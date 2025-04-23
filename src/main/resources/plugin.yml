@@ -9,7 +9,7 @@ commands:
     usage: /admin
   warp:
     description: 可以傳送到 資源界/床重生點/台灣
-    usage: /warp <rs/bed/tw>
+    usage: /warp <rs/bed/tw/end>
   enderchest:
     description: 可以隨時隨地開啟終界箱
     usage: /enderchest
@@ -29,5 +29,6 @@ commands:
     description: 每次開啟伺服器時，都可以簽到，獲得不一定的現金。
   pay:
     description: 可以給予其他玩家錢的指令
+    usage: /pay <玩家名稱> <金額>
   class:
     description: 選擇玩家職業的指令

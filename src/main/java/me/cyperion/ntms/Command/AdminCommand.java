@@ -97,7 +97,7 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
                 item = new ItemStack(Material.BARRIER);
             }
             player.getInventory().addItem(item);
-            player.sendMessage("&a已給予 &2"+name);
+            player.sendMessage(colors("&a已給予 &2"+name));
         }
         return true;
     }

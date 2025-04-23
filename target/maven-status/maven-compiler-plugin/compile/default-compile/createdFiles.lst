@@ -10,6 +10,7 @@ me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSugar.class
 me\cyperion\ntms\Menu\ShopMenu.class
 me\cyperion\ntms\SQL\SQLError\SQLError.class
 me\cyperion\ntms\Command\TpaCommand.class
+me\cyperion\ntms\ItemStacks\Armors\PieceFullBouns.class
 me\cyperion\ntms\Monster\MonsterRegister.class
 me\cyperion\ntms\Command\PayCommand.class
 me\cyperion\ntms\Event\DamageIcon.class
@@ -37,6 +38,7 @@ me\cyperion\ntms\NewTMSv8.class
 me\cyperion\ntms\Monster\Creature.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
+me\cyperion\ntms\ItemStacks\ItemRegister$1.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\ReinfinedLapis.class
 me\cyperion\ntms\Menu\BaseMenu\Menu.class
 me\cyperion\ntms\ItemStacks\Armors\LapisArmor.class

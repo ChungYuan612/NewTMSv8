@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Class;
 
+import me.cyperion.ntms.ItemStacks.Item.RedWand;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -27,7 +28,7 @@ public class Explosion extends Class implements Listener {
     public void onPlayerExplosionReady(PlayerInteractEvent event){
         if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
             Player player = event.getPlayer();
-            ItemStack wand  = null;//TODO 紅魔法杖
+            ItemStack wand  = new RedWand(plugin).toItemStack();//TODO 紅魔法杖
             if(player.getInventory().getItemInMainHand().equals(wand)){
 
             }

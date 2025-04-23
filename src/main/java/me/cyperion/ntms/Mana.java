@@ -34,8 +34,9 @@ public class Mana extends BukkitRunnable {
     public void regenMana(Player player){
         double maxMana = plugin.getPlayerData(player).getMaxMana();
         double mana = plugin.getPlayerData(player).getMana();
+        double manaReg = plugin.getPlayerData(player).getManaReg();
         if(!hasMaxMana(player)){
-            float regMana = 1f;
+            double regMana = manaReg;
             //這裡之後處理回復魔力速度增快的程式
             //目前先一秒回復一點
 

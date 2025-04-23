@@ -6,12 +6,15 @@ import org.bukkit.Location;
 import org.bukkit.Raid;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Raider;
+import org.bukkit.entity.Ravager;
 import org.bukkit.entity.Warden;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.raid.RaidFinishEvent;
 import org.bukkit.event.raid.RaidSpawnWaveEvent;
 import org.bukkit.event.raid.RaidTriggerEvent;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -32,6 +35,7 @@ public class RaidEvent implements Listener {
 
     private int RaidBouns = 4000;
     private int RaidBounsPerLevel = 400;
+    public static final String META_RAID_BUFF = "raid_buff";
 
     public RaidEvent(NewTMSv8 plugin) {
         this.plugin = plugin;
@@ -67,17 +71,22 @@ public class RaidEvent implements Listener {
                         PotionEffectType.STRENGTH, 1000, 1, false, false));
                 raider.getLootTable();//TODO 完成可以有額外獎勵的選項
             }
+            trySpawnBuffRaider(e.getRaid(),1,e.getRaid().getLocation());
 
-            //嘗試生成伏守者
-            try{
-                Warden warden = e.getWorld().spawn(e.getRaiders().getFirst().getLocation(), Warden.class);
-                Raider war = (Raider) warden;
-                war.setCanJoinRaid(true);
-                war.setRaid(e.getRaid());
+        }
+    }
 
-            }catch (Exception error){
-                System.out.println("[伏守者突襲 ERROR]: "+error.toString());
-            }
+    private void trySpawnBuffRaider(Raid raid,int amount, Location location){
+
+        //嘗試生成劫毀獸
+        try{
+            Raider ravager = location.getWorld().spawn(location, Ravager.class);
+            ravager.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
+            ravager.setCanJoinRaid(true);
+            ravager.setRaid(raid);
+
+        }catch (Exception error){
+            System.out.println("[伏守者突襲 ERROR]: "+error.toString());
         }
     }
 
