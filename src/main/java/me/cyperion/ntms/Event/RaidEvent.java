@@ -4,10 +4,7 @@ import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Raid;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Raider;
-import org.bukkit.entity.Ravager;
-import org.bukkit.entity.Warden;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.raid.RaidFinishEvent;
@@ -57,10 +54,7 @@ public class RaidEvent implements Listener {
     public void onRaidSpawn(RaidSpawnWaveEvent e){
         //10%機率出超強怪物
         Random random = new Random();
-        for(Raider raider:e.getRaiders()) {
-            raider.addPotionEffect(new PotionEffect(
-                    PotionEffectType.STRENGTH, 1000, 0, false, false));
-        }
+        trySpawnMoreRaider(e.getRaid(),e.getRaid().getBadOmenLevel(),e.getRaid().getLocation());
         int i=random.nextInt(10);
         if(i < e.getRaid().getBadOmenLevel()){
             Bukkit.broadcastMessage(colors("&6[突襲資訊] &c注意!突襲出現了一波較強的敵人!"));
@@ -69,25 +63,62 @@ public class RaidEvent implements Listener {
                         PotionEffectType.RESISTANCE,1000,2,false,true));
                 raider.addPotionEffect(new PotionEffect(
                         PotionEffectType.STRENGTH, 1000, 1, false, false));
-                raider.getLootTable();//TODO 完成可以有額外獎勵的選項
-            }
-            trySpawnBuffRaider(e.getRaid(),1,e.getRaid().getLocation());
 
+            }
+            trySpawnBuffRaider(e.getRaid(),e.getRaid().getBadOmenLevel(),e.getRaid().getLocation());
+
+
+        }else{
+            for(Raider raider:e.getRaiders()) {
+                raider.addPotionEffect(new PotionEffect(
+                        PotionEffectType.STRENGTH, 1000, 0, false, false));
+            }
         }
+
+    }
+
+    private void trySpawnMoreRaider(Raid raid, int amount, Location location) {
+        for(int i = 0 ; i<amount;i++)
+            //嘗試生成劫毀獸、幻術師
+            try{
+                Raider raider;
+                raider = location.getWorld().spawn(location, Pillager.class);
+                raider.addPotionEffect(
+                        new PotionEffect(PotionEffectType.STRENGTH,
+                                1000, 0, false, false));
+
+                raider.setCanJoinRaid(true);
+                raider.setRaid(raid);
+
+            }catch (Exception error){
+                System.out.println("[突襲突襲 ERROR]: "+error.toString());
+            }
     }
 
     private void trySpawnBuffRaider(Raid raid,int amount, Location location){
+        for(int i = 0 ; i<amount;i++)
+            //嘗試生成劫毀獸、幻術師
+            try{
+                Raider raider;
+                if(i%2==0)
+                    raider = location.getWorld().spawn(location, Ravager.class);
+                else
+                    raider = location.getWorld().spawn(location, Illusioner.class);
+                raider.addPotionEffect(
+                        new PotionEffect(PotionEffectType.RESISTANCE,
+                                1000,3,false,true)
+                );
+                raider.addPotionEffect(
+                        new PotionEffect(PotionEffectType.STRENGTH,
+                                1000, 2, false, false));
 
-        //嘗試生成劫毀獸
-        try{
-            Raider ravager = location.getWorld().spawn(location, Ravager.class);
-            ravager.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
-            ravager.setCanJoinRaid(true);
-            ravager.setRaid(raid);
+                raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
+                raider.setCanJoinRaid(true);
+                raider.setRaid(raid);
 
-        }catch (Exception error){
-            System.out.println("[伏守者突襲 ERROR]: "+error.toString());
-        }
+            }catch (Exception error){
+                System.out.println("[突襲突襲 ERROR]: "+error.toString());
+            }
     }
 
     @EventHandler

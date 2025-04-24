@@ -27,9 +27,9 @@ import static me.cyperion.ntms.Utils.colors;
  */
 public class MonsterRegister implements Listener {
     public static HashMap<LivingEntity,Creature> twMobs = new HashMap<>();
-    private NewTMSv8 plugin;
-    private boolean customMobSpawn = false;
-    private LootItem raidLapis;//突襲掉落物 先放這裡
+    private final NewTMSv8 plugin;
+    private final boolean customMobSpawn = false;
+    private final LootItem raidLapis;//突襲掉落物 先放這裡
 
     public MonsterRegister(NewTMSv8 plugin) {
         this.plugin = plugin;

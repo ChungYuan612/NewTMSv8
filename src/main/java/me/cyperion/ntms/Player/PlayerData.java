@@ -55,37 +55,37 @@ public class PlayerData {
 
         //確認玩家有沒有NSKey，沒有就幫他裝新的
         if( !container.has(
-                repo.getKey(repo.KEY_PD_MAX_MANA))
+                repo.getKey(NSKeyRepo.KEY_PD_MAX_MANA))
         ){
             //使用數值MANA有無存在來判斷這個玩家是不是有特殊數值，或者是剛開始加入的
-            container.set(repo.getKey(repo.KEY_PD_MAX_MANA),
+            container.set(repo.getKey(NSKeyRepo.KEY_PD_MAX_MANA),
                     PersistentDataType.DOUBLE,Mana.defaultMaxMana);
-            container.set(repo.getKey(repo.KEY_PD_MANA_REG),
+            container.set(repo.getKey(NSKeyRepo.KEY_PD_MANA_REG),
                     PersistentDataType.DOUBLE,1.0);
-            container.set(repo.getKey(repo.KEY_PD_MANA),
+            container.set(repo.getKey(NSKeyRepo.KEY_PD_MANA),
                     PersistentDataType.DOUBLE,0.0);
         }
 
         this.allowOverMana = checkAndSetData(repo.getKey(repo.KEY_PD_ALLOW_OVER_MANA),false);
 
-        this.maxMana = checkAndSetData(repo.getKey(repo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
-        this.manaReg = checkAndSetData(repo.getKey(repo.KEY_PD_MANA_REG),1.0);
-        this.mana = checkAndSetData(repo.getKey(repo.KEY_PD_MANA),0.0);
-        this.showMana = checkAndSetData(repo.getKey(repo.KEY_PD_SHOW_MANA),true);
+        this.maxMana = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
+        this.manaReg = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_MANA_REG),1.0);
+        this.mana = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_MANA),0.0);
+        this.showMana = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_SHOW_MANA),true);
 
-        this.classType = ClassType.valueOf(checkAndSetData(repo.getKey(repo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString()));
+        this.classType = ClassType.valueOf(checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_CLASS_TYPE),ClassType.NONE.toString()));
 
-        this.perkFirst = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_FIRST),0);
-        this.perkSecond = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_SECOND),0);
-        this.perkThird = checkAndSetData(repo.getKey(repo.KEY_PD_PERK_THIRD),0);
+        this.perkFirst = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_PERK_FIRST),0);
+        this.perkSecond = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_PERK_SECOND),0);
+        this.perkThird = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_PERK_THIRD),0);
 
-        this.advancePoint = checkAndSetData(repo.getKey(repo.KEY_PD_ADVANCE_POINT),0);
-        this.luck = checkAndSetData(repo.getKey(repo.KEY_PD_LUCK),0.0);
-        this.signinCount = checkAndSetData(repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),0);
+        this.advancePoint = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_ADVANCE_POINT),0);
+        this.luck = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_LUCK),0.0);
+        this.signinCount = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_TOTAL_SIGNIN_COUNT),0);
 
-        this.raidPoint = checkAndSetData(repo.getKey(repo.KEY_PD_RAID_POINT),0);
+        this.raidPoint = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_RAID_POINT),0);
         //---更新區---
-        String updateKey = repo.KEY_PD_RAID_POINT;//這個做為之後更新時的地方
+        String updateKey = NSKeyRepo.KEY_PD_RAID_POINT;//這個做為之後更新時的地方
         if( container.has(
                 repo.getKey(updateKey))
         ){
@@ -200,14 +200,14 @@ public class PlayerData {
     public double getMaxMana() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_MAX_MANA),PersistentDataType.DOUBLE
+                repo.getKey(NSKeyRepo.KEY_PD_MAX_MANA),PersistentDataType.DOUBLE
         );
     }
 
     public void setMaxMana(double maxMana) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_MAX_MANA),PersistentDataType.DOUBLE,maxMana
+                repo.getKey(NSKeyRepo.KEY_PD_MAX_MANA),PersistentDataType.DOUBLE,maxMana
         );
     }
 
@@ -221,14 +221,14 @@ public class PlayerData {
     public double getMana() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_MANA),PersistentDataType.DOUBLE
+                repo.getKey(NSKeyRepo.KEY_PD_MANA),PersistentDataType.DOUBLE
         );
     }
 
     public void setMana(double mana) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_MANA),PersistentDataType.DOUBLE,mana
+                repo.getKey(NSKeyRepo.KEY_PD_MANA),PersistentDataType.DOUBLE,mana
         );
     }
 
@@ -237,14 +237,14 @@ public class PlayerData {
     public double getManaReg() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_MANA_REG),PersistentDataType.DOUBLE
+                repo.getKey(NSKeyRepo.KEY_PD_MANA_REG),PersistentDataType.DOUBLE
         );
     }
 
     public void setManaReg(double manaReg) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_MANA_REG),PersistentDataType.DOUBLE,manaReg
+                repo.getKey(NSKeyRepo.KEY_PD_MANA_REG),PersistentDataType.DOUBLE,manaReg
         );
     }
 
@@ -252,14 +252,14 @@ public class PlayerData {
     public boolean isAllowOverMana() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_ALLOW_OVER_MANA),PersistentDataType.BOOLEAN
+                repo.getKey(NSKeyRepo.KEY_PD_ALLOW_OVER_MANA),PersistentDataType.BOOLEAN
         );
     }
 
     public void setAllowOverMana(boolean allowOverMana) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_ALLOW_OVER_MANA),PersistentDataType.BOOLEAN,allowOverMana
+                repo.getKey(NSKeyRepo.KEY_PD_ALLOW_OVER_MANA),PersistentDataType.BOOLEAN,allowOverMana
         );
     }
 
@@ -269,7 +269,7 @@ public class PlayerData {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return ClassType.valueOf(
                 getPlayerPesistentData().get(
-                        repo.getKey(repo.KEY_PD_CLASS_TYPE),PersistentDataType.STRING
+                        repo.getKey(NSKeyRepo.KEY_PD_CLASS_TYPE),PersistentDataType.STRING
                 )
         );
     }
@@ -277,7 +277,7 @@ public class PlayerData {
     public void setClassType(ClassType classType) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_CLASS_TYPE),PersistentDataType.STRING,classType.name()
+                repo.getKey(NSKeyRepo.KEY_PD_CLASS_TYPE),PersistentDataType.STRING,classType.name()
         );
     }
 
@@ -286,14 +286,14 @@ public class PlayerData {
     public boolean getShowManaOnActionbar() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_SHOW_MANA),PersistentDataType.BOOLEAN
+                repo.getKey(NSKeyRepo.KEY_PD_SHOW_MANA),PersistentDataType.BOOLEAN
         );
     }
 
     public void setShowManaOnActionbar(boolean showMana) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_SHOW_MANA),PersistentDataType.BOOLEAN, showMana
+                repo.getKey(NSKeyRepo.KEY_PD_SHOW_MANA),PersistentDataType.BOOLEAN, showMana
         );
     }
 
@@ -302,21 +302,21 @@ public class PlayerData {
     public int getRaidPoint() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER
+                repo.getKey(NSKeyRepo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER
         );
     }
 
     public void setRaidPoint(int integer) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER, integer
+                repo.getKey(NSKeyRepo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER, integer
         );
     }
 
     public void addRaidPoint(int integer) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER,getRaidPoint() + integer
+                repo.getKey(NSKeyRepo.KEY_PD_RAID_POINT),PersistentDataType.INTEGER,getRaidPoint() + integer
         );
     }
 
@@ -325,21 +325,21 @@ public class PlayerData {
     public double getLuck() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_LUCK),PersistentDataType.DOUBLE
+                repo.getKey(NSKeyRepo.KEY_PD_LUCK),PersistentDataType.DOUBLE
         );
     }
 
     public void setLuck(double v) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_LUCK),PersistentDataType.DOUBLE, v
+                repo.getKey(NSKeyRepo.KEY_PD_LUCK),PersistentDataType.DOUBLE, v
         );
     }
 
     public void addLuck(double v) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_LUCK),PersistentDataType.DOUBLE,getLuck() + v
+                repo.getKey(NSKeyRepo.KEY_PD_LUCK),PersistentDataType.DOUBLE,getLuck() + v
         );
     }
 
@@ -348,21 +348,21 @@ public class PlayerData {
     public int getSignInCount() {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         return getPlayerPesistentData().get(
-                repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER
+                repo.getKey(NSKeyRepo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER
         );
     }
 
     public void setSignInCount(int v) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER, v
+                repo.getKey(NSKeyRepo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER, v
         );
     }
 
     public void addSignInCount(int v) {
         NSKeyRepo repo = this.plugin.getNsKeyRepo();
         this.getPlayerPesistentData().set(
-                repo.getKey(repo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER,getSignInCount() + v
+                repo.getKey(NSKeyRepo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER,getSignInCount() + v
         );
     }
 

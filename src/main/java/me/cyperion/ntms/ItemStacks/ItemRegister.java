@@ -50,7 +50,7 @@ public class ItemRegister {
                 registerPieceorFullBouns();
             }
         };
-        runnable.runTaskTimer(plugin,0L,30L);
+        runnable.runTaskTimer(plugin,0L,10L);
     }
 
     private void registCraftItem() {

@@ -2,6 +2,7 @@ package me.cyperion.ntms.ItemStacks.Armors;
 
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
 import me.cyperion.ntms.Mana;
+import me.cyperion.ntms.NSKeyRepo;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
 import org.bukkit.Color;
@@ -15,15 +16,18 @@ import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static me.cyperion.ntms.Utils.colors;
 
 public class LapisArmor implements PieceFullBouns , Listener {
 
-    private NewTMSv8 plugin;
+    private final NewTMSv8 plugin;
     private ItemStack[] itemStack=new ItemStack[4];
     int[] manaAddRate = new int[]{10,20,15,5};
     int[] armors = new int[]{4,7,5,4};
@@ -33,6 +37,7 @@ public class LapisArmor implements PieceFullBouns , Listener {
             EquipmentSlotGroup.LEGS,
             EquipmentSlotGroup.FEET
     };
+    public static final String ARMOR_FAMILY_LAPIS = "armor_family_lapis";
 
     public LapisArmor(NewTMSv8 plugin) {
         this.plugin = plugin;
@@ -58,16 +63,20 @@ public class LapisArmor implements PieceFullBouns , Listener {
             lapis.setUnbreakable(true);
             lapis.addAttributeModifier(Attribute.ARMOR,
                     new AttributeModifier(
-                            new NamespacedKey(plugin,"armor_add"),
+                            new NamespacedKey(plugin,"armor_add"+ UUID.randomUUID()),
                             armors[i], AttributeModifier.Operation.ADD_NUMBER, solts[i]));
             lapis.addAttributeModifier(Attribute.ARMOR_TOUGHNESS,
                     new AttributeModifier(
-                            new NamespacedKey(plugin,"armor_touchness_add"),
+                            new NamespacedKey(plugin,"armor_touchness_add"+ UUID.randomUUID()),
                             2, AttributeModifier.Operation.ADD_NUMBER, solts[i]));
             PersistentDataContainer container = lapis.getPersistentDataContainer();
             container.set(
-                    plugin.getNsKeyRepo().getKey(plugin.getNsKeyRepo().KEY_ARMOR_MANA_ADD)
+                    plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_MANA_ADD)
                     , PersistentDataType.INTEGER, manaAddRate[i]);
+
+            container.set(
+                    plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_NAME)
+                    , PersistentDataType.STRING, ARMOR_FAMILY_LAPIS);
 
             itemStack[i].setItemMeta(lapis);
         }
@@ -105,28 +114,28 @@ public class LapisArmor implements PieceFullBouns , Listener {
     public ShapedRecipe[] toNMSRecipe(){
         ItemStack item = new ReinfinedLapis(plugin).toItemStack();
         ShapedRecipe[] recipes = new ShapedRecipe[4];
-        recipes[0] = new ShapedRecipe(new NamespacedKey(plugin,"LapisHelmet"),itemStack[0]);
+        recipes[0] = new ShapedRecipe(new NamespacedKey(plugin,"LapisHelmet"),itemStack[0].clone());
         recipes[0].shape(
                 "XXX",
                 "X X",
                 "   ");
         recipes[0].setIngredient('X', new RecipeChoice.ExactChoice(item.clone()));
 
-        recipes[1] = new ShapedRecipe(new NamespacedKey(plugin,"LapisChestplate"),itemStack[1]);
+        recipes[1] = new ShapedRecipe(new NamespacedKey(plugin,"LapisChestplate"),itemStack[1].clone());
         recipes[1].shape(
                 "X X",
                 "XXX",
                 "XXX");
         recipes[1].setIngredient('X', new RecipeChoice.ExactChoice(item.clone()));
 
-        recipes[2] = new ShapedRecipe(new NamespacedKey(plugin,"LapisLeggings"),itemStack[2]);
+        recipes[2] = new ShapedRecipe(new NamespacedKey(plugin,"LapisLeggings"),itemStack[2].clone());
         recipes[2].shape(
                 "XXX",
                 "X X",
                 "X X");
         recipes[2].setIngredient('X', new RecipeChoice.ExactChoice(item.clone()));
 
-        recipes[3] = new ShapedRecipe(new NamespacedKey(plugin,"LapisBoots"),itemStack[3]);
+        recipes[3] = new ShapedRecipe(new NamespacedKey(plugin,"LapisBoots"),itemStack[3].clone());
         recipes[3].shape(
                 "X X",
                 "X X",
@@ -143,23 +152,34 @@ public class LapisArmor implements PieceFullBouns , Listener {
             if(armors[i] != null) {
                 if (armors[i].hasItemMeta()
                         && armors[i].getItemMeta().getPersistentDataContainer().has(
-                        plugin.getNsKeyRepo().getKey(plugin.getNsKeyRepo().KEY_ARMOR_MANA_ADD)))
+                        plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_MANA_ADD)))
                     manaAdd += armors[i].getItemMeta()
                             .getPersistentDataContainer().get(
                                     plugin.getNsKeyRepo().getKey
-                                            (plugin.getNsKeyRepo().KEY_ARMOR_MANA_ADD),
+                                            (NSKeyRepo.KEY_ARMOR_MANA_ADD),
                                     PersistentDataType.INTEGER);
             }
         }
-        if(manaAdd > 0 &&
-                manaAdd != plugin.getPlayerData(player).getMaxMana() - Mana.defaultMaxMana)
+        if(manaAdd != plugin.getPlayerData(player).getMaxMana() - Mana.defaultMaxMana)
             plugin.getPlayerData(player).setMaxMana(manaAdd + Mana.defaultMaxMana);
     }
 
     @Override
     public boolean isFullSet(ItemStack[] armors) {
+        boolean pass = false;
         for(int i = 0;i<4;i++){
-            if(armors[i] == null || !armors[i].isSimilar(itemStack[i])){
+            if(armors[i] == null
+                    || !armors[i].hasItemMeta()
+                    || !armors[i].getItemMeta().getPersistentDataContainer().has(
+                    plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_NAME))
+                    || !armors[i].getItemMeta().getPersistentDataContainer().get(
+                                   plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_NAME)
+                            ,PersistentDataType.STRING).equals(ARMOR_FAMILY_LAPIS)
+            ) {
+                //是不是Null
+                //有無ItemMeta
+                //有無NSkey(特殊裝備)
+                //是不是青金石裝備
                 return false;
             }
         }
@@ -170,18 +190,31 @@ public class LapisArmor implements PieceFullBouns , Listener {
     public void addFullBouns(NewTMSv8 plugin,Player player) {
         //這裡先直接指定用 TODO
         if(player.isSneaking()) {
-            if (plugin.getPlayerData(player).getManaReg() == 1)
+            if (plugin.getPlayerData(player).getManaReg() == 1){
                 plugin.getPlayerData(player).setManaReg(2);
-        }else if (plugin.getPlayerData(player).getManaReg() == 2)
+                player.addPotionEffect(
+                        new PotionEffect(PotionEffectType.SLOWNESS,1000,3,true)
+                );
+            }
+
+        }else if (plugin.getPlayerData(player).getManaReg() == 2){
             plugin.getPlayerData(player).setManaReg(1);
+            if(player.hasPotionEffect(PotionEffectType.SLOWNESS)
+                    && player.getPotionEffect(PotionEffectType.SLOWNESS).getAmplifier() == 3)
+                player.removePotionEffect(PotionEffectType.SLOWNESS);
+        }
+
 
     }
     @Override
     public void removeFullBouns(NewTMSv8 plugin,Player player) {
         //這裡直接指定用 TODO
-        if(plugin.getPlayerData(player).getManaReg() == 2)
+        if(plugin.getPlayerData(player).getManaReg() == 2){
             plugin.getPlayerData(player).setManaReg(1);
-
+            if(player.hasPotionEffect(PotionEffectType.SLOWNESS)
+                    && player.getPotionEffect(PotionEffectType.SLOWNESS).getAmplifier() == 3)
+                player.removePotionEffect(PotionEffectType.SLOWNESS);
+        }
     }
 
 }
