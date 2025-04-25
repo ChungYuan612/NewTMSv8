@@ -35,7 +35,7 @@ public class MonsterRegister implements Listener {
         this.plugin = plugin;
 
         //突襲掉落物 先放這裡
-        raidLapis = new LootItem(new ReinfinedLapis(plugin).toItemStack(),1,2,3);
+        raidLapis = new LootItem(new ReinfinedLapis(plugin).toItemStack(),1,1,2);
     }
 
 
