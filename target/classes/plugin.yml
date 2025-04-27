@@ -1,5 +1,5 @@
 name: NewTMSv8
-version: '8.2.0'
+version: '8.2.1'
 main: me.cyperion.ntms.NewTMSv8
 softdepend: [Vault]
 api-version: '1.21'
@@ -32,3 +32,6 @@ commands:
     usage: /pay <玩家名稱> <金額>
   class:
     description: 選擇玩家職業的指令
+    usage: /class
+  sign:
+    description: 物品簽名(特殊物品)

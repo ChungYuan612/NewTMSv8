@@ -32,3 +32,6 @@ commands:
     usage: /pay <玩家名稱> <金額>
   class:
     description: 選擇玩家職業的指令
+    usage: /class
+  sign:
+    description: 物品簽名(特殊物品)

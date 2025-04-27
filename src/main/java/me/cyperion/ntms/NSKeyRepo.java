@@ -28,6 +28,7 @@ public class NSKeyRepo {
 
     public static final String KEY_ITEM_STOCK_ID = "item_stock_id";
     public static final String KEY_ITEM_STOCK_LAST_REWARD = "item_stock_last_reward";
+    public static final String KEY_ITEM_SIGNED_NAME = "item_signed_name";//TODO
 
     public static final String KEY_ARMOR_NAME = "key_armor_name";
     public static final String KEY_ARMOR_MANA_ADD = "key_armor_mana_add";
@@ -72,6 +73,8 @@ public class NSKeyRepo {
         //string
         keyMap.put(KEY_ITEM_STOCK_LAST_REWARD, NamespacedKey.minecraft(KEY_ITEM_STOCK_LAST_REWARD));
         //int
+        keyMap.put(KEY_ITEM_SIGNED_NAME, NamespacedKey.minecraft(KEY_ITEM_SIGNED_NAME));
+        //string 標籤簽名
         keyMap.put(KEY_PD_TOTAL_SIGNIN_COUNT, NamespacedKey.minecraft(KEY_PD_TOTAL_SIGNIN_COUNT));
         //int
 
@@ -79,6 +82,8 @@ public class NSKeyRepo {
         //string 裝備名稱(家族名稱)
         keyMap.put(KEY_ARMOR_MANA_ADD, NamespacedKey.minecraft(KEY_ARMOR_MANA_ADD));
         //int 魔力回復的裝備標籤
+
+
 
 
     }
