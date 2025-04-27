@@ -27,12 +27,13 @@ public class SignCommand implements CommandExecutor {
         if(sender instanceof Player player) {
             try{
                 ItemStack itemStack = player.getInventory().getItemInMainHand();
-                if(itemStack.hasItemMeta()){
+                if(itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() && !itemStack.getEnchantments().isEmpty()){
                     player.sendMessage(colors("&c該物品不是原版物品"));
                     return true;
                 }
                 ItemStack item = new ItemStack(itemStack.getType(),itemStack.getAmount());
                 ItemMeta meta = item.getItemMeta();
+                meta.setDisplayName(colors(itemStack.getItemMeta().getDisplayName()));
                 ArrayList<String> lore = new ArrayList<>();
                 lore.add(colors("&6[&f簽名&6]&f: &b"+player.getName()));
                 meta.setLore(lore);
