@@ -9,8 +9,8 @@ import org.bukkit.event.player.PlayerFishEvent;
 import java.util.Random;
 
 public class PlayerFishingEvent implements Listener {
-    private Random random = new Random();
-    private JadeCore jadeCore = new JadeCore();
+    private final Random random = new Random();
+    private final JadeCore jadeCore = new JadeCore();
     @EventHandler
     public void onPlayerFishing(PlayerFishEvent event){
         if(!event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH))

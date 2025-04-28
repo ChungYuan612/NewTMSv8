@@ -68,7 +68,7 @@ public class TpaCommand implements CommandExecutor {
                 }
             }
 
-            player.sendMessage("&6[tpa] &c現在並沒有任何人想來你這裡哦!");
+            player.sendMessage(colors("&6[tpa] &c現在並沒有任何人想來你這裡哦!"));
         }
         return true;
     }

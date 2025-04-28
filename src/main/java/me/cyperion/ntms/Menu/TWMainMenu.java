@@ -80,7 +80,7 @@ public class TWMainMenu extends Menu {
             player.sendMessage(colors("&c&l正在維修中..."));
         }
 
-        if(item.hasItemMeta() && item.getItemMeta().getCustomModelData() == 1006){
+        if(item.hasItemMeta() && item.getItemMeta().hasCustomModelData() && item.getItemMeta().getCustomModelData() == 1006){
             if(playerData.getShowManaOnActionbar()){
                 player.sendMessage(colors("&c已關閉魔力顯示"));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);

@@ -135,6 +135,8 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("signin").setExecutor(new SigninCommand(this));
         getCommand("pay").setExecutor(new PayCommand(this));
         getCommand("class").setExecutor(new ClassCommand(this));
+        getCommand("sign").setExecutor(new SignCommand(this));
+
 
         //TPA 3個指令
         TpaCommand tpaCommand = new TpaCommand();

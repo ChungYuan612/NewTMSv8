@@ -68,7 +68,7 @@ public class LapisArmor implements PieceFullBouns , Listener {
             lapis.addAttributeModifier(Attribute.ARMOR_TOUGHNESS,
                     new AttributeModifier(
                             new NamespacedKey(plugin,"armor_touchness_add"+ UUID.randomUUID()),
-                            2, AttributeModifier.Operation.ADD_NUMBER, solts[i]));
+                            3, AttributeModifier.Operation.ADD_NUMBER, solts[i]));
             PersistentDataContainer container = lapis.getPersistentDataContainer();
             container.set(
                     plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_MANA_ADD)
