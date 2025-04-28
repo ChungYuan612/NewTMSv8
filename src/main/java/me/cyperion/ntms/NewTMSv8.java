@@ -157,6 +157,7 @@ public final class NewTMSv8 extends JavaPlugin {
         explosion = new Explosion(this);
         terminator = new Terminator(this);
         getServer().getPluginManager().registerEvents(new Terminator(this),this);
+        getServer().getPluginManager().registerEvents(new Explosion(this),this);
     }
 
     @Override

@@ -2,6 +2,7 @@ me\cyperion\ntms\Event\RaidEvent.class
 me\cyperion\ntms\Menu\ShopMenu$ShopItem.class
 me\cyperion\ntms\ItemStacks\Item\Emerald_Coins.class
 me\cyperion\ntms\SQL\SQLError\SQLErrors.class
+me\cyperion\ntms\Class\Explosion$1.class
 me\cyperion\ntms\Menu\BaseMenu\PlayerMenuUtility.class
 me\cyperion\ntms\Command\NTMSCommand.class
 me\cyperion\ntms\Class\ClassType.class

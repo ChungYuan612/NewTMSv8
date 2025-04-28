@@ -198,6 +198,7 @@ public class RaidEvent implements Listener {
         item.setItemMeta(meta);
         return item;
     }
+
     private ItemStack getBuffDiamondAxe() {
         ItemStack item = new ItemStack(Material.DIAMOND_AXE);
         ItemMeta meta = item.getItemMeta();

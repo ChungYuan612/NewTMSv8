@@ -54,11 +54,11 @@ public class Mana extends BukkitRunnable {
      * 扣掉魔力
      * @param player 玩家
      * @param amount 魔力數量
+     * @param allowOverMana 是否允許變負數
      * @return 有沒有執行成功(魔力是否夠扣)
      */
-    public boolean costMana(Player player, double amount){
+    public boolean costMana(Player player, double amount,boolean allowOverMana){
         double mana = plugin.getPlayerData(player).getMana();
-        boolean allowOverMana = plugin.getPlayerData(player).isAllowOverMana();
 
         if(mana - amount < 0){
             if(allowOverMana && amount == 400){ // EXPLOSION
@@ -72,6 +72,10 @@ public class Mana extends BukkitRunnable {
             plugin.getPlayerData(player).setMana(mana - amount);
         }
         return true;
+    }
+
+    public boolean costMana(Player player, double amount){
+        return costMana(player,amount,false);
     }
 
     /**

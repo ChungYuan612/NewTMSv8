@@ -166,7 +166,6 @@ public class LapisArmor implements PieceFullBouns , Listener {
 
     @Override
     public boolean isFullSet(ItemStack[] armors) {
-        boolean pass = false;
         for(int i = 0;i<4;i++){
             if(armors[i] == null
                     || !armors[i].hasItemMeta()
@@ -193,7 +192,7 @@ public class LapisArmor implements PieceFullBouns , Listener {
             if (plugin.getPlayerData(player).getManaReg() == 1){
                 plugin.getPlayerData(player).setManaReg(2);
                 player.addPotionEffect(
-                        new PotionEffect(PotionEffectType.SLOWNESS,1000,3,true)
+                        new PotionEffect(PotionEffectType.SLOWNESS,9000,3,true)
                 );
             }
 
