@@ -56,6 +56,7 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(colors("&5幸運點數："+data.getLuck()));
             player.sendMessage(colors("&2累積簽到："+data.getSignInCount()));
             player.sendMessage(colors("&6現金："+plugin.getEconomy().getBalance(player)));
+            plugin.getPlayerData(player).setMana(plugin.getPlayerData(player).getMaxMana());
             return true;
         }else if ( args.length == 1){
             String name = args[0];
