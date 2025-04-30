@@ -28,7 +28,7 @@ public class Explosion extends Class implements Listener {
     public final int EXPLOSION_RANGE = 14;
     public final int EXPLOSION_FRONT_BLOCK = 20;
     //（10秒 = 200 tick）
-    private static final int TOTAL_TICKS = 200;
+    private static final int TOTAL_TICKS = 240;
     //施放爆裂魔法的人
     private final Map<UUID,Integer> executer = new HashMap<>();
     private BukkitRunnable runnable;
@@ -101,6 +101,8 @@ public class Explosion extends Class implements Listener {
             bossBarMap.put(player.getUniqueId(),createBossBar(player));
             player.addPotionEffect(new PotionEffect(
                     PotionEffectType.SLOWNESS,9000,3,true));
+            player.addPotionEffect(new PotionEffect(
+                    PotionEffectType.DARKNESS,60,0,true));
         }
     }
 
@@ -118,7 +120,7 @@ public class Explosion extends Class implements Listener {
     }
 
 
-
+    private Particle.DustOptions options = new Particle.DustOptions(Color.RED,1);
     /**
      * 在施法過程中，每 tick 呼叫一次，根據 ticks 顯示不同特效
      * @param player  正在施法的玩家
@@ -138,15 +140,43 @@ public class Explosion extends Class implements Listener {
             bar.setProgress(progress);
         }
 
-        // 2. 不同進度出現不同粒子
-        // 前期：紫色靈氣；中期：藍色煙霧；後期：紅色火花
-        if (progress < 0.3) {
-            world.spawnParticle( Particle.WITCH, center, 15, 5, 0.5, 0.5, 0.02);
-        } else if (progress < 0.7) {
-            world.spawnParticle(Particle.LARGE_SMOKE, center, 20, 5, 0.5, 0.5, 0.01);
-        } else {
-            world.spawnParticle(Particle.FLAME, center, 25, 5, 0.5, 0.5, 0.03);
+        if (ticks < 40) {
+            // 初始聚氣 - 紫色粒子繞圈
+            drawCircleParticles(world, center, Particle.WITCH, 2 + ticks * 1.7, 0.3, 16);
+            if (ticks % 20 == 0)
+                world.playSound(center, Sound.BLOCK_ENCHANTMENT_TABLE_USE, 0.8f, 1.2f);
+        } else if (ticks < 140) {
+            // 中期：紅藍粒子吸入，漸強火焰
+            drawConvergingParticles(world, center,Particle.DUST , 30, 6,options);
+            drawConvergingParticles(world, center, Particle.PORTAL, 30, 4);
+            drawCircleParticles(world, center,Particle.DUST , 30, 6,16,options);
+            world.spawnParticle(Particle.FLAME, center, 4, 2, 2, 2, 0.1);
+            if (ticks % 20 == 0)
+                world.playSound(center, Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1.0f, 1.0f);
+        } else if (ticks < 220) {
+            // 後期震動 - 光線抖動與火花
+            drawShakingParticles(world, center, Particle.END_ROD, 4.2, 8);
+            world.spawnParticle(Particle.CRIT, center, 10, 0.3, 0.3, 0.3, 0.05);
+            if (ticks % 10 == 0)
+                world.playSound(center, Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0f, 1.2f);
         }
+        if(ticks == 200){
+            List<Entity> entities = player.getNearbyEntities(100,50,100);
+            for(Entity entity : entities){
+                if(entity instanceof Player other){
+                    other.addPotionEffect(new PotionEffect(
+                            PotionEffectType.DARKNESS,20,0,true));
+                }
+            }
+            player.addPotionEffect(new PotionEffect(
+                    PotionEffectType.DARKNESS,20,0,true));
+        }
+        //for(int i = 1; i< ticks;i+=50){
+            //spawnFilledCircle(center.add(0,((double) ticks /i)*2,0), 12+(ticks/i));
+        //}
+        spawnFilledCircle(player.getLocation(),3);
+        world.spawnParticle(Particle.BUBBLE,player.getLocation(),5,0.1,0.1,0.1,1);
+
 
         // 3. 每 20 tick 播放一次蓄力音效
         if (ticks % 20 == 0) {
@@ -171,23 +201,25 @@ public class Explosion extends Class implements Listener {
         Location center = player.getEyeLocation()
                 .add(player.getEyeLocation().getDirection().multiply(EXPLOSION_FRONT_BLOCK));
 
-        // 1. 繪製圓形爆炸粒子
-        double radius = EXPLOSION_RANGE;
-        for (double angle = 0; angle < 2 * Math.PI; angle += Math.PI / 60) {
-            double x = Math.cos(angle) * radius;
-            double z = Math.sin(angle) * radius;
-            Location pt = center.clone().add(x, 0, z);
+        // 煙霧 + 火花 + 爆炸粒子
+        for(int y = -3; y <= 3; y++)
+            for (int i = 0; i < 360; i += 6) {
+                double rad = Math.toRadians(i);
+                double x = Math.cos(rad) * 12-y;
+                double z = Math.sin(rad) * 12-y;
+                Location point = center.clone().add(x, y, z);
+                world.spawnParticle(Particle.EXPLOSION, point, 1);
+                world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, point, 2, 0.6, 0.6, 0.6, 0.01);
+                world.spawnParticle(Particle.FLAME, point, 7, 0.5, 0.5, 0.5, 0.02);
+            }
 
-            // 上方一點讓粒子不貼地
-            world.spawnParticle(Particle.EXPLOSION, pt.clone().add(0, 2, 0), 1);
-            world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, pt.clone().add(0, 2, 0), 5, 0.2, 0.2, 0.2, 0.01);
-        }
+        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.9f, 0.65f);
+        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 2f, 0.5f);
 
-        // 播放爆炸音效
-        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 2.0f, 0.5f);
+        world.spawnParticle(Particle.FLAME,center,1000,8,8,8,5);
 
         // 2. 對範圍內所有敵對生物造成傷害
-        for (Entity e : world.getNearbyEntities(center, radius, radius, radius)) {
+        for (Entity e : world.getNearbyEntities(center, EXPLOSION_RANGE, EXPLOSION_RANGE, EXPLOSION_RANGE)) {
             if (e instanceof Monster) {
                 ((Monster) e).damage(600.0, player);
                 // 顯示傷害指示粒子
@@ -195,6 +227,78 @@ public class Explosion extends Class implements Listener {
             }
         }
     }
+
+    /**
+     * 畫圓形的粒子效果
+     */
+    public void drawCircleParticles(
+            World world, Location center, Particle particle,
+            double radius, double y, int count){
+        drawCircleParticles(world, center, particle, radius, y, count, null);
+    }
+    public void drawCircleParticles(
+            World world, Location center, Particle particle,
+            double radius, double y, int count, Particle.DustOptions options) {
+        for (int i = 0; i < count; i++) {
+            double angle = 2 * Math.PI * i / count;
+            double x = Math.cos(angle) * radius;
+            double z = Math.sin(angle) * radius;
+            if(options == null)
+                world.spawnParticle(particle, center.clone(), 2, x, y, z, 0);
+            else
+                world.spawnParticle(particle, center.clone(), 2, x, y, z, 0.5f, options,true);
+        }
+    }
+    /**
+     * 畫震動的粒子效果
+     */
+    public void drawShakingParticles(World world, Location center, Particle particle, double spread, int count) {
+        for (int i = 0; i < count; i++) {
+            double x = (Math.random() - 0.5) * spread;
+            double y = (Math.random() - 0.5) * spread;
+            double z = (Math.random() - 0.5) * spread;
+            world.spawnParticle(particle, center.clone().add(x, y, z), 5);
+        }
+    }
+    /**
+     * 畫吸入的粒子效果
+     */
+    public void drawConvergingParticles(World world, Location center, Particle particle, double range, int count) {
+        drawConvergingParticles(world, center, particle, range, count, null);
+    }
+
+    public void drawConvergingParticles(World world,
+                                        Location center,
+                                        Particle particle,
+                                        double range,
+                                        int count,
+                                        Particle.DustOptions options){
+        for (int i = 0; i < count; i++) {
+            double x = (Math.random() - 0.5) * range;
+            double y = (Math.random() - 0.5) * range;
+            double z = (Math.random() - 0.5) * range;
+            Location start = center.clone().add(x, y, z);
+            if(options != null)
+                world.spawnParticle(particle, start, 10, -x / 10, -y / 10, -z / 10, 2,options);
+            else
+                world.spawnParticle(particle, start, 10, -x / 10, -y / 10, -z / 10, 2);
+        }
+    }
+
+    public void spawnFilledCircle(Location center, int range) {
+        World world = center.getWorld();
+        if (world == null) return;
+
+        for (int x = -range; x <= range; x++) {
+            for (int z = -range; z <= range; z++) {
+                if (x * x + z * z <= range * range) {
+                    Location loc = center.clone().add(x, 0, z);
+                    world.spawnParticle(Particle.DUST, loc, 1, 0.5, 0, 0.15, 0.05,options,true);
+                }
+            }
+        }
+    }
+
 
 
 
