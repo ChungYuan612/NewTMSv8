@@ -39,7 +39,7 @@ public class MonsterRegister implements Listener {
 
         //突襲掉落物 先放這裡
         raidLapis = new LootItem(new ReinfinedLapis(plugin).toItemStack(),1,1,4);
-        emerald = new LootItem(new Emerald_Coins().toItemStack(),1,1,0.5);
+        emerald = new LootItem(new Emerald_Coins().toItemStack(),1,1,0.4);
     }
 
 

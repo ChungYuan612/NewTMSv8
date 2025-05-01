@@ -20,15 +20,16 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Utils.colors;
 
 public class Explosion extends Class implements Listener {
     public final int EXPLOSION_RANGE = 14;
-    public final int EXPLOSION_FRONT_BLOCK = 20;
+    public static final int EXPLOSION_FRONT_BLOCK = 20;
     //（10秒 = 200 tick）
     private static final int TOTAL_TICKS = 240;
+    public static final double DAMAGE = 600;
+    public static final double COST_MANA = 400;
     //施放爆裂魔法的人
     private final Map<UUID,Integer> executer = new HashMap<>();
     private BukkitRunnable runnable;
@@ -121,6 +122,7 @@ public class Explosion extends Class implements Listener {
 
 
     private Particle.DustOptions options = new Particle.DustOptions(Color.RED,1);
+    private Particle.DustOptions blueOptions = new Particle.DustOptions(Color.BLUE,1);
     /**
      * 在施法過程中，每 tick 呼叫一次，根據 ticks 顯示不同特效
      * @param player  正在施法的玩家
@@ -140,13 +142,13 @@ public class Explosion extends Class implements Listener {
             bar.setProgress(progress);
         }
 
-        if (ticks < 40) {
+        if (ticks < 80) {
             // 初始聚氣 - 紫色粒子繞圈
             drawCircleParticles(world, center, Particle.WITCH, 2 + ticks * 1.7, 0.3, 16);
             if (ticks % 20 == 0)
                 world.playSound(center, Sound.BLOCK_ENCHANTMENT_TABLE_USE, 0.8f, 1.2f);
         } else if (ticks < 140) {
-            // 中期：紅藍粒子吸入，漸強火焰
+            // 中期
             drawConvergingParticles(world, center,Particle.DUST , 30, 6,options);
             drawConvergingParticles(world, center, Particle.PORTAL, 30, 4);
             drawCircleParticles(world, center,Particle.DUST , 30, 6,16,options);
@@ -155,45 +157,80 @@ public class Explosion extends Class implements Listener {
                 world.playSound(center, Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1.0f, 1.0f);
         } else if (ticks < 220) {
             // 後期震動 - 光線抖動與火花
-            drawShakingParticles(world, center, Particle.END_ROD, 4.2, 8);
+            drawShakingParticles(world, center, Particle.END_ROD, 2.3, 8);
             world.spawnParticle(Particle.CRIT, center, 10, 0.3, 0.3, 0.3, 0.05);
             if (ticks % 10 == 0)
                 world.playSound(center, Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1.0f, 1.2f);
+        }else if (ticks < 240){
+            mushroomBoom(center.clone(),ticks);
         }
         if(ticks == 200){
             List<Entity> entities = player.getNearbyEntities(100,50,100);
             for(Entity entity : entities){
                 if(entity instanceof Player other){
                     other.addPotionEffect(new PotionEffect(
-                            PotionEffectType.DARKNESS,20,0,true));
+                            PotionEffectType.DARKNESS,40,0,false,false));
                 }
             }
             player.addPotionEffect(new PotionEffect(
-                    PotionEffectType.DARKNESS,20,0,true));
+                    PotionEffectType.DARKNESS,20,0,false,false));
+
         }
         //for(int i = 1; i< ticks;i+=50){
             //spawnFilledCircle(center.add(0,((double) ticks /i)*2,0), 12+(ticks/i));
         //}
         spawnFilledCircle(player.getLocation(),3);
-        world.spawnParticle(Particle.BUBBLE,player.getLocation(),5,0.1,0.1,0.1,1);
+        world.spawnParticle(Particle.ENTITY_EFFECT,player.getEyeLocation(),4,1,1.3,1,1
+                ,Color.BLUE);
 
 
         // 3. 每 20 tick 播放一次蓄力音效
         if (ticks % 20 == 0) {
-            world.playSound(center, Sound.BLOCK_BEACON_POWER_SELECT, 1.0f, 1.0f);
+            world.playSound(center, Sound.BLOCK_BEACON_POWER_SELECT, 0.8f, 1.0f);
+            world.playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 0.4f, 1.1f);
         }
     }
 
     /**
-     * 施法結束時呼叫，觸發中心大爆炸 + 600 點傷害
+     * 蘑菇雲爆炸
+     */
+    private void mushroomBoom(Location center, int ticks) {
+        World world = center.getWorld();
+        if (world == null) return;
+        int y = ticks-220;
+        if(y >=19){
+            for(int j = -3;j<=6;j++)
+                for (int i = 0; i < 360; i += 6) {
+                    double rad = Math.toRadians(i);
+                    double x = Math.cos(rad) * (1.1*EXPLOSION_RANGE-j*0.4);
+                    double z = Math.sin(rad) * (1.1*EXPLOSION_RANGE-j*0.4);
+                    Location point = center.clone().add(x, j+y, z);
+                    world.spawnParticle(Particle.EXPLOSION, point, 1);
+                    world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, point, 3, 0.6, 0.6, 0.6, 0.01,null,true);
+                    world.spawnParticle(Particle.FLAME, point, 7, 0.5, 0.5, 0.5, 0.02,null,true);
+                }
+            return;
+        }
+        for (int i = 0; i < 360; i += 6) {
+            double rad = Math.toRadians(i);
+            double x = Math.cos(rad) * (EXPLOSION_RANGE-y*0.2);
+            double z = Math.sin(rad) * (EXPLOSION_RANGE-y*0.2);
+            Location point = center.clone().add(x, y, z);
+            world.spawnParticle(Particle.EXPLOSION, point, 1);
+            world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, point, 2, 0.4, 0.4, 0.4, 0.02,null,true);
+            world.spawnParticle(Particle.FLAME, point, 7, 0.5, 0.5, 0.5, 0.02,null,true);
+        }
+    }
+
+    /**
+     * 施法結束時呼叫，觸發中心大爆炸 + DAMAGE 點傷害
      * @param player  觸發爆炸的玩家
      */
     public void triggerExplosion(Player player) {
 
-        player.sendMessage(colors("&c爆炸"));
         if(player.hasPotionEffect(PotionEffectType.SLOWNESS))
             player.removePotionEffect(PotionEffectType.SLOWNESS);
-        boolean success = plugin.getMana().costMana(player,400,true);
+        boolean success = plugin.getMana().costMana(player,COST_MANA,true);
         if(!success) return;
 
         World world = player.getWorld();
@@ -201,32 +238,47 @@ public class Explosion extends Class implements Listener {
         Location center = player.getEyeLocation()
                 .add(player.getEyeLocation().getDirection().multiply(EXPLOSION_FRONT_BLOCK));
 
-        // 煙霧 + 火花 + 爆炸粒子
-        for(int y = -3; y <= 3; y++)
-            for (int i = 0; i < 360; i += 6) {
-                double rad = Math.toRadians(i);
-                double x = Math.cos(rad) * 12-y;
-                double z = Math.sin(rad) * 12-y;
-                Location point = center.clone().add(x, y, z);
-                world.spawnParticle(Particle.EXPLOSION, point, 1);
-                world.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, point, 2, 0.6, 0.6, 0.6, 0.01);
-                world.spawnParticle(Particle.FLAME, point, 7, 0.5, 0.5, 0.5, 0.02);
-            }
-
-        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.9f, 0.65f);
-        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 2f, 0.5f);
+        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.5f, 0.65f);
+        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1.6f, 0.5f);
 
         world.spawnParticle(Particle.FLAME,center,1000,8,8,8,5);
-
+        knockbackMonsters(center, EXPLOSION_FRONT_BLOCK-1, 1.2);
+        int count = 0;
         // 2. 對範圍內所有敵對生物造成傷害
         for (Entity e : world.getNearbyEntities(center, EXPLOSION_RANGE, EXPLOSION_RANGE, EXPLOSION_RANGE)) {
             if (e instanceof Monster) {
-                ((Monster) e).damage(600.0, player);
+                ((Monster) e).damage(DAMAGE, player);
                 // 顯示傷害指示粒子
                 world.spawnParticle(Particle.DAMAGE_INDICATOR, e.getLocation().add(0, 1, 0), 20);
+                count++;
+            }
+        }
+        player.sendMessage(colors("&b[技能] &c&l爆裂魔法&r&f總共命中&c"+count+"&f個生物。"));
+    }
+
+    /**
+     * 擊退生物
+     */
+    public void knockbackMonsters(Location center, double radius, double strength) {
+        World world = center.getWorld();
+        if (world == null) return;
+
+        for (Entity entity : world.getNearbyEntities(center, radius, radius, radius)) {
+            if (entity instanceof Monster monster && monster.isValid() && !monster.isDead()) {
+                // 計算從中心往外的方向向量
+                org.bukkit.util.Vector knockback = monster.getLocation().toVector().subtract(center.toVector()).normalize().multiply(strength);
+                knockback.setY(0.8); // 增加一點垂直力，模仿爆風
+                monster.setVelocity(knockback);
+            }
+            if(entity instanceof Player player){
+                org.bukkit.util.Vector knockback = player.getLocation()
+                        .toVector().subtract(center.toVector()).normalize().multiply(strength);
+                knockback.setY(0.8); // 增加一點垂直力，模仿爆風
+                player.setVelocity(knockback);
             }
         }
     }
+
 
     /**
      * 畫圓形的粒子效果

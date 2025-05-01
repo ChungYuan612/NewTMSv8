@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Menu;
 
 import me.cyperion.ntms.Class.ClassType;
+import me.cyperion.ntms.Class.Explosion;
 import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.NewTMSv8;
@@ -117,13 +118,13 @@ public class ClassSelectMenu extends Menu {
         explosionLore.add(colors(""));
         explosionLore.add(colors("&6&l職業技能&r&f：&6&lExplosion"));
         explosionLore.add(colors("&f玩家要拿著&c紅魔法杖&f並且蹲下右鍵即可施放"));
-        explosionLore.add(colors("&f技能，開始為期10秒的&d&l詠唱&r&f效果"));
-        explosionLore.add(colors("&f結束後對前方一定範圍內的敵人造成&c600.0&f點"));
-        explosionLore.add(colors("&f傷害，並消耗&3400&f點&b魔力&f，此技能允許透支魔力"));
+        explosionLore.add(colors("&f技能，開始為期&a12&f秒的&d&l詠唱&r&f效果"));
+        explosionLore.add(colors("&f結束後對前方一定範圍內的敵人造成&c"+ Explosion.DAMAGE +"&f點"));
+        explosionLore.add(colors("&f傷害，並消耗&3"+Explosion.COST_MANA+"&f點&b魔力&f，此技能允許透支魔力"));
         explosionLore.add(colors(""));
         explosionLore.add(colors("&d&l詠唱&r&f："));
         explosionLore.add(colors("&f期間上方進度條會開始充能，並獲得&8緩速效果"));
-        explosionLore.add(colors("&f必須蹲著才能完整施放，"));
+        explosionLore.add(colors("&f必須全程蹲著才能完整施放，"));
         explosionLore.add(colors(""));
         if(data.getClassType().equals(ClassType.EXPLOSION)){
             explosionLore.add(colors("&a您目前選擇這個職業"));

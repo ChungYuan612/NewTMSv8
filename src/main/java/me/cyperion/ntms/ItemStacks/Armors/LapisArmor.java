@@ -192,7 +192,7 @@ public class LapisArmor implements PieceFullBouns , Listener {
             if (plugin.getPlayerData(player).getManaReg() == 1){
                 plugin.getPlayerData(player).setManaReg(2);
                 player.addPotionEffect(
-                        new PotionEffect(PotionEffectType.SLOWNESS,9000,3,true)
+                        new PotionEffect(PotionEffectType.SLOWNESS,9000,3,true,false)
                 );
             }
 

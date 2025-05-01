@@ -56,7 +56,6 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(colors("&5幸運點數："+data.getLuck()));
             player.sendMessage(colors("&2累積簽到："+data.getSignInCount()));
             player.sendMessage(colors("&6現金："+plugin.getEconomy().getBalance(player)));
-            plugin.getPlayerData(player).setMana(plugin.getPlayerData(player).getMaxMana());
             return true;
         }else if ( args.length == 1){
             String name = args[0];
@@ -87,6 +86,9 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
                 item = new Stocks(plugin).getItem(Stocks.StockType.xaud);
             }else if(name.equals(NTMSItems.REINFINED_LAPIS.name())) {
                 item = new ReinfinedLapis(plugin).toItemStack();
+            }else if(name.equalsIgnoreCase("Mana")){
+                item = null;
+                plugin.getPlayerData(player).setMana(plugin.getPlayerData(player).getMaxMana());
             }else{
                 if(name.equals(NTMSItems.LAPIS_ARMOR.name())) {
                     ItemStack[] items = new LapisArmor(plugin).getItemStacks();
@@ -97,8 +99,10 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
                 }
                 item = new ItemStack(Material.BARRIER);
             }
-            player.getInventory().addItem(item);
-            player.sendMessage(colors("&a已給予 &2"+name));
+            if(item != null){
+                player.getInventory().addItem(item);
+                player.sendMessage(colors("&a已給予 &2"+name));
+            }
         }
         return true;
     }
@@ -118,8 +122,9 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
 
     private void generateOptions() {
         NTMSItems[] items = NTMSItems.values();
-        for(int i = 0; i < items.length; i++){
-            options.add(items[i].name());
+        for (NTMSItems item : items) {
+            options.add(item.name());
         }
+        options.add("Mana");
     }
 }

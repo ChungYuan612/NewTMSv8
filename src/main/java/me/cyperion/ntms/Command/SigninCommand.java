@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Command;
 
 import me.cyperion.ntms.NewTMSv8;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,6 +21,7 @@ public class SigninCommand implements CommandExecutor {
     private NewTMSv8 plugin;
 
     public static final LinkedList<UUID> signinedList = new LinkedList<>();
+    private boolean signInClose = false;
 
     public SigninCommand(NewTMSv8 plugin) {
         this.plugin = plugin;
@@ -29,6 +31,20 @@ public class SigninCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if(!(sender instanceof Player player))
             return true;
+
+        if(args.length == 1 && player.isOp()){
+            signInClose = !signInClose;
+            if(signInClose){
+                player.sendMessage("&6[提示] &c簽到已關閉");
+            }else{
+                player.sendMessage("&6[提示] &a簽到已開放");
+            }
+            return true;
+        }
+        if(signInClose){
+            player.sendMessage("&6[提示] &c簽到暫不開放");
+            return true;
+        }
         if(plugin.UNDER_MAINTENANCE){
             player.sendMessage("&c伺服器正在下線維修");
             return true;
@@ -38,7 +54,8 @@ public class SigninCommand implements CommandExecutor {
             return true;
         }
         //簽到成功
-        int money = 1500;
+        int money = 1400 + Bukkit.getOnlinePlayers().size()*100 ;
+        //+ plugin.getPlayerData(player).getSignInCount()*10
         plugin.getEconomy().depositPlayer(player,money);
         plugin.getPlayerData(player).addSignInCount(1);//未來可以拿這個來做新功能
         player.sendMessage(colors("&6[提示] &a成功簽到，本次簽到獲得&6"+money+"&a元! 總共累積簽到 &3"
