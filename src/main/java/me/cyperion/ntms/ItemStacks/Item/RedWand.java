@@ -44,8 +44,8 @@ public class RedWand {
         lores.add(colors(""));
         lores.add(colors("&d&l Explosion：&r&c需要選擇Explosion職業"));
         lores.add(colors("&f按一下右鍵後將會開始充能，蹲下持續&d詠唱&f效果"));
-        lores.add(colors("&f進度條滿後發射爆裂魔法，準心看到的點為中心的大範圍"));
-        lores.add(colors("&f造成&c"+ Explosion.DAMAGE +"&f點傷害，有效射程為&a"+Explosion.EXPLOSION_FRONT_BLOCK+"&f格。"));
+        lores.add(colors("&f進度條滿後發射爆裂魔法，準心看到的點為中心的"));
+        lores.add(colors("&f大範圍造成&c"+ Explosion.DAMAGE +"&f點傷害，有效射程為&a"+Explosion.EXPLOSION_FRONT_BLOCK+"&f格。"));
         lores.add(colors("&b魔力消耗&f: &b400 &3(允許透支魔力)"));
         lores.add(colors(""));
         lores.add(colors("&6傳說中的法杖"));

@@ -122,7 +122,7 @@ public class Explosion extends Class implements Listener {
 
 
     private Particle.DustOptions options = new Particle.DustOptions(Color.RED,1);
-    private Particle.DustOptions blueOptions = new Particle.DustOptions(Color.BLUE,1);
+    private Particle.DustOptions whiteOptions = new Particle.DustOptions(Color.WHITE,1);
     /**
      * 在施法過程中，每 tick 呼叫一次，根據 ticks 顯示不同特效
      * @param player  正在施法的玩家
@@ -180,6 +180,7 @@ public class Explosion extends Class implements Listener {
             //spawnFilledCircle(center.add(0,((double) ticks /i)*2,0), 12+(ticks/i));
         //}
         spawnFilledCircle(player.getLocation(),3);
+        world.spawnParticle(Particle.DUST,center,90,0,50,0,0.01,whiteOptions);
         world.spawnParticle(Particle.ENTITY_EFFECT,player.getEyeLocation(),4,1,1.3,1,1
                 ,Color.BLUE);
 
@@ -187,7 +188,7 @@ public class Explosion extends Class implements Listener {
         // 3. 每 20 tick 播放一次蓄力音效
         if (ticks % 20 == 0) {
             world.playSound(center, Sound.BLOCK_BEACON_POWER_SELECT, 0.8f, 1.0f);
-            world.playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 0.4f, 1.1f);
+            world.playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 0.7f, 0.9f);
         }
     }
 

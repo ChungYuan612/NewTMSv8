@@ -1,9 +1,13 @@
 package me.cyperion.ntms.Monster;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
+
+import static me.cyperion.ntms.Utils.colors;
 
 public class LootItem {
     private ItemStack itemStack;
@@ -22,13 +26,21 @@ public class LootItem {
         this.max = max;
         this.dropChance = dropChance;
     }
-
     public void tryDropLoot(Location location) {
         if(Math.random() * 101 > dropChance) return ;
         int amount = randomModifier.nextInt(max-min+1)+min;
         ItemStack item = this.itemStack.clone();
         item.setAmount(amount);
         location.getWorld().dropItemNaturally(location,item);
+    }
+
+    public void tryDropLoot(Player player, Location location) {
+        if(Math.random() * 101 > dropChance) return ;
+        int amount = randomModifier.nextInt(max-min+1)+min;
+        ItemStack item = this.itemStack.clone();
+        item.setAmount(amount);
+        location.getWorld().dropItemNaturally(location,item);
+        player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()+" &b("+(dropChance*100)+"%)"));
 
     }
 

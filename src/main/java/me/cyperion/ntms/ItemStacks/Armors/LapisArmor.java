@@ -25,11 +25,16 @@ import java.util.UUID;
 
 import static me.cyperion.ntms.Utils.colors;
 
+/**
+ * 青金石裝備
+ * 關聯：ItemRegister、/admin
+ */
 public class LapisArmor implements PieceFullBouns , Listener {
 
     private final NewTMSv8 plugin;
     private ItemStack[] itemStack=new ItemStack[4];
     int[] manaAddRate = new int[]{10,20,15,5};
+    int[] touchnessAdd = new int[]{3,4,3,3};
     int[] armors = new int[]{4,7,5,4};
     EquipmentSlotGroup[] solts = new EquipmentSlotGroup[]{
             EquipmentSlotGroup.HEAD,
@@ -68,7 +73,7 @@ public class LapisArmor implements PieceFullBouns , Listener {
             lapis.addAttributeModifier(Attribute.ARMOR_TOUGHNESS,
                     new AttributeModifier(
                             new NamespacedKey(plugin,"armor_touchness_add"+ UUID.randomUUID()),
-                            3, AttributeModifier.Operation.ADD_NUMBER, solts[i]));
+                            touchnessAdd[i], AttributeModifier.Operation.ADD_NUMBER, solts[i]));
             PersistentDataContainer container = lapis.getPersistentDataContainer();
             container.set(
                     plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_MANA_ADD)
