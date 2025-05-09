@@ -187,8 +187,8 @@ public class Explosion extends Class implements Listener {
 
         // 3. 每 20 tick 播放一次蓄力音效
         if (ticks % 20 == 0) {
-            world.playSound(center, Sound.BLOCK_BEACON_POWER_SELECT, 0.8f, 1.0f);
-            world.playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 0.7f, 0.9f);
+            world.playSound(center, Sound.BLOCK_BEACON_POWER_SELECT, 1.0f, 1.0f);
+            world.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 0.9f);
         }
     }
 

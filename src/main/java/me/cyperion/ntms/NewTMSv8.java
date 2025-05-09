@@ -243,6 +243,7 @@ public final class NewTMSv8 extends JavaPlugin {
     }
 
     //自定義Config
+
     public Configuration getConfigFile(String name){
         File file = new File(this.getDataFolder(), name + ".yml");
 

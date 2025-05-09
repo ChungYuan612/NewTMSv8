@@ -40,7 +40,7 @@ public class LootItem {
         ItemStack item = this.itemStack.clone();
         item.setAmount(amount);
         location.getWorld().dropItemNaturally(location,item);
-        player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()+" &b("+(dropChance*100)+"%)"));
+        player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()+" &b("+(dropChance)+"%)"));
 
     }
 

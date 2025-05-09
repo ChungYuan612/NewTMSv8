@@ -120,7 +120,7 @@ public class TWMainMenu extends Menu {
         playerHead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta)playerHead.getItemMeta();
         meta.setDisplayName(colors(
-                player.getDisplayName()+" "+ChatColor.WHITE+"的個人數值"));
+                "&b"+player.getName()+" "+ChatColor.WHITE+"的個人數值"));
         ArrayList<String> lore = new ArrayList<>();
         lore.add("");
         lore.add(ChatColor.RED+SpecialChar("❤")+"血量: "+(int)(player.getHealth())+colors("&f/&c")+(int)(player.getHealthScale()));
@@ -128,6 +128,7 @@ public class TWMainMenu extends Menu {
         lore.add(ChatColor.WHITE+SpecialChar("✦")+"速度: "+(int)((player.getWalkSpeed()+1)*100)+"%");
         lore.add(ChatColor.GOLD+SpecialChar("☣")+"成就點數: "+playerData.getAdvancePoint());
         lore.add(ChatColor.BLUE+SpecialChar("☠")+"突襲計算: "+playerData.getRaidPoint());
+        lore.add(ChatColor.DARK_GREEN+SpecialChar("⦾")+"累積簽到: "+playerData.getSignInCount());
         lore.add(ChatColor.GREEN+SpecialChar("☘")+"幸運等級: "+ChatColor.RED+"(COMING SOON)");
         lore.add("");
         lore.add(player.getPing()<50?ChatColor.GREEN+"⫽Ping:"+player.getPing():ChatColor.YELLOW+"⫽Ping:"+player.getPing());
@@ -172,7 +173,7 @@ public class TWMainMenu extends Menu {
         shopLore.add(colors("&7甚至還可以買到稀有物品呢!"));
         shopLore.add(colors(""));
         shopLore.add(colors("&e點擊打開商城"));
-        shopLore.add(colors("&c&l目前尚未開放!"));
+        //shopLore.add(colors("&c&l目前尚未開放!"));
         shopMeta.setLore(shopLore);
         shopMeta.setCustomModelData(1004);//未來做資源包可用
         shop.setItemMeta(shopMeta);
