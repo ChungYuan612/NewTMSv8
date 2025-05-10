@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Menu;
 
+import me.cyperion.ntms.Command.SigninCommand;
 import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.NewTMSv8;
@@ -26,21 +27,30 @@ import static me.cyperion.ntms.Utils.colors;
  */
 public class TWMainMenu extends Menu {
 
+    private ItemStack background;
     private ItemStack close;
     private ItemStack playerHead;
 
-    private ItemStack goBed;
-    private ItemStack goResource;
-    private ItemStack goTW;
+    private ItemStack signin;
+    private ItemStack warp;
     private ItemStack shop;
     private ItemStack market;
     private ItemStack changeMana;
     private ItemStack enderChest;
 
 
+    private final int SIGNIN_CMD = 1001;
+    private final int WARP_CMD = 1002;
+    private final int SHOP_CMD = 1004;
+    private final int MARKET_CMD = 1005;
+    private final int MANA_CMD = 1006;
+    private final int ENDER_CMD = 1007;
+
+
 
     public TWMainMenu(PlayerMenuUtility utility, NewTMSv8 plugin) {
         super(utility,plugin);
+        loadStaticItems();
     }
 
     @Override
@@ -65,22 +75,29 @@ public class TWMainMenu extends Menu {
             if(item.equals(close)){
                 player.closeInventory();
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
-            }else if ( item.equals(goBed)) {
-                player.performCommand("warp bed");
-            }else if ( item.equals(goResource)) {
-                player.performCommand("warp rs");
-            }else if ( item.equals(goTW)) {
-                player.performCommand("warp tw");
-            }else if ( item.equals(enderChest)) {
+            }else if(item.isSimilar(warp)){
+                player.performCommand("menu warp");
+            } else if ( item.equals(enderChest)) {
                 player.performCommand("enderchest");
             }
         }
 
-        if(item.equals(shop) || item.equals(market)){
+        if(item.isSimilar(shop) || item.isSimilar(market)){
             player.sendMessage(colors("&c&l正在維修中..."));
         }
+        if(item.isSimilar(signin)){
+            if(signin.getItemMeta().getCustomModelData() == SIGNIN_CMD){
+                player.performCommand("signin");
+                player.closeInventory();
+            }else if (signin.getItemMeta().getCustomModelData() == 1008){
+                player.sendMessage(colors("&c你已經簽到過了"));
+                player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
 
-        if(item.hasItemMeta() && item.getItemMeta().hasCustomModelData() && item.getItemMeta().getCustomModelData() == 1006){
+            }
+
+        }
+
+        if(item.hasItemMeta() && item.getItemMeta().hasCustomModelData() && item.getItemMeta().getCustomModelData() == MANA_CMD){
             if(playerData.getShowManaOnActionbar()){
                 player.sendMessage(colors("&c已關閉魔力顯示"));
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
@@ -98,23 +115,6 @@ public class TWMainMenu extends Menu {
     public void setMenuItems() {
         Player player = playerMenuUtility.getOwner();
         PlayerData playerData = plugin.getPlayerData(player);
-
-        List<String> clickLore = new ArrayList<>();
-        clickLore.add("");
-        clickLore.add(colors("&e左鍵點擊"));
-
-        //背景
-        ItemStack background = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-        ItemMeta backgroundMeta = background.getItemMeta();
-        backgroundMeta.setDisplayName(" ");
-        background.setItemMeta(backgroundMeta);
-
-        //關閉按鈕
-        close = new ItemStack(Material.BARRIER);
-        ItemMeta closeMeta = close.getItemMeta();
-        closeMeta.setDisplayName(colors("&c關閉"));
-        closeMeta.setLore(clickLore);
-        close.setItemMeta(closeMeta);
 
         //玩家頭顱
         playerHead = new ItemStack(Material.PLAYER_HEAD);
@@ -138,29 +138,66 @@ public class TWMainMenu extends Menu {
         meta.setOwningPlayer(player);
         playerHead.setItemMeta(meta);
 
-        //床重生點
-        goBed = new ItemStack(Material.RED_BED);
-        ItemMeta goBedMeta = goBed.getItemMeta();
-        goBedMeta.setDisplayName(colors("&d傳送至床重生點  &8/warp bed"));
-        goBedMeta.setCustomModelData(1001);//未來做資源包可用
-        goBedMeta.setLore(clickLore);
-        goBed.setItemMeta(goBedMeta);
+        //每日簽到按鈕
+        signin = getSigninItem(player);
 
-        //資源界傳送
-        goResource = new ItemStack(Material.DIAMOND_PICKAXE);
-        ItemMeta goResourceMeta = goResource.getItemMeta();
-        goResourceMeta.setDisplayName(colors("&d傳送至資源界 &8/warp rs"));
-        goResourceMeta.setCustomModelData(1002);//未來做資源包可用
-        goResourceMeta.setLore(clickLore);
-        goResource.setItemMeta(goResourceMeta);
 
-        //傳送至TW
-        goTW = new ItemStack(Material.GRASS_BLOCK);
-        ItemMeta goTWMeta = goTW.getItemMeta();
-        goTWMeta.setDisplayName(colors("&d傳送至臺灣地圖 &8/warp tw"));
-        goTWMeta.setCustomModelData(1003);//未來做資源包可用
-        goTWMeta.setLore(clickLore);
-        goTW.setItemMeta(goTWMeta);
+
+        //切換顯示魔力
+        changeMana = toggleManaShow(playerData.getShowManaOnActionbar());
+
+
+
+
+        //設定上去Menu
+
+        for(int i = 0; i < 27; i++){
+            inventory.setItem(i,background);
+        }
+
+        inventory.setItem(4,playerHead);
+        inventory.setItem(10,signin);
+        inventory.setItem(11,warp);
+        //inventory.setItem(12,goTW);
+        inventory.setItem(13,shop);
+        inventory.setItem(14,market);
+        inventory.setItem(15,changeMana);
+        inventory.setItem(16,enderChest);
+        inventory.setItem(22,close);
+
+    }
+
+    private void loadStaticItems(){
+
+        List<String> clickLore = new ArrayList<>();
+        clickLore.add("");
+        clickLore.add(colors("&e左鍵點擊"));
+
+        //背景
+        background = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta backgroundMeta = background.getItemMeta();
+        backgroundMeta.setDisplayName(" ");
+        background.setItemMeta(backgroundMeta);
+
+        //關閉按鈕
+        close = new ItemStack(Material.BARRIER);
+        ItemMeta closeMeta = close.getItemMeta();
+        closeMeta.setDisplayName(colors("&c關閉"));
+        closeMeta.setLore(clickLore);
+        close.setItemMeta(closeMeta);
+
+        //地圖傳送
+        warp = new ItemStack(Material.COMPASS);
+        ItemMeta warpMeta = warp.getItemMeta();
+        warpMeta.setDisplayName(colors("&b地圖傳送"));
+        warpMeta.setCustomModelData(WARP_CMD);//未來做資源包可用
+        ArrayList<String> warpLore = new ArrayList<>();
+        warpLore.add("");
+        warpLore.add(colors("&7這裡可以使用地圖傳送功能"));
+        warpLore.add("");
+        warpLore.add(colors("&e點擊打開地圖傳送選單"));
+        warpMeta.setLore(warpLore);
+        warp.setItemMeta(warpMeta);
 
         //商城(系統)
         shop = new ItemStack(Material.EMERALD);
@@ -175,7 +212,7 @@ public class TWMainMenu extends Menu {
         shopLore.add(colors("&e點擊打開商城"));
         //shopLore.add(colors("&c&l目前尚未開放!"));
         shopMeta.setLore(shopLore);
-        shopMeta.setCustomModelData(1004);//未來做資源包可用
+        shopMeta.setCustomModelData(SHOP_CMD);//未來做資源包可用
         shop.setItemMeta(shopMeta);
 
         //市場(玩家)
@@ -191,36 +228,16 @@ public class TWMainMenu extends Menu {
         marketLore.add(colors("&e點擊打開市場"));
         marketLore.add(colors("&c&l目前尚未開放!"));
         marketMeta.setLore(marketLore);
-        marketMeta.setCustomModelData(1005);//未來做資源包可用
+        marketMeta.setCustomModelData(MARKET_CMD);//未來做資源包可用
         market.setItemMeta(marketMeta);
-
-        //切換顯示魔力
-        changeMana = toggleManaShow(playerData.getShowManaOnActionbar());
 
         //終界箱
         enderChest = new ItemStack(Material.ENDER_CHEST);
         ItemMeta enderChestMeta = enderChest.getItemMeta();
         enderChestMeta.setDisplayName(colors("&5終界箱 &8/enderchest"));
-        enderChestMeta.setCustomModelData(1007);//未來做資源包可用
+        enderChestMeta.setCustomModelData(ENDER_CMD);//未來做資源包可用
         enderChestMeta.setLore(clickLore);
         enderChest.setItemMeta(enderChestMeta);
-
-
-        //設定上去Menu
-
-        for(int i = 0; i < 27; i++){
-            inventory.setItem(i,background);
-        }
-
-        inventory.setItem(4,playerHead);
-        inventory.setItem(10,goBed);
-        inventory.setItem(11,goResource);
-        inventory.setItem(12,goTW);
-        inventory.setItem(13,shop);
-        inventory.setItem(14,market);
-        inventory.setItem(15,changeMana);
-        inventory.setItem(16,enderChest);
-        inventory.setItem(22,close);
 
     }
 
@@ -242,8 +259,41 @@ public class TWMainMenu extends Menu {
             changeManaLore.add(colors("&e點擊顯示"));
         }
         changeManaMeta.setLore(changeManaLore);
-        changeManaMeta.setCustomModelData(1006);
+        changeManaMeta.setCustomModelData(MANA_CMD);
         item.setItemMeta(changeManaMeta);
+
+        return item;
+    }
+
+    private ItemStack getSigninItem(Player player) {
+        boolean isSigned = SigninCommand.isSigned(player);
+
+        ItemStack item;
+        if(!isSigned){
+            item = new ItemStack(Material.CHEST_MINECART);
+        }else{
+            item = new ItemStack(Material.MINECART);
+        }
+
+        ItemMeta signinMeta = item.getItemMeta();
+        signinMeta.setDisplayName(colors("&a每日簽到"));
+
+        ArrayList<String> signinLore = new ArrayList<>();
+        signinLore.add("");
+        signinLore.add(colors("&3每日簽到&7可以獲得&61500元+其他在線"));
+        signinLore.add(colors("&7人數&6x100元的獎勵，您目前簽到會獲得"));
+        signinLore.add(colors("&6"+ SigninCommand.countSigninMoney()+"元&7，在你簽到的時候其他"));
+        signinLore.add(colors("&7在線玩家也會獲得&65~40元&7的獎勵。"));
+        signinLore.add(colors(""));
+        if(!isSigned){//還沒簽到
+            signinLore.add(colors("&e點擊簽到"));
+            signinMeta.setCustomModelData(SIGNIN_CMD);//未來做資源包可用
+        }else{//已經簽到
+            signinLore.add(colors("&c今日已經簽到過了"));
+            signinMeta.setCustomModelData(1008);//未來做資源包可用
+        }
+        signinMeta.setLore(signinLore);
+        item.setItemMeta(signinMeta);
 
         return item;
     }

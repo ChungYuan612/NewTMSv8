@@ -3,6 +3,7 @@ package me.cyperion.ntms.Command;
 import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.Menu.TWMainMenu;
+import me.cyperion.ntms.Menu.WarpMenu;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,13 +29,17 @@ public class MenuCommand implements CommandExecutor {
 
         if(!(sender instanceof Player))
             return true;
+        Player player = (Player) sender;
 
-        if(args.length != 0){
+        if(args.length == 1 && args[0].equals("warp")) {
+            Menu menu = new WarpMenu(new PlayerMenuUtility((Player) sender),plugin);
+            menu.open();
+        }
+
+        if(args.length > 1){
             sender.sendMessage(colors("&c欸幹，你連一個/menu都打不好嗎?給我這麼多參數衝尛~"));
             return true;
         }
-
-        Player player = (Player) sender;
 
         Menu menu = new TWMainMenu(new PlayerMenuUtility(player),plugin);
         menu.open();

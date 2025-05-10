@@ -73,11 +73,22 @@ public class SigninCommand implements CommandExecutor {
                 continue;
             }
             int bonus = random.nextInt(5,40);
-            p.sendMessage(colors("&6[紅包] &b"+player.getDisplayName()+"&3簽到成功，發放&6"+bonus+"&3元紅包。"));
+            p.sendMessage(colors("&6[紅包] &b"+player.getDisplayName()+"&3簽到成功，發放給你&6"+bonus+"&3元紅包。"));
             plugin.getEconomy().depositPlayer(p,bonus);
         }
         signinedList.add(player.getUniqueId());
 
         return true;
+    }
+
+    /**
+     * 這裡先放靜態資料，和59~61行對應
+     */
+    public static int countSigninMoney(){
+        return 1500+Bukkit.getOnlinePlayers().size()*100;
+    }
+
+    public static boolean isSigned(Player player){
+        return signinedList.contains(player.getUniqueId());
     }
 }

@@ -1,5 +1,4 @@
 me\cyperion\ntms\Event\RaidEvent.class
-me\cyperion\ntms\Menu\ShopMenu$ShopItem.class
 me\cyperion\ntms\ItemStacks\Item\Emerald_Coins.class
 me\cyperion\ntms\SQL\SQLError\SQLErrors.class
 me\cyperion\ntms\Class\Explosion$1.class
@@ -16,11 +15,13 @@ me\cyperion\ntms\Monster\MonsterRegister.class
 me\cyperion\ntms\Command\PayCommand.class
 me\cyperion\ntms\Event\DamageIcon.class
 me\cyperion\ntms\Mana.class
+me\cyperion\ntms\Menu\WarpMenu.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRedstoneBlock.class
 me\cyperion\ntms\SideBoard\TWPlayerSideBoard.class
 me\cyperion\ntms\Class\Explosion.class
 me\cyperion\ntms\Menu\ClassSelectMenu.class
 me\cyperion\ntms\NSKeyRepo.class
+me\cyperion\ntms\Menu\ShopItem.class
 me\cyperion\ntms\Command\WarpCommand.class
 me\cyperion\ntms\Event\DamageIcon$1.class
 me\cyperion\ntms\Menu\BaseMenu\MenuListener.class

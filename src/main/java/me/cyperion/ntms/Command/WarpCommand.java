@@ -8,8 +8,12 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static me.cyperion.ntms.Utils.colors;
@@ -20,7 +24,7 @@ import static me.cyperion.ntms.Utils.colors;
  * 代號: rs,resource,bed,taiwan,tw <br>
  * 管理員用的: chunghua (彰化)
  */
-public class WarpCommand implements CommandExecutor {
+public class WarpCommand implements CommandExecutor , TabCompleter {
 
     private NewTMSv8 plugin;
 
@@ -79,12 +83,30 @@ public class WarpCommand implements CommandExecutor {
                 }
             }
         }else{
-            player.sendMessage(colors("&f使用方法(無視大小寫)：&3/warp <資源界/床/台灣> "));
+            player.sendMessage(colors("&f使用方法(無視大小寫)：&3/warp <資源界/床/台灣/終界> "));
             player.sendMessage(colors("&2資源界：rs,resource"));
             player.sendMessage(colors("&7床：bed"));
             player.sendMessage(colors("&6台灣：tw,taiwan"));
+            player.sendMessage(colors("&6終界：end"));
         }
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        List<String> completions = new ArrayList<>();
+
+        if(args.length == 1) {
+            List<String> options = new ArrayList<>();
+            options.add("resource");
+            options.add("taiwan");
+            options.add("rs");
+            options.add("bed");
+            options.add("end");
+            options.add("tw");
+            StringUtil.copyPartialMatches(args[0],options,completions);
+        }
+        return completions;
     }
 }

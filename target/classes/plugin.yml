@@ -1,5 +1,5 @@
 name: NewTMSv8
-version: '8.3.0'
+version: '8.3.2'
 main: me.cyperion.ntms.NewTMSv8
 softdepend: [Vault]
 api-version: '1.21'

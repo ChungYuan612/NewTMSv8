@@ -246,7 +246,7 @@ public class Explosion extends Class implements Listener {
         knockbackMonsters(center, EXPLOSION_FRONT_BLOCK-1, 1.2);
         int count = 0;
         // 2. 對範圍內所有敵對生物造成傷害
-        for (Entity e : world.getNearbyEntities(center, EXPLOSION_RANGE, EXPLOSION_RANGE, EXPLOSION_RANGE)) {
+        for (Entity e : world.getNearbyEntities(center, EXPLOSION_RANGE, EXPLOSION_RANGE*2, EXPLOSION_RANGE)) {
             if (e instanceof Monster) {
                 ((Monster) e).damage(DAMAGE, player);
                 // 顯示傷害指示粒子
