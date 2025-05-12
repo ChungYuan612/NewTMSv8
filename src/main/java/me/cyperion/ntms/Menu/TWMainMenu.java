@@ -76,13 +76,17 @@ public class TWMainMenu extends Menu {
                 player.closeInventory();
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
             }else if(item.isSimilar(warp)){
+                player.closeInventory();
                 player.performCommand("menu warp");
-            } else if ( item.equals(enderChest)) {
+            } else if ( item.isSimilar(enderChest)) {
                 player.performCommand("enderchest");
+            }else if(item.isSimilar(shop)){
+                player.closeInventory();
+                player.performCommand("menu shop");
             }
         }
 
-        if(item.isSimilar(shop) || item.isSimilar(market)){
+        if(item.isSimilar(market)){
             player.sendMessage(colors("&c&l正在維修中..."));
         }
         if(item.isSimilar(signin)){
@@ -280,8 +284,8 @@ public class TWMainMenu extends Menu {
 
         ArrayList<String> signinLore = new ArrayList<>();
         signinLore.add("");
-        signinLore.add(colors("&3每日簽到&7可以獲得&61500元+其他在線"));
-        signinLore.add(colors("&7人數&6x100元的獎勵，您目前簽到會獲得"));
+        signinLore.add(colors("&3每日簽到&7可以獲得&61500元&7+其他在線"));
+        signinLore.add(colors("&7人數&6x100元&7的獎勵，您目前簽到會獲得"));
         signinLore.add(colors("&6"+ SigninCommand.countSigninMoney()+"元&7，在你簽到的時候其他"));
         signinLore.add(colors("&7在線玩家也會獲得&65~40元&7的獎勵。"));
         signinLore.add(colors(""));

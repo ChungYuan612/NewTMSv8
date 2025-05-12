@@ -5,6 +5,7 @@ import me.cyperion.ntms.Class.Explosion;
 import me.cyperion.ntms.Class.Terminator;
 import me.cyperion.ntms.Command.*;
 import me.cyperion.ntms.Event.*;
+import me.cyperion.ntms.ItemStacks.CartographyBlocker;
 import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
 import me.cyperion.ntms.Menu.BaseMenu.MenuListener;
@@ -70,7 +71,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "                "+"&c爆裂魔法&f更新！ &b歡迎加入!")
+                "                "+"&5商店系統&f更新！ &b歡迎加入!")
         );
 
 
@@ -127,6 +128,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         /* Command */
         getCommand("warp").setExecutor(new WarpCommand(this));
+        getCommand("warp").setTabCompleter(new WarpCommand(this));
         getCommand("enderchest").setExecutor(new EnderChestCommand());
         getCommand("admin").setExecutor(new AdminCommand(this));
         getCommand("admin").setTabCompleter(new AdminCommand(this));
@@ -148,6 +150,7 @@ public final class NewTMSv8 extends JavaPlugin {
         //Craft
         this.craftHandler = new CraftHandler(this);
         getServer().getPluginManager().registerEvents(craftHandler,this);
+        getServer().getPluginManager().registerEvents(new CartographyBlocker(),this);
 
         //Monster 目前關閉 只開啟突襲的部分
         this.getServer().getPluginManager().registerEvents(new MonsterRegister(this),this);

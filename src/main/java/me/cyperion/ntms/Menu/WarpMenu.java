@@ -4,6 +4,7 @@ import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -50,6 +51,9 @@ public class WarpMenu extends Menu {
             player.performCommand("warp tw");
         }else if ( item.isSimilar(goEnd)) {
             player.performCommand("warp end");
+        }else if (item.isSimilar(close)){
+            player.closeInventory();
+            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
         }
     }
 
@@ -114,10 +118,10 @@ public class WarpMenu extends Menu {
 
         //傳送至TW
         goEnd = new ItemStack(Material.END_STONE);
-        ItemMeta goEndMeta = goTW.getItemMeta();
+        ItemMeta goEndMeta = goEnd.getItemMeta();
         goEndMeta.setDisplayName(colors("&d傳送至終界 &8/warp end"));
         goEndMeta.setCustomModelData(1014);//未來做資源包可用
         goEndMeta.setLore(clickLore);
-        goTW.setItemMeta(goTWMeta);
+        goEnd.setItemMeta(goEndMeta);
     }
 }

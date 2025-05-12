@@ -67,3 +67,4 @@ me\cyperion\ntms\ItemStacks\Item\Stocks.class
 me\cyperion\ntms\Player\PlayerQuitServer.class
 me\cyperion\ntms\ItemStacks\Item\JadeCore.class
 me\cyperion\ntms\Monster\LootItem.class
+me\cyperion\ntms\ItemStacks\CartographyBlocker.class

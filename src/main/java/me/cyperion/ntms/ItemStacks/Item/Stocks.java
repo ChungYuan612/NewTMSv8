@@ -102,7 +102,7 @@ public class Stocks {
             meta.getPersistentDataContainer()
                             .set(
                                     plugin.getNsKeyRepo().getKey(
-                                            plugin.getNsKeyRepo().KEY_ITEM_STOCK_ID
+                                            NSKeyRepo.KEY_ITEM_STOCK_ID
                                     ),
                                     PersistentDataType.STRING,
                                     this.number
@@ -110,7 +110,7 @@ public class Stocks {
             meta.getPersistentDataContainer()
                     .set(
                             plugin.getNsKeyRepo().getKey(
-                                    plugin.getNsKeyRepo().KEY_ITEM_STOCK_LAST_REWARD
+                                    NSKeyRepo.KEY_ITEM_STOCK_LAST_REWARD
                             ),
                             PersistentDataType.INTEGER,
                             0

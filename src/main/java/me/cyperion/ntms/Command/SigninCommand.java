@@ -35,6 +35,15 @@ public class SigninCommand implements CommandExecutor {
             return true;
 
         if(args.length == 1 && player.isOp()){
+            if(args[0].equalsIgnoreCase("list")){
+                player.sendMessage(colors("&6[簽到列表]"));
+                for(UUID uuid : signinedList){
+                    Player target = Bukkit.getPlayer(uuid);
+                    if(target != null)
+                        player.sendMessage(colors("&b"+target.getName()));
+                }
+                return true;
+            }
             signInClose = !signInClose;
             if(signInClose){
                 player.sendMessage(colors("&6[提示] &c簽到已關閉"));
@@ -62,7 +71,7 @@ public class SigninCommand implements CommandExecutor {
         //+ plugin.getPlayerData(player).getSignInCount()*10
         plugin.getEconomy().depositPlayer(player,money);
         plugin.getPlayerData(player).addSignInCount(1);//未來可以拿這個來做新功能 TODO
-        player.sendMessage(colors("&a因為現在在線人數為&6"+playerCount+"&a人,所以你額外獲得&6"+playerBonus+"&a元"));
+        player.sendMessage(colors("&a因為現在其他在線人數為&6"+playerCount+"&a人,所以你額外獲得&6"+playerBonus+"&a元"));
         player.sendMessage(colors("&6[提示] &a成功簽到，本次簽到獲得&6"+money+"(+"+playerBonus+")&a元! 總共累積簽到 &3"
                 +plugin.getPlayerData(player).getSignInCount()+" &a次!"));
         Bukkit.broadcastMessage(colors(
@@ -85,7 +94,7 @@ public class SigninCommand implements CommandExecutor {
      * 這裡先放靜態資料，和59~61行對應
      */
     public static int countSigninMoney(){
-        return 1500+Bukkit.getOnlinePlayers().size()*100;
+        return 1500+(Bukkit.getOnlinePlayers().size()-1)*100;
     }
 
     public static boolean isSigned(Player player){
