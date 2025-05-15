@@ -20,6 +20,7 @@ enum ShopItem{
     OAK_LOG(Material.OAK_LOG, 1, 15,-1),
     SPRUCE_LOG(Material.SPRUCE_LOG, 1, 15,-1),
     STONE(Material.STONE, 1, 6,-1),
+    COBBLED_DEEPSLATE(Material.COBBLED_DEEPSLATE, 1, 7,-1),
     SAND(Material.SAND, 1, 7,-1),
     GRAVEL(Material.GRAVEL, 1, 7,-1),
     SLIME_BALL(Material.SLIME_BALL, 1, 20,-1),

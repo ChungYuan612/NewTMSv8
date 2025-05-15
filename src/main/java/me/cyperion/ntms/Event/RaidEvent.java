@@ -39,6 +39,7 @@ import static me.cyperion.ntms.Utils.colors;
 /**
  * 處理突襲相關的事件<br>
  * <p>關聯：NewTMSv8註冊</p>
+ * <p>關聯：Monster/MonsterRegister有掉落物相關</p>
  */
 public class RaidEvent implements Listener {
 
@@ -95,10 +96,10 @@ public class RaidEvent implements Listener {
             Bukkit.broadcastMessage(colors("&6[突襲資訊] &c注意!突襲出現了一波較強的敵人!"));
             for(Raider raider:e.getRaiders()){
                 if(raider instanceof Ravager){
-                    if(random.nextInt(10) >= 5){
+                    //if(random.nextInt(10) >= 5){ 全部都允許掉落青金石了
                         //允許掉落青金石
                         raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
-                    }
+                    //}
                 }
                 raider.addPotionEffect(new PotionEffect(
                         PotionEffectType.RESISTANCE,1000,2,false,true));
@@ -179,7 +180,7 @@ public class RaidEvent implements Listener {
                     +heros+"&a成功打敗了 &d"+level+"級 &a的突襲！"));
             int bouns = RaidBouns + RaidBounsPerLevel * level;
 
-            lootItem = new LootItem(emerald.toItemStack(),1,1,2*level);
+            lootItem = new LootItem(emerald.toItemStack(),1,1,3*level);
             for(Player player : winner){
                 lootItem.tryDropLoot(player,player.getLocation());
 

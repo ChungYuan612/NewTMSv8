@@ -18,7 +18,6 @@ import static me.cyperion.ntms.Utils.colors;
 
 /**
  * 商店GUI<br>
- * 目前還在做<br>
  * 可以在這裡跟系統購買東西，包含無限風彈<br>
  * 關聯: 還在做，所以沒有
  */
@@ -36,7 +35,7 @@ public class ShopMenu extends Menu {
 
     @Override
     public String getMenuName() {
-        return colors("&a商城");
+        return colors("&2商城");
     }
 
     @Override

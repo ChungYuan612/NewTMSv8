@@ -2,6 +2,7 @@ package me.cyperion.ntms.Command;
 
 import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
+import me.cyperion.ntms.Menu.Bazaar.BazaarMenu;
 import me.cyperion.ntms.Menu.ShopMenu;
 import me.cyperion.ntms.Menu.TWMainMenu;
 import me.cyperion.ntms.Menu.WarpMenu;
@@ -32,15 +33,22 @@ public class MenuCommand implements CommandExecutor {
             return true;
         Player player = (Player) sender;
 
-        if(args.length == 1 && args[0].equalsIgnoreCase("warp")) {
-            Menu menu = new WarpMenu(new PlayerMenuUtility((Player) sender),plugin);
-            menu.open();
-            return true;
-        }
-        if(args.length == 1 && args[0].equalsIgnoreCase("shop")) {
-            Menu menu = new ShopMenu(new PlayerMenuUtility((Player) sender),plugin);
-            menu.open();
-            return true;
+        if(args.length == 1){
+            if(args[0].equalsIgnoreCase("warp")) {
+                Menu menu = new WarpMenu(new PlayerMenuUtility((Player) sender),plugin);
+                menu.open();
+                return true;
+            }
+            if(args[0].equalsIgnoreCase("shop")) {
+                Menu menu = new ShopMenu(new PlayerMenuUtility((Player) sender),plugin);
+                menu.open();
+                return true;
+            }
+            if(args[0].equalsIgnoreCase("market")) {
+                Menu menu = new BazaarMenu(new PlayerMenuUtility((Player) sender),plugin);
+                menu.open();
+                return true;
+            }
         }
 
         if(args.length > 1){

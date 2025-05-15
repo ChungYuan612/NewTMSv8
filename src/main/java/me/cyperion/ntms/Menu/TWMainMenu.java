@@ -33,14 +33,15 @@ public class TWMainMenu extends Menu {
 
     private ItemStack signin;
     private ItemStack warp;
+    private ItemStack classes;
     private ItemStack shop;
     private ItemStack market;
     private ItemStack changeMana;
     private ItemStack enderChest;
 
-
     private final int SIGNIN_CMD = 1001;
     private final int WARP_CMD = 1002;
+    private final int CLASS_CMD = 1002;
     private final int SHOP_CMD = 1004;
     private final int MARKET_CMD = 1005;
     private final int MANA_CMD = 1006;
@@ -80,15 +81,18 @@ public class TWMainMenu extends Menu {
                 player.performCommand("menu warp");
             } else if ( item.isSimilar(enderChest)) {
                 player.performCommand("enderchest");
+            }else if(item.isSimilar(classes)){
+                player.performCommand("class");
             }else if(item.isSimilar(shop)){
                 player.closeInventory();
                 player.performCommand("menu shop");
+            }else if(item.isSimilar(market)){
+                player.performCommand("menu market");
+                //player.sendMessage(colors("&c&l正在維修中..."));
             }
         }
 
-        if(item.isSimilar(market)){
-            player.sendMessage(colors("&c&l正在維修中..."));
-        }
+
         if(item.isSimilar(signin)){
             if(signin.getItemMeta().getCustomModelData() == SIGNIN_CMD){
                 player.performCommand("signin");
@@ -145,24 +149,19 @@ public class TWMainMenu extends Menu {
         //每日簽到按鈕
         signin = getSigninItem(player);
 
-
-
         //切換顯示魔力
         changeMana = toggleManaShow(playerData.getShowManaOnActionbar());
-
-
-
 
         //設定上去Menu
 
         for(int i = 0; i < 27; i++){
-            inventory.setItem(i,background);
+            inventory.setItem(i,background.clone());
         }
 
         inventory.setItem(4,playerHead);
         inventory.setItem(10,signin);
         inventory.setItem(11,warp);
-        //inventory.setItem(12,goTW);
+        inventory.setItem(12,classes);
         inventory.setItem(13,shop);
         inventory.setItem(14,market);
         inventory.setItem(15,changeMana);
@@ -202,6 +201,19 @@ public class TWMainMenu extends Menu {
         warpLore.add(colors("&e點擊打開地圖傳送選單"));
         warpMeta.setLore(warpLore);
         warp.setItemMeta(warpMeta);
+
+        //職業選擇
+        classes = new ItemStack(Material.BOOK);
+        ItemMeta classesMeta = classes.getItemMeta();
+        classesMeta.setDisplayName(colors("&3職業選擇"));
+        classesMeta.setCustomModelData(CLASS_CMD);//未來做資源包可用
+        ArrayList<String> classesLore = new ArrayList<>();
+        classesLore.add(colors("&9/class"));
+        classesLore.add(colors("&7這裡可以使用職業選擇清單功能"));
+        classesLore.add("");
+        classesLore.add(colors("&e左鍵打開"));
+        classesMeta.setLore(classesLore);
+        classes.setItemMeta(classesMeta);
 
         //商城(系統)
         shop = new ItemStack(Material.EMERALD);
