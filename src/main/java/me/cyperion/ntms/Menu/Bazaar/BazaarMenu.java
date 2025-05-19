@@ -71,9 +71,9 @@ public class BazaarMenu extends Menu {
         ItemStack item = itemStack.clone();
         try{
             ItemMeta meta =  item.getItemMeta();
-            ArrayList<String> lore;
-            if (meta.hasLore()) lore = (ArrayList<String>) meta.getLore();
-            else lore = new ArrayList<>();
+            ArrayList<String> lore = new ArrayList<>();
+            //if (meta.hasLore()) lore = (ArrayList<String>) meta.getLore();
+            //else lore = new ArrayList<>();
             lore.add(colors(""));
             String buyPriceString = "N/A";//TODO
             String sellPriceString = "N/A";//TODO

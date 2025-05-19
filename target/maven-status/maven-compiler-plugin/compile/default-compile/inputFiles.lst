@@ -1,3 +1,12 @@
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\DBManager.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\Event\OrderCancelledEvent.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\Event\OrderEvent.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\Event\OrderMatchedEvent.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\Event\OrderPlacedEvent.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\MarketItem.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\Order.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\OrderBook.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Bazaar\TradingAPI.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Class\Class.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Class\ClassType.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Class\ClassUpgrade.java
@@ -40,6 +49,9 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Mana
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\BaseMenu\Menu.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\BaseMenu\MenuListener.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\BaseMenu\PlayerMenuUtility.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\Bazaar\BazaarMenu.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\Bazaar\BazaarOrderMenu.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\Bazaar\PendingIntent.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\ClassSelectMenu.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\ShopItem.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\ShopMenu.java

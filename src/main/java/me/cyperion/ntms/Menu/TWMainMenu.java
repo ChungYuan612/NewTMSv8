@@ -87,7 +87,8 @@ public class TWMainMenu extends Menu {
                 player.closeInventory();
                 player.performCommand("menu shop");
             }else if(item.isSimilar(market)){
-                player.performCommand("menu market");
+                player.performCommand("bazaar");
+                //player.performCommand("menu market");
                 //player.sendMessage(colors("&c&l正在維修中..."));
             }
         }
@@ -208,7 +209,7 @@ public class TWMainMenu extends Menu {
         classesMeta.setDisplayName(colors("&3職業選擇"));
         classesMeta.setCustomModelData(CLASS_CMD);//未來做資源包可用
         ArrayList<String> classesLore = new ArrayList<>();
-        classesLore.add(colors("&9/class"));
+        classesLore.add(colors("&8/class"));
         classesLore.add(colors("&7這裡可以使用職業選擇清單功能"));
         classesLore.add("");
         classesLore.add(colors("&e左鍵打開"));
@@ -242,7 +243,7 @@ public class TWMainMenu extends Menu {
         marketLore.add(colors("&7也在此處進行。"));
         marketLore.add(colors(""));
         marketLore.add(colors("&e點擊打開市場"));
-        marketLore.add(colors("&c&l目前尚未開放!"));
+        //marketLore.add(colors("&c&l目前尚未開放!"));
         marketMeta.setLore(marketLore);
         marketMeta.setCustomModelData(MARKET_CMD);//未來做資源包可用
         market.setItemMeta(marketMeta);

@@ -34,7 +34,7 @@ public class LapisArmor implements PieceFullBouns , Listener {
     private final NewTMSv8 plugin;
     private ItemStack[] itemStack=new ItemStack[4];
     int[] manaAddRate = new int[]{10,20,15,5};
-    int[] touchnessAdd = new int[]{3,4,3,3};
+    int[] touchnessAdd = new int[]{3,4,4,3};
     int[] armors = new int[]{4,7,5,4};
     EquipmentSlotGroup[] solts = new EquipmentSlotGroup[]{
             EquipmentSlotGroup.HEAD,
