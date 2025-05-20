@@ -30,6 +30,8 @@ public class Terminator extends Class implements Listener {
     private final HashMap<UUID,Integer> playerSteps = new HashMap<>();
 
     public double costManaOnShot = 3;
+    private final float DamageBase = 5.5f;
+    private final float DamageMultiplier = 0.5f;
     public Terminator(NewTMSv8 plugin) {
         super(plugin);
     }
@@ -55,7 +57,7 @@ public class Terminator extends Class implements Listener {
 
         Action action = event.getAction();
         if(action == Action.LEFT_CLICK_BLOCK
-         || action == Action.LEFT_CLICK_AIR) {
+         || action == Action.LEFT_CLICK_AIR ) {
             //確定點擊左鍵
             if(player.getInventory()
                     .getItemInMainHand().getType()
@@ -111,7 +113,7 @@ public class Terminator extends Class implements Listener {
             arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 3, 0), false);
         }
         arrow.setPickupStatus(Arrow.PickupStatus.CREATIVE_ONLY);
-        arrow.setDamage(5.5 + itemStack.getEnchantmentLevel(Enchantment.POWER)*0.55);
+        arrow.setDamage(DamageBase + itemStack.getEnchantmentLevel(Enchantment.POWER) * DamageMultiplier);
         arrow.setVelocity(direction.multiply(2.95).clone());
 
     }

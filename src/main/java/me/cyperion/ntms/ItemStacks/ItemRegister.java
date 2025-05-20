@@ -3,10 +3,7 @@ package me.cyperion.ntms.ItemStacks;
 import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
 import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstone;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedRedstoneBlock;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSeeds;
-import me.cyperion.ntms.ItemStacks.Item.Materaial.EnchantedSugar;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.Item.RedWand;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
@@ -44,6 +41,7 @@ public class ItemRegister {
     public void register() {
         registCraftItem();
         plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(plugin),plugin);
+        plugin.getServer().getPluginManager().registerEvents(new WiredRotten(plugin),plugin);
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -54,9 +52,14 @@ public class ItemRegister {
     }
 
     private void registCraftItem() {
+        Bukkit.getServer().addRecipe(new EnchantedEnderPearl(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new EnchantedRotten(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new WiredRotten(plugin).toNMSRecipe());
+
         Bukkit.getServer().addRecipe(new EnchantedRedstone(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new EnchantedRedstoneBlock(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new RedWand(plugin).getRecipe());
+
         LapisArmor lapisArmor = new LapisArmor(plugin);
         ShapedRecipe[] recipe = lapisArmor.toNMSRecipe();
         for(int i = 0; i<4;i++)
