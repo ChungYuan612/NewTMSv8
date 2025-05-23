@@ -4,6 +4,7 @@ me\cyperion\ntms\SQL\SQLError\SQLErrors.class
 me\cyperion\ntms\Class\Explosion$1.class
 me\cyperion\ntms\Menu\BaseMenu\PlayerMenuUtility.class
 me\cyperion\ntms\Command\NTMSCommand.class
+me\cyperion\ntms\ManaModifier.class
 me\cyperion\ntms\Class\ClassType.class
 me\cyperion\ntms\ItemStacks\Item\InfiniteWindCharge.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSugar.class
@@ -44,6 +45,7 @@ me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial$MaterailRate.class
 me\cyperion\ntms\NewTMSv8.class
 me\cyperion\ntms\Monster\Creature.class
 me\cyperion\ntms\Utils.class
+me\cyperion\ntms\ItemStacks\Item\Materaial\WiredRotten.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
 me\cyperion\ntms\Bazaar\Event\OrderEvent.class
 me\cyperion\ntms\Command\SignCommand.class
@@ -58,12 +60,15 @@ me\cyperion\ntms\ItemStacks\CraftHandler.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial.class
 me\cyperion\ntms\Menu\Bazaar\PendingIntent.class
 me\cyperion\ntms\ItemStacks\CraftHandler$1.class
+me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedEnderPearl.class
 me\cyperion\ntms\SQL\TradeDatabaseManager.class
 me\cyperion\ntms\Event\PlayerChatHandler.class
 me\cyperion\ntms\Event\PlayerAdvanceDoneHandler.class
+me\cyperion\ntms\ModifierType.class
 me\cyperion\ntms\Command\ClassCommand.class
 me\cyperion\ntms\Bazaar\Event\OrderPlacedEvent.class
 me\cyperion\ntms\Bazaar\DBManager.class
+me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRotten.class
 me\cyperion\ntms\Menu\Bazaar\BazaarMenu.class
 me\cyperion\ntms\Player\PlayerJoinServerController.class
 me\cyperion\ntms\Player\PlayerData.class

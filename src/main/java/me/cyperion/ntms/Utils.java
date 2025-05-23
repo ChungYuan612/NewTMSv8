@@ -1,14 +1,26 @@
 package me.cyperion.ntms;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
 
 public class Utils {
-
-
 
     //轉換顏色文字
     public static String colors(String text){
         return ChatColor.translateAlternateColorCodes('&',text);
+    }
+
+    public static void giveItem(Player player, ItemStack item, int amount) {
+        item.setAmount(amount);
+        HashMap<Integer, ItemStack> leftover = player.getInventory().addItem(item);
+        if (!leftover.isEmpty()) {
+            for (ItemStack remain : leftover.values()) {
+                player.getWorld().dropItemNaturally(player.getLocation(), remain);
+            }
+        }
     }
 
     //特殊字元

@@ -2,6 +2,7 @@ package me.cyperion.ntms.Event;
 
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.Monster.LootItem;
+import me.cyperion.ntms.Monster.RewardItem;
 import me.cyperion.ntms.NewTMSv8;
 import net.minecraft.core.BlockPosition;
 import net.minecraft.nbt.NBTTagCompound;
@@ -169,7 +170,7 @@ public class RaidEvent implements Listener {
     }
 
     private final Emerald_Coins emerald = new Emerald_Coins();
-    private LootItem lootItem;
+
     @EventHandler
     public void onRaidFinishEvent(RaidFinishEvent event){
         if(event.getRaid().getStatus().equals(Raid.RaidStatus.VICTORY)){
@@ -180,9 +181,9 @@ public class RaidEvent implements Listener {
                     +heros+"&a成功打敗了 &d"+level+"級 &a的突襲！"));
             int bouns = RaidBouns + RaidBounsPerLevel * level;
 
-            lootItem = new LootItem(emerald.toItemStack(),1,1,3*level);
+            RewardItem rewardItem = new RewardItem(emerald.toItemStack(), 1, 1, 3 * level);
             for(Player player : winner){
-                lootItem.tryDropLoot(player,player.getLocation());
+                rewardItem.tryDropLoot(player);
 
                 plugin.getEconomy().depositPlayer(player, bouns);
                 player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+bouns+"&a元的獎金！"));
