@@ -138,7 +138,7 @@ public class TWMainMenu extends Menu {
         lore.add(ChatColor.GOLD+SpecialChar("☣")+"成就點數: "+playerData.getAdvancePoint());
         lore.add(ChatColor.BLUE+SpecialChar("☠")+"突襲計算: "+playerData.getRaidPoint());
         lore.add(ChatColor.DARK_GREEN+SpecialChar("⦾")+"累積簽到: "+playerData.getSignInCount());
-        lore.add(ChatColor.GREEN+SpecialChar("☘")+"幸運等級: "+ChatColor.RED+"(COMING SOON)");
+        lore.add(ChatColor.GREEN+SpecialChar("☘")+"幸運值: "+String.format("%.1f",playerData.getLuck()));
         lore.add("");
         lore.add(player.getPing()<50?ChatColor.GREEN+"⫽Ping:"+player.getPing():ChatColor.YELLOW+"⫽Ping:"+player.getPing());
         lore.add("");
@@ -299,7 +299,7 @@ public class TWMainMenu extends Menu {
         signinLore.add("");
         signinLore.add(colors("&3每日簽到&7可以獲得&61500元&7+其他在線"));
         signinLore.add(colors("&7人數&6x100元&7的獎勵，您目前簽到會獲得"));
-        signinLore.add(colors("&6"+ SigninCommand.countSigninMoney()+"元&7，在你簽到的時候其他"));
+        signinLore.add(colors("&6大約"+ SigninCommand.countSigninMoney(plugin.getPlayerData(player).getSignInCount())+"元&7，在你簽到的時候其他"));
         signinLore.add(colors("&7在線玩家也會獲得&65~40元&7的獎勵。"));
         signinLore.add(colors(""));
         if(!isSigned){//還沒簽到

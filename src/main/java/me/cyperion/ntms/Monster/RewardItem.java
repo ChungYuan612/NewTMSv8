@@ -25,7 +25,8 @@ public class RewardItem {
         this.dropChance = dropChance;
     }
 
-    public RewardItem(ItemStack itemStack, int min, int max, double dropChance) {
+    public RewardItem(NewTMSv8 plugin, ItemStack itemStack, int min, int max, double dropChance) {
+        this.plugin = plugin;
         this.itemStack = itemStack;
         this.min = min;
         this.max = max;

@@ -1,5 +1,6 @@
 package me.cyperion.ntms;
 
+import me.cyperion.ntms.Class.Bard;
 import me.cyperion.ntms.Class.Class;
 import me.cyperion.ntms.Class.Explosion;
 import me.cyperion.ntms.Class.Terminator;
@@ -60,7 +61,7 @@ public final class NewTMSv8 extends JavaPlugin {
     private NSKeyRepo nsKeyRepo;
     private Mana mana;
 
-    private Class explosion,terminator;
+    private Class explosion,terminator,bard;
 
     public final boolean enableMana = true;
 
@@ -71,7 +72,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "                "+"&6市場系統&f更新！ &b歡迎加入!")
+                "                "+"&6破咒肉塊&f新增！ &b歡迎加入!")
         );
 
 
@@ -159,6 +160,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         explosion = new Explosion(this);
         terminator = new Terminator(this);
+        bard = new Bard(this);
         getServer().getPluginManager().registerEvents(new Terminator(this),this);
         getServer().getPluginManager().registerEvents(new Explosion(this),this);
     }
@@ -280,6 +282,11 @@ public final class NewTMSv8 extends JavaPlugin {
     public Class getTerminator() {
         return terminator;
     }
+
+    public Class getBard() {
+        return bard;
+    }
+
     //    public Database getDatabase() {
 //        return this.database;
 //    }

@@ -4,7 +4,6 @@ me\cyperion\ntms\SQL\SQLError\SQLErrors.class
 me\cyperion\ntms\Class\Explosion$1.class
 me\cyperion\ntms\Menu\BaseMenu\PlayerMenuUtility.class
 me\cyperion\ntms\Command\NTMSCommand.class
-me\cyperion\ntms\ManaModifier.class
 me\cyperion\ntms\Class\ClassType.class
 me\cyperion\ntms\ItemStacks\Item\InfiniteWindCharge.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSugar.class
@@ -55,10 +54,13 @@ me\cyperion\ntms\Menu\BaseMenu\Menu.class
 me\cyperion\ntms\ItemStacks\Armors\LapisArmor.class
 me\cyperion\ntms\Bazaar\MarketItem.class
 me\cyperion\ntms\Bazaar\TradingAPI.class
+me\cyperion\ntms\ItemStacks\Item\Materaial\LowerWiredRotten.class
 me\cyperion\ntms\ItemStacks\NTMSItems.class
 me\cyperion\ntms\ItemStacks\CraftHandler.class
+me\cyperion\ntms\Class\Bard.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial.class
 me\cyperion\ntms\Menu\Bazaar\PendingIntent.class
+me\cyperion\ntms\Monster\RewardItem.class
 me\cyperion\ntms\ItemStacks\CraftHandler$1.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedEnderPearl.class
 me\cyperion\ntms\SQL\TradeDatabaseManager.class

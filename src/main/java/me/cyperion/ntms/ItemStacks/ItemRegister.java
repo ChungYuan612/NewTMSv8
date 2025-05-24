@@ -14,6 +14,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 把物品註冊上去，物品的主類別 上層只有NewTMSv8 plugin
+ */
 public class ItemRegister {
 
     private NewTMSv8 plugin;
@@ -55,6 +58,7 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new EnchantedEnderPearl(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new EnchantedRotten(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new WiredRotten(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new LowerWiredRotten(plugin).toNMSRecipe());
 
         Bukkit.getServer().addRecipe(new EnchantedRedstone(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new EnchantedRedstoneBlock(plugin).toNMSRecipe());

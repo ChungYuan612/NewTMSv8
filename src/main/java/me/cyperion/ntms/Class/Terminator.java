@@ -106,11 +106,12 @@ public class Terminator extends Class implements Listener {
         arrow.setShooter(player);
         if(itemStack.hasItemMeta() && itemStack.getItemMeta().hasEnchant(Enchantment.FLAME)){
             arrow.setVisualFire(true);
+            arrow.setFireTicks(60);
         }
 
         if(isThird){
             arrow.setColor(Color.ORANGE);
-            arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 3, 0), false);
+            arrow.addCustomEffect(new PotionEffect(PotionEffectType.POISON, 3*20, 0), false);
         }
         arrow.setPickupStatus(Arrow.PickupStatus.CREATIVE_ONLY);
         arrow.setDamage(DamageBase + itemStack.getEnchantmentLevel(Enchantment.POWER) * DamageMultiplier);

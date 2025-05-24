@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class Utils {
 
@@ -21,6 +22,18 @@ public class Utils {
                 player.getWorld().dropItemNaturally(player.getLocation(), remain);
             }
         }
+    }
+
+    static Random rand = new Random();
+    public static int curveGrowth(int x) {
+        double a = 5;
+        double b = 1.43;
+        double baseValue = a * Math.pow(x, b);
+
+
+        double fluctuation = 0.95 + (1.05 - 0.95) * rand.nextDouble();
+
+        return (int)(baseValue * fluctuation);
     }
 
     //特殊字元

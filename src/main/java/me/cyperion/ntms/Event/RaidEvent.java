@@ -87,9 +87,15 @@ public class RaidEvent implements Listener {
                     v.getEquipment().setItemInMainHand(diamondAxe);
                     v.getEquipment().setItemInMainHandDropChance(0f);
                 }
+            }else if(raider instanceof Evoker evoker){
+                if(random.nextInt(10) >= 3){
+                    evoker.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 9000, 2, false, false));
+                }
             }
             raider.addPotionEffect(new PotionEffect(
-                    PotionEffectType.STRENGTH, 1000, 0, false, false));
+                    PotionEffectType.STRENGTH, 9000, 0, false, false));
+            raider.addPotionEffect(new PotionEffect(
+                    PotionEffectType.REGENERATION, 9000, 0, false, false));
         }
         //10%*突襲等級 機率出超強怪物
         int i=random.nextInt(10);
@@ -103,9 +109,9 @@ public class RaidEvent implements Listener {
                     //}
                 }
                 raider.addPotionEffect(new PotionEffect(
-                        PotionEffectType.RESISTANCE,1000,2,false,true));
+                        PotionEffectType.RESISTANCE,9000,2,false,true));
                 raider.addPotionEffect(new PotionEffect(
-                        PotionEffectType.STRENGTH, 1000, 1, false, false));
+                        PotionEffectType.STRENGTH, 9000, 1, false, false));
 
             }
             trySpawnBuffRaider(e.getRaid(),e.getRaid().getBadOmenLevel());
@@ -154,11 +160,11 @@ public class RaidEvent implements Listener {
                     raider = location.getWorld().spawn(location, Illusioner.class);
                 raider.addPotionEffect(
                         new PotionEffect(PotionEffectType.RESISTANCE,
-                                1000,2,false,true)
+                                9000,2,false,true)
                 );
                 raider.addPotionEffect(
                         new PotionEffect(PotionEffectType.STRENGTH,
-                                1000, 2, false, false));
+                                9000, 2, false, false));
 
                 raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
                 raider.setCanJoinRaid(true);
@@ -181,11 +187,11 @@ public class RaidEvent implements Listener {
                     +heros+"&a成功打敗了 &d"+level+"級 &a的突襲！"));
             int bouns = RaidBouns + RaidBounsPerLevel * level;
 
-            RewardItem rewardItem = new RewardItem(emerald.toItemStack(), 1, 1, 3 * level);
+            RewardItem rewardItem = new RewardItem(plugin,emerald.toItemStack(), 1, 1, 3 * level);
             for(Player player : winner){
                 rewardItem.tryDropLoot(player);
 
-                plugin.getEconomy().depositPlayer(player, bouns);
+                plugin.getEconomy().depositPlayer(player, bouns + (random.nextInt(level*100)-level*50));
                 player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+bouns+"&a元的獎金！"));
                 plugin.getPlayerData(player).addRaidPoint(1);
             }
@@ -203,7 +209,7 @@ public class RaidEvent implements Listener {
     private ItemStack getQuickCrossBow(){
         ItemStack item = new ItemStack(Material.CROSSBOW);
         ItemMeta meta = item.getItemMeta();
-        meta.addEnchant(Enchantment.QUICK_CHARGE,3,true);
+        meta.addEnchant(Enchantment.QUICK_CHARGE,4,true);
         meta.addEnchant(Enchantment.FLAME,0,true);
         item.setItemMeta(meta);
         return item;
@@ -212,7 +218,7 @@ public class RaidEvent implements Listener {
     private ItemStack getBuffDiamondAxe() {
         ItemStack item = new ItemStack(Material.DIAMOND_AXE);
         ItemMeta meta = item.getItemMeta();
-        meta.addEnchant(Enchantment.SHARPNESS,2,true);
+        meta.addEnchant(Enchantment.SHARPNESS,4,true);
         item.setItemMeta(meta);
         return item;
     }

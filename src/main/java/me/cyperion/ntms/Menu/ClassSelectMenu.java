@@ -22,7 +22,7 @@ import static me.cyperion.ntms.Utils.colors;
  * 關聯：/class指令註冊
  */
 public class ClassSelectMenu extends Menu {
-    ItemStack terminator,explosion;
+    ItemStack terminator,explosion,bard;
 
     public ClassSelectMenu(PlayerMenuUtility utility, NewTMSv8 plugin) {
         super(utility, plugin);
@@ -59,10 +59,23 @@ public class ClassSelectMenu extends Menu {
             inventory.setItem(11,terminator);
             inventory.setItem(15,explosion);
 
+        }else if(item.getItemMeta().getCustomModelData() == 1009) { //EXPLOSION
+            plugin.getPlayerData(player).setClassType(ClassType.EXPLOSION);
+
+
         }
 
-    }
+    }//口口口口口口口口口
 
+    private void updateMenu(){
+        setupTerminator();
+        setupExplosion();
+        setupBard();
+        inventory.setItem(11,terminator);
+        inventory.setItem(13,bard);
+        inventory.setItem(15,explosion);
+
+    }
     @Override
     public void setMenuItems() {
         //背景
@@ -136,5 +149,34 @@ public class ClassSelectMenu extends Menu {
         explosionMeta.setCustomModelData(1009);
         explosionMeta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
         explosion.setItemMeta(explosionMeta);
+    }
+
+    private void setupBard(){
+        PlayerData data = plugin.getPlayerData(playerMenuUtility.getOwner());
+        bard = new ItemStack(Material.STICK);
+        ItemMeta bardMeta = bard.getItemMeta();
+        bardMeta.setDisplayName(plugin.getBard().getName());
+        ArrayList<String> bardLore = new ArrayList<>();
+        bardLore.add(colors(""));
+        bardLore.add(colors("&6&l職業技能&r&f：&3&lBard"));
+        bardLore.add(colors("&f玩家只要拿著&d各類山羊角&f吹響即可施放"));
+        bardLore.add(colors("&f技能，為周圍的所有玩家提供為期&a15&f秒的&c回復&f、"));
+        bardLore.add(colors("&e吸收&f、&5力量&f效果，並且擊退周圍&38格的敵人，"));
+        bardLore.add(colors("&f每個山羊角都有特殊的效果："));
+        bardLore.add(colors(""));
+        bardLore.add(colors(""));
+        bardLore.add(colors("&c&l此職業尚未完成"));
+        /*
+        if(data.getClassType().equals(ClassType.EXPLOSION)){
+            bardLore.add(colors("&a您目前選擇這個職業"));
+            bardMeta.addEnchant(Enchantment.KNOCKBACK, 1, true);
+        }else{
+            bardLore.add(colors("&e點擊選擇職業"));
+        }
+        */
+        bardMeta.setLore(bardLore);
+        bardMeta.setCustomModelData(1010);
+        bardMeta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
+        explosion.setItemMeta(bardMeta);
     }
 }

@@ -72,6 +72,14 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
                 item = new EnchantedSeeds(plugin).toItemStack();
             }else if(name.equals(NTMSItems.ENCHANTED_SUGAR.name())) {
                 item = new EnchantedSugar(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.ENCHANTED_ROTTEN.name())) {
+                item = new EnchantedRotten(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.ENCHANTED_ENDER_PEARL.name())) {
+                item = new EnchantedEnderPearl(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.WIRED_ROTTEN.name())) {
+                item = new WiredRotten(plugin).toItemStack();
+            }else if(name.equals(NTMSItems.LOWER_WIRED_ROTTEN.name())) {
+                item = new LowerWiredRotten(plugin).toItemStack();
             }else if(name.equals(NTMSItems.ENCHANTED_RED_STONE.name())) {
                 item = new EnchantedRedstone(plugin).toItemStack();
             }else if(name.equals(NTMSItems.ENCHANTED_RED_STONE_BLOCK.name())) {
