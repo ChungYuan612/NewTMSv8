@@ -40,7 +40,7 @@ public class ClassSelectMenu extends Menu {
 
     @Override
     public void handleMenu(InventoryClickEvent event) {
-        //TODO 點擊職業圖案要選擇
+        
         ItemStack item = event.getCurrentItem();
         Player player = (Player) event.getWhoClicked();
         if(!(item.hasItemMeta() && item.getItemMeta().hasCustomModelData())){
@@ -48,20 +48,14 @@ public class ClassSelectMenu extends Menu {
         }
         if(item.getItemMeta().getCustomModelData() == 1008) { //TERMINATOR
             plugin.getPlayerData(player).setClassType(ClassType.TERMINATOR);
-            setupTerminator();
-            setupExplosion();
-            inventory.setItem(11,terminator);
-            inventory.setItem(15,explosion);
+            updateMenu();
         }else if(item.getItemMeta().getCustomModelData() == 1009) { //EXPLOSION
             plugin.getPlayerData(player).setClassType(ClassType.EXPLOSION);
-            setupTerminator();
-            setupExplosion();
-            inventory.setItem(11,terminator);
-            inventory.setItem(15,explosion);
+            updateMenu();
 
-        }else if(item.getItemMeta().getCustomModelData() == 1009) { //EXPLOSION
-            plugin.getPlayerData(player).setClassType(ClassType.EXPLOSION);
-
+        }else if(item.getItemMeta().getCustomModelData() == 1010) { //BARD
+            //plugin.getPlayerData(player).setClassType(ClassType.BARD);
+            updateMenu();
 
         }
 

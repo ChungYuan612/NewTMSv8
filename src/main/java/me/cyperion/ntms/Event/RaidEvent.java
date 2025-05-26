@@ -190,9 +190,9 @@ public class RaidEvent implements Listener {
             RewardItem rewardItem = new RewardItem(plugin,emerald.toItemStack(), 1, 1, 3 * level);
             for(Player player : winner){
                 rewardItem.tryDropLoot(player);
-
-                plugin.getEconomy().depositPlayer(player, bouns + (random.nextInt(level*100)-level*50));
-                player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+bouns+"&a元的獎金！"));
+                int p = bouns + (random.nextInt(level*100)-level*50);
+                plugin.getEconomy().depositPlayer(player, p);
+                player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+p+"&a元的獎金！"));
                 plugin.getPlayerData(player).addRaidPoint(1);
             }
         }
