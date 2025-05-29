@@ -60,10 +60,13 @@ public final class NewTMSv8 extends JavaPlugin {
 
     private NSKeyRepo nsKeyRepo;
     private Mana mana;
+    private ModifierMain modifierMain;
 
     private Class explosion,terminator,bard;
 
     public final boolean enableMana = true;
+
+
 
     @Override
     public void onEnable() {
@@ -72,7 +75,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "                "+"&3數值計算&f更新！ &b歡迎加入!")
+                "     "+"&d全新職業&f、&2綠寶石裝備&f還有很多更新！ &b歡迎加入!")
         );
 
 
@@ -93,6 +96,7 @@ public final class NewTMSv8 extends JavaPlugin {
             mana = new Mana(this);
             mana.runTaskTimer(this,0L,20L);
         }
+        modifierMain = new ModifierMain(this);
         //Vault
         if (!setupEconomy() ) {
             getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -123,7 +127,7 @@ public final class NewTMSv8 extends JavaPlugin {
         //玩家聊天
         getServer().getPluginManager().registerEvents(new PlayerChatHandler(this),this);
         //玩家釣魚
-        getServer().getPluginManager().registerEvents(new PlayerFishingEvent(),this);
+        getServer().getPluginManager().registerEvents(new PlayerFishingEvent(this),this);
         //選單控制(這個類別放在./Menu底下)
         getServer().getPluginManager().registerEvents(new MenuListener(),this);
 
@@ -163,6 +167,7 @@ public final class NewTMSv8 extends JavaPlugin {
         bard = new Bard(this);
         getServer().getPluginManager().registerEvents(new Terminator(this),this);
         getServer().getPluginManager().registerEvents(new Explosion(this),this);
+        getServer().getPluginManager().registerEvents(new Bard(this),this);
     }
 
     @Override
@@ -173,6 +178,9 @@ public final class NewTMSv8 extends JavaPlugin {
                 .forEach((entity, integer) ->
                         entity.remove()
                 );
+
+        modifierMain.clearModifier();
+        modifierMain.run();
         
     }
 
@@ -273,6 +281,10 @@ public final class NewTMSv8 extends JavaPlugin {
             playerMenuUtilityMap.put(player,utility);
         }
         return utility;
+    }
+
+    public ModifierMain getModifierMain() {
+        return modifierMain;
     }
 
     public Class getExplosion() {

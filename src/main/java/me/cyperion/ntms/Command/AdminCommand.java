@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Command;
 
+import me.cyperion.ntms.ItemStacks.Armors.EmeraldArmor;
 import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
 import me.cyperion.ntms.ItemStacks.Item.*;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
@@ -100,6 +101,12 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             }else{
                 if(name.equals(NTMSItems.LAPIS_ARMOR.name())) {
                     ItemStack[] items = new LapisArmor(plugin).getItemStacks();
+                    for(ItemStack i : items){
+                        player.getInventory().addItem(i);
+                    }
+                    return true;
+                }else if(name.equals(NTMSItems.EMERALD_ARMOR.name())) {
+                    ItemStack[] items = new EmeraldArmor(plugin).getItemStacks();
                     for(ItemStack i : items){
                         player.getInventory().addItem(i);
                     }

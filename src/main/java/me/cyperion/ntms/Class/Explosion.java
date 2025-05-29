@@ -2,11 +2,13 @@ package me.cyperion.ntms.Class;
 
 import me.cyperion.ntms.ItemStacks.Item.RedWand;
 import me.cyperion.ntms.NewTMSv8;
+import me.cyperion.ntms.Player.PlayerData;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -15,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -79,6 +82,32 @@ public class Explosion extends Class implements Listener {
     @Override
     public String getName() {
         return colors("&cエクスプロージョン &4Explosion");
+    }
+
+    @Override
+    public ItemStack getIcon() {
+
+        ItemStack explosion = new ItemStack(Material.STICK);
+        ItemMeta explosionMeta = explosion.getItemMeta();
+        explosionMeta.setDisplayName(plugin.getExplosion().getName());
+        ArrayList<String> explosionLore = new ArrayList<>();
+        explosionLore.add(colors(""));
+        explosionLore.add(colors("&6&l職業技能&r&f：&6&lExplosion"));
+        explosionLore.add(colors("&f玩家要拿著&c紅魔法杖&f並且蹲下右鍵即可施放"));
+        explosionLore.add(colors("&f技能，開始為期&a12&f秒的&d&l詠唱&r&f效果"));
+        explosionLore.add(colors("&f結束後對前方一定範圍內的敵人造成&c"+ Explosion.DAMAGE +"&f點"));
+        explosionLore.add(colors("&f傷害，並消耗&3"+Explosion.COST_MANA+"&f點&b魔力&f，此技能允許透支魔力"));
+        explosionLore.add(colors(""));
+        explosionLore.add(colors("&d&l詠唱&r&f："));
+        explosionLore.add(colors("&f期間上方進度條會開始充能，並獲得&8緩速效果"));
+        explosionLore.add(colors("&f必須全程蹲著才能完整施放，"));
+        explosionLore.add(colors(""));
+
+        explosionMeta.setLore(explosionLore);
+        explosionMeta.setCustomModelData(1009);
+        explosionMeta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
+        explosion.setItemMeta(explosionMeta);
+        return explosion;
     }
 
     @EventHandler

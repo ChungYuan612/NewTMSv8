@@ -23,6 +23,7 @@ public enum NTMSItems {
     STOCK_3391,
     STOCK_XAUD,
     LAPIS_ARMOR,
+    EMERALD_ARMOR,
     REINFINED_LAPIS,
 
 }

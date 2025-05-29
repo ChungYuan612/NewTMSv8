@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Class;
 
 import me.cyperion.ntms.NewTMSv8;
+import me.cyperion.ntms.Player.PlayerData;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Color;
@@ -16,10 +17,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -44,6 +47,28 @@ public class Terminator extends Class implements Listener {
     @Override
     public String getName() {
         return colors("&dTerminator");
+    }
+
+    @Override
+    public ItemStack getIcon() {
+        ItemStack terminator = new ItemStack(Material.BOW);
+        ItemMeta terminatorMeta = terminator.getItemMeta();
+        terminatorMeta.setDisplayName(plugin.getTerminator().getName());
+        ArrayList<String> terminatorLore = new ArrayList<>();
+        terminatorLore.add(colors(""));
+        terminatorLore.add(colors("&6&l職業技能&r&f：&6&lSalvation"));
+        terminatorLore.add(colors("&f玩家只要拿著&b弓箭&c左鍵&f，即可消耗"));
+        terminatorLore.add(colors("&33&f點&b魔力&f並向前方射出&53&f隻箭矢。"));
+        terminatorLore.add(colors(""));
+        terminatorLore.add(colors("&f每次施放&6&lSalvation&r&f時會獲得"));
+        terminatorLore.add(colors("&f一層&dBEAM&f效果，疊滿&33&f層時，會"));
+        terminatorLore.add(colors("&f重置層數且此次箭矢傷害&c+15%&f、&2中毒3秒&f"));
+        terminatorLore.add(colors(""));
+        terminatorMeta.setLore(terminatorLore);
+        terminatorMeta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
+        terminatorMeta.setCustomModelData(1008);
+        terminator.setItemMeta(terminatorMeta);
+        return terminator;
     }
 
     @EventHandler

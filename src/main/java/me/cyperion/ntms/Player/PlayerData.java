@@ -22,7 +22,8 @@ public class PlayerData {
      */
     private double maxMana,mana,manaReg;
 
-    public static final int DEFAULT_MAX_MANA=50;
+    public static final double DEFAULT_MANA_REG=1.0;
+    public static final double DEFAULT_LUCK=0.0;
 
     //職業，沒有的話為None
     private ClassType classType;
@@ -61,7 +62,7 @@ public class PlayerData {
             container.set(repo.getKey(NSKeyRepo.KEY_PD_MAX_MANA),
                     PersistentDataType.DOUBLE,Mana.defaultMaxMana);
             container.set(repo.getKey(NSKeyRepo.KEY_PD_MANA_REG),
-                    PersistentDataType.DOUBLE,1.0);
+                    PersistentDataType.DOUBLE,Mana.defaultManaRegan);
             container.set(repo.getKey(NSKeyRepo.KEY_PD_MANA),
                     PersistentDataType.DOUBLE,0.0);
         }
@@ -69,7 +70,7 @@ public class PlayerData {
         this.allowOverMana = checkAndSetData(repo.getKey(repo.KEY_PD_ALLOW_OVER_MANA),false);
 
         this.maxMana = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_MAX_MANA),Mana.defaultMaxMana);
-        this.manaReg = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_MANA_REG),1.0);
+        this.manaReg = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_MANA_REG),Mana.defaultManaRegan);
         this.mana = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_MANA),0.0);
         this.showMana = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_SHOW_MANA),true);
 

@@ -5,11 +5,12 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -26,6 +27,7 @@ public class Mana extends BukkitRunnable {
     }
 
     public final static double defaultMaxMana = 50;
+    public final static double defaultManaRegan = 1.0;
 
     /**
      * 自然回復魔力
@@ -109,9 +111,16 @@ public class Mana extends BukkitRunnable {
         return maxMana <= mana;
     }
 
+
     @Override
     public void run() {
+        //所有Modiifer的運作掛載在Mana這裡 20L period
+        plugin.getModifierMain().run();
+        //注意!!!
+
         for(Player player : Bukkit.getOnlinePlayers()){
+
+
             double maxMana = plugin.getPlayerData(player).getMaxMana();
             double mana = plugin.getPlayerData(player).getMana();
             regenMana(player);

@@ -1,5 +1,6 @@
 package me.cyperion.ntms.ItemStacks;
 
+import me.cyperion.ntms.ItemStacks.Armors.EmeraldArmor;
 import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
 import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
@@ -24,6 +25,7 @@ public class ItemRegister {
     public ItemRegister(NewTMSv8 plugin) {
         this.plugin = plugin;
         allPieceFullBouns.add(new LapisArmor(plugin));
+        allPieceFullBouns.add(new EmeraldArmor(plugin));
         register();
     }
 
@@ -65,9 +67,14 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new RedWand(plugin).getRecipe());
 
         LapisArmor lapisArmor = new LapisArmor(plugin);
-        ShapedRecipe[] recipe = lapisArmor.toNMSRecipe();
+        ShapedRecipe[] lapisRrecipe = lapisArmor.toNMSRecipe();
         for(int i = 0; i<4;i++)
-            Bukkit.getServer().addRecipe(recipe[i]);
+            Bukkit.getServer().addRecipe(lapisRrecipe[i]);
+
+        EmeraldArmor emeraldArmor = new EmeraldArmor(plugin);
+        ShapedRecipe[] emeraldRecipe = emeraldArmor.toNMSRecipe();
+        for(int i = 0; i<4;i++)
+            Bukkit.getServer().addRecipe(emeraldRecipe[i]);
 
 
         //plugin.getCraftHandler().getRecipes().add(new EnchantedSugar(plugin).getRecipe());

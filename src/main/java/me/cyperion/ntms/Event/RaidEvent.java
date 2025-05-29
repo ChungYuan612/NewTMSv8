@@ -1,39 +1,28 @@
 package me.cyperion.ntms.Event;
 
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
-import me.cyperion.ntms.Monster.LootItem;
 import me.cyperion.ntms.Monster.RewardItem;
 import me.cyperion.ntms.NewTMSv8;
-import net.minecraft.core.BlockPosition;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.level.WorldServer;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.monster.EntityPillager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Raid;
-import org.bukkit.craftbukkit.v1_21_R3.CraftWorld;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.raid.RaidFinishEvent;
 import org.bukkit.event.raid.RaidSpawnWaveEvent;
 import org.bukkit.event.raid.RaidTriggerEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
 import java.util.StringJoiner;
-import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -68,7 +57,7 @@ public class RaidEvent implements Listener {
         Location location =event.getRaid().getLocation();
 
         Bukkit.broadcastMessage(colors(
-                "&6[突襲資訊] &b"+player.getDisplayName()+
+                "&6[突襲資訊] &b"+player.getName()+
                         "&a 在座標：&d("+location.getBlockX()+", "+location.getBlockY()+", "+location.getBlockZ()+")&a 觸發了突襲!"));
 
     }

@@ -32,6 +32,7 @@ public class NSKeyRepo {
 
     public static final String KEY_ARMOR_NAME = "key_armor_name";
     public static final String KEY_ARMOR_MANA_ADD = "key_armor_mana_add";
+    public static final String KEY_ARMOR_LUCK_ADD = "key_armor_mana_add";
 
 
     public NSKeyRepo() {

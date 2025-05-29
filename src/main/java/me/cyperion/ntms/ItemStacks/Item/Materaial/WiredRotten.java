@@ -33,7 +33,7 @@ public class WiredRotten extends NTMSMaterial implements Listener {
         ArrayList<String> lore = new ArrayList<>();
         lore.add(colors("&f由各種意義上的東西組合成的肉塊，"));
         lore.add(colors("&f味道聞到後讓人有點反胃...，但吃下去"));
-        lore.add(colors("&f消耗&62~3點飢餓值&f會回復&c4點血量&f..."));
+        lore.add(colors("&f消耗&62~3點飢餓值&f會回復&c8點血量&f..."));
         lore.add(colors(""));
         lore.add(colors("&8這個肉不能以一般方法吃掉喔。"));
         return lore;
@@ -80,7 +80,7 @@ public class WiredRotten extends NTMSMaterial implements Listener {
             event.getPlayer().setFoodLevel(food);
 
             event.getPlayer().addPotionEffect(new PotionEffect(
-                    PotionEffectType.INSTANT_HEALTH,1,0,false,false));
+                    PotionEffectType.INSTANT_HEALTH,1,1,false,false));
             event.getPlayer().sendMessage(colors("&a你吃下了1個"+getItemName()));
 
             // 移除物品數量（吃一個）
