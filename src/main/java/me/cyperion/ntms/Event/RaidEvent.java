@@ -82,9 +82,11 @@ public class RaidEvent implements Listener {
                 }
             }
             raider.addPotionEffect(new PotionEffect(
-                    PotionEffectType.STRENGTH, 9000, 0, false, false));
+                    PotionEffectType.STRENGTH, 20*9000, 0, false, false));
             raider.addPotionEffect(new PotionEffect(
-                    PotionEffectType.REGENERATION, 9000, 0, false, false));
+                    PotionEffectType.REGENERATION, 20*9000, 0, false, false));
+            raider.addPotionEffect(new PotionEffect(
+                    PotionEffectType.FIRE_RESISTANCE,20*90,1,false,false));
         }
         //10%*突襲等級 機率出超強怪物
         int i=random.nextInt(10);
@@ -98,9 +100,11 @@ public class RaidEvent implements Listener {
                     //}
                 }
                 raider.addPotionEffect(new PotionEffect(
-                        PotionEffectType.RESISTANCE,9000,2,false,true));
+                        PotionEffectType.FIRE_RESISTANCE,20*9000,1,false,false));
                 raider.addPotionEffect(new PotionEffect(
-                        PotionEffectType.STRENGTH, 9000, 1, false, false));
+                        PotionEffectType.RESISTANCE,20*9000,2,false,true));
+                raider.addPotionEffect(new PotionEffect(
+                        PotionEffectType.STRENGTH, 20*9000, 1, false, false));
 
             }
             trySpawnBuffRaider(e.getRaid(),e.getRaid().getBadOmenLevel());
@@ -125,7 +129,7 @@ public class RaidEvent implements Listener {
                     raider = location.getWorld().spawn(location, Ravager.class);
                 raider.addPotionEffect(
                         new PotionEffect(PotionEffectType.STRENGTH,
-                                1000, 0, false, false));
+                                1000, 1, false, false));
 
                 raider.setCanJoinRaid(true);
                 raider.setRaid(raid);

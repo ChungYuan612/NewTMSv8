@@ -40,13 +40,13 @@ public class ShopMenu extends Menu {
 
     @Override
     public int getSolts() {
-        return 9*5;
+        return 9*6;
     }
 
     @Override
     public void handleMenu(InventoryClickEvent event) {
         int solt = event.getSlot();
-        if(solt == 31)
+        if(solt == 49)
             playerMenuUtility.getOwner().closeInventory();
         int centerIndex = mapToCenterIndex(solt);
         if(centerIndex == -1) return;
@@ -88,8 +88,8 @@ public class ShopMenu extends Menu {
 
     @Override
     public void setMenuItems() {
-        for(int i = 0; i < 5*9; i++){
-            if(i == 40){
+        for(int i = 0; i < 6*9; i++){
+            if(i == 49){
                 inventory.setItem(i,close);
             }else if(mapToCenterIndex(i) == -1)
                 inventory.setItem(i,background);
@@ -151,8 +151,8 @@ public class ShopMenu extends Menu {
         int row = slotIndex / 9;   // 第幾排（0～3）
         int col = slotIndex % 9;   // 第幾欄（0～8）
 
-        // 中間區域只包含 row 1 ~ 3，col 1～7（排除邊緣）
-        if ((row >= 1 && row <= 3) && (col >= 1 && col <= 7)) {
+        // 中間區域只包含 row 1 ~ 4，col 1～7（排除邊緣）
+        if ((row >= 1 && row <= 4) && (col >= 1 && col <= 7)) {
             int rowOffset = (row - 1) * 7;         // 第 2 排起始是 +0，第 3 排起始是 +7
             return rowOffset + (col - 1) + 1;      // col 1 對應 offset 0，加 1 就是編號
         }

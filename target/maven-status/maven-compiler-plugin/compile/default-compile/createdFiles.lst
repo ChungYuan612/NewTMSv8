@@ -14,6 +14,7 @@ me\cyperion\ntms\Command\TpaCommand.class
 me\cyperion\ntms\ItemStacks\Armors\PieceFullBouns.class
 me\cyperion\ntms\Monster\MonsterRegister.class
 me\cyperion\ntms\Command\PayCommand.class
+me\cyperion\ntms\ModifierMain.class
 me\cyperion\ntms\Event\DamageIcon.class
 me\cyperion\ntms\Mana.class
 me\cyperion\ntms\Menu\WarpMenu.class
@@ -38,6 +39,7 @@ me\cyperion\ntms\Menu\TWMainMenu.class
 me\cyperion\ntms\Bazaar\OrderBook.class
 me\cyperion\ntms\Command\MenuCommand.class
 me\cyperion\ntms\ItemStacks\CraftRecipe.class
+me\cyperion\ntms\ItemStacks\Armors\EmeraldArmor.class
 me\cyperion\ntms\Bazaar\Event\OrderMatchedEvent.class
 me\cyperion\ntms\Command\EnderChestCommand.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial$MaterailRate.class
@@ -76,6 +78,7 @@ me\cyperion\ntms\Player\PlayerJoinServerController.class
 me\cyperion\ntms\Player\PlayerData.class
 me\cyperion\ntms\SQL\Database.class
 me\cyperion\ntms\Class\Class.class
+me\cyperion\ntms\Modifier.class
 me\cyperion\ntms\Event\PlayerAdvanceDoneHandler$1.class
 me\cyperion\ntms\Event\PlayerFishingEvent.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRedstone.class

@@ -37,17 +37,19 @@ public class RewardItem {
         double luckbouns = plugin.getPlayerData(player).getLuck();
         double value;
         if(luckbouns <= 0) value = dropChance;
-        else value = dropChance* (1+luckbouns/100);
-        if(Math.random() * 101 > value) return;
+        else value = dropChance * (1+luckbouns/100);
+        double v = Math.random() * 100;
+        if(v >= value) return;
         int amount = randomModifier.nextInt(max-min+1)+min;
         ItemStack item = this.itemStack.clone();
         Utils.giveItem(player, item, amount);
-        if(luckbouns >0){
+        System.out.println("[掉落] "+player+" 獲得了 "+itemStack.getItemMeta().getDisplayName()+ " value:"+v+" in 100(+luck:"+luckbouns+")");
+        if(luckbouns > 0){
             player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()
-                    +" &b("+(dropChance)+"&2+"+luckbouns+"&b%)"));
+                    +" &b("+(dropChance)+"&2+"+(value-dropChance)+"&b%)&f!"));
         }else{
             player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()
-                    +" &b("+(dropChance)+"%)"));
+                    +" &b("+(dropChance)+"%)!"));
         }
 
 

@@ -28,6 +28,7 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Even
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerChatHandler.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerFishingEvent.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\RaidEvent.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Armors\EmeraldArmor.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Armors\LapisArmor.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Armors\PieceFullBouns.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\CartographyBlocker.java
@@ -62,6 +63,8 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\ShopMenu.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\TWMainMenu.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\WarpMenu.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Modifier.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ModifierMain.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ModifierType.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Monster\Creature.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Monster\LootItem.java

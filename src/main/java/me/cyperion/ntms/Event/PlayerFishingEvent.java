@@ -27,7 +27,6 @@ public class PlayerFishingEvent implements Listener {
     public void onPlayerFishing(PlayerFishEvent event){
         if(!event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH))
             return;
-        double value = random.nextDouble(0,100);
         double rate = 0.85d;
         if(!event.getPlayer().getLocation().getWorld().isClearWeather())
             rate = 1d;
@@ -36,16 +35,18 @@ public class PlayerFishingEvent implements Listener {
             rate /=2;
 
         Player player = event.getPlayer();
+        double value;
         double base = rate;
         double luckbouns = plugin.getPlayerData(player).getLuck();
         if(luckbouns <= 0) value = rate;
         else value = rate * (1+luckbouns/100);
-
-        if(value<=rate){
-            System.out.println(event.getPlayer().getDisplayName() + " 釣起了 碎玉核心! "+ value + "in 100");
+        double v = Math.random() * 100;
+        if(v < value){
+            System.out.println(event.getPlayer().getDisplayName() + " 釣起了 碎玉核心! "+v+" in 100");
             if(event.getCaught() instanceof Item item){
                 item.setItemStack(jadeCore.toItemStack().clone());
-                player.sendMessage(colors("&6[稀有釣魚] &f"+item.getItemStack().getItemMeta().getDisplayName()+" &b("+(base)+"&2+"+luckbouns+"&b%)"));
+                player.sendMessage(colors("&6[稀有釣魚] &f"
+                        +jadeCore.toItemStack().getItemMeta().getDisplayName()+" &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
 
             }
         }

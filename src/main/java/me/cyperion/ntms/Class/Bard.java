@@ -53,7 +53,7 @@ public class Bard extends Class implements Listener {
     @Override
     public ItemStack getIcon() {
         ItemStack bard;
-        bard = new ItemStack(Material.STICK);
+        bard = new ItemStack(Material.GOAT_HORN);
         ItemMeta bardMeta = bard.getItemMeta();
         bardMeta.setDisplayName(plugin.getBard().getName());
         ArrayList<String> bardLore = new ArrayList<>();
@@ -64,14 +64,14 @@ public class Bard extends Class implements Listener {
         bardLore.add(colors("&e吸收&f、&5力量&f效果，並且擊退周圍&38格的敵人&f等"));
         bardLore.add(colors(""));
         bardLore.add(colors("&b&l每個山羊角都有特殊的效果："));
-        bardLore.add(colors("&f- 尋覓&6：&f消耗&b15&f點&3魔力&f，讓附近&c50&f格的突襲者發光並虛弱，持續&a30&f秒，突襲BOSS則不算"));
-        bardLore.add(colors("&f- 嚮往&6：&f消耗&b12&f點&3魔力&f，把附近&c15&f格的敵人擊退並減少敵人的移動速度40%。"));
-        bardLore.add(colors("&f- 仰慕&6：&f消耗&b16&f點&3魔力&f，給予附近&c12&f格的隊友與&c回復&f與&e吸收&f效果，持續&a20&f秒。"));
-        bardLore.add(colors("&f- 感覺&6：&f消耗&b15&f點&3魔力&f，移除&c15&f格內所有玩家的&8負面&f效果"));
-        bardLore.add(colors("&f- 沉思&6：&f消耗&b20&f點&3魔力&f，讓周圍&c12格&f所有玩家立即回復&b15&f點&3魔力"));
-        bardLore.add(colors("&f- 歌頌&6：&f消耗&b20&f點&3魔力&f，給予周圍&c12格&f所有玩家&4力量&f效果，並給予自身&7抗性&f效果，持續&a20&f秒"));
-        bardLore.add(colors("&f- 呼喚&6：&f消耗&b14&f點&3魔力&f，給予周圍&c12格&f所有玩家&2速度加成&f效果與&a跳躍提升&f效果，持續&a30&f秒"));
-        bardLore.add(colors("&f- 夢想&6：&f消耗&b14&f點&3魔力&f，獲得上述隨機效果!"));
+        bardLore.add(colors("&f- 尋覓&6：&f消耗&b"+seekCostMana+"&f點&3魔力&f，讓附近&c50&f格的突襲者發光並虛弱，持續&a30&f秒，突襲BOSS則不算"));
+        bardLore.add(colors("&f- 嚮往&6：&f消耗&b"+yearnCostMana+"&f點&3魔力&f，把附近&c15&f格的敵人擊退並減少敵人的移動速度&a40%&f。"));
+        bardLore.add(colors("&f- 仰慕&6：&f消耗&b"+admireCostMana+"&f點&3魔力&f，給予附近&c12&f格的隊友與&c回復&f與&e吸收&f效果，持續&a20&f秒。"));
+        bardLore.add(colors("&f- 感覺&6：&f消耗&b"+feelCostMana+"&f點&3魔力&f，移除&c15&f格內所有玩家的&8負面&f效果"));
+        bardLore.add(colors("&f- 沉思&6：&f消耗&b"+ponderCostMana+"&f點&3魔力&f，讓周圍&c12格&f所有玩家立即回復&b15&f點&3魔力"));
+        bardLore.add(colors("&f- 歌頌&6：&f消耗&b"+singCostMana+"&f點&3魔力&f，給予周圍&c12格&f所有玩家&4力量&f效果，並給予自身&7抗性&f效果，持續&a20&f秒"));
+        bardLore.add(colors("&f- 呼喚&6：&f消耗&b"+callCostMana+"&f點&3魔力&f，給予周圍&c12格&f所有玩家&2速度加成&f效果與&a跳躍提升&f效果，持續&a30&f秒"));
+        bardLore.add(colors("&f- 夢想&6：&f消耗&b"+dreamCostMana+"&f點&3魔力&f，獲得上述隨機效果!"));
         bardLore.add(colors(""));
 
         bardMeta.setLore(bardLore);
@@ -163,10 +163,10 @@ public class Bard extends Class implements Listener {
                 List<Entity> entities = player.getNearbyEntities(15, 15, 15);
                 for (Entity entity : entities) {
                     if (entity instanceof Monster monster) {
-                        monster.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20 * 10, 1));
+                        monster.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20 * 12, 1));
                     }
                 }
-                knockbackMonsters(player.getLocation(), 10, 0.5);
+                knockbackMonsters(player.getLocation(), 10, 0.6);
             }
         }else if(musicInstrument==MusicInstrument.ADMIRE_GOAT_HORN) {//仰慕
             id = "仰慕";
@@ -186,6 +186,7 @@ public class Bard extends Class implements Listener {
             if(plugin.getMana().costMana(player,feelCostMana)){
                 List<Entity> entities = player.getNearbyEntities(15, 15, 15);
                 entities.add(player);
+                int count = 0;
                 for (Entity entity : entities) {
                     if (entity instanceof Player nearbyPlayer) {
                         boolean hasPurify = false;
@@ -197,21 +198,27 @@ public class Bard extends Class implements Listener {
                         if (!hasPurify) continue;
                         nearbyPlayer.sendMessage("§a你的負面狀態被§b"+player.getName()+"§a的技能淨化了！");
                         nearbyPlayer.playSound(nearbyPlayer.getLocation(), Sound.ENTITY_SPLASH_POTION_BREAK, 1, 1);
+                        count++;
                     }
                 }
-
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_SPLASH, 0.8f, 1);
+                player.sendMessage(colors("&a你幫&b"+count+"&a人淨化了負面藥水效果"));
             }
         }else if(musicInstrument==MusicInstrument.PONDER_GOAT_HORN) {//沉思
             id = "沉思";
             if(plugin.getMana().costMana(player,ponderCostMana)){
                 List<Entity> entities = player.getNearbyEntities(12, 12, 12);
+                int count = 0;
                 for (Entity entity : entities) {
                     if (entity instanceof Player nearbyPlayer) {
                         plugin.getMana().addMana(nearbyPlayer,15);
                         nearbyPlayer.sendMessage("§b"+player.getName()+"§a幫你回復了§315§a點魔力！");
                         nearbyPlayer.playSound(nearbyPlayer.getLocation(), Sound.ENTITY_WITCH_DRINK, 1, 1);
+                        count++;
                     }
                 }
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_SPLASH, 0.8f, 1);
+                player.sendMessage(colors("&a你幫&b"+count+"&a人回復了魔力"));
             }
         }else if(musicInstrument==MusicInstrument.SING_GOAT_HORN) {//歌頌
             id = "歌頌";
@@ -224,13 +231,14 @@ public class Bard extends Class implements Listener {
                     }
                 }
                 player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20 * 20, 1,false,false));
-                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, 0.8f, 0.8f);
+                player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, 0.6f, 0.8f);
 
             }
         }else if(musicInstrument==MusicInstrument.CALL_GOAT_HORN) {//呼喚
             id = "呼喚";
             if(plugin.getMana().costMana(player,callCostMana)){
                 List<Entity> entities = player.getNearbyEntities(12, 12, 12);
+                entities.add(player);
                 for (Entity entity : entities) {
                     if (entity instanceof Player target) {
                         target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20 * 30, 0));
@@ -241,7 +249,7 @@ public class Bard extends Class implements Listener {
                 player.playSound(player.getLocation(), Sound.ITEM_HONEY_BOTTLE_DRINK, 1, 1);
             }
         }
-        if(random.nextInt(100) <=1){
+        if(random.nextInt(100) ==0){
             player.sendMessage(colors("&b"+id));
             id = "&dI春日影I &6!";
         }
