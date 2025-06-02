@@ -78,7 +78,7 @@ public class RaidEvent implements Listener {
                 }
             }else if(raider instanceof Evoker evoker){
                 if(random.nextInt(10) >= 3){
-                    evoker.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 9000, 2, false, false));
+                    evoker.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20*600, 2, false, false));
                 }
             }
             raider.addPotionEffect(new PotionEffect(
@@ -86,7 +86,7 @@ public class RaidEvent implements Listener {
             raider.addPotionEffect(new PotionEffect(
                     PotionEffectType.REGENERATION, 20*9000, 0, false, false));
             raider.addPotionEffect(new PotionEffect(
-                    PotionEffectType.FIRE_RESISTANCE,20*90,1,false,false));
+                    PotionEffectType.FIRE_RESISTANCE,20*90,0,false,false));
         }
         //10%*突襲等級 機率出超強怪物
         int i=random.nextInt(10);
@@ -158,6 +158,9 @@ public class RaidEvent implements Listener {
                 raider.addPotionEffect(
                         new PotionEffect(PotionEffectType.STRENGTH,
                                 9000, 2, false, false));
+                raider.addPotionEffect(
+                        new PotionEffect(PotionEffectType.REGENERATION,
+                                90*20, 0, false, false));
 
                 raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
                 raider.setCanJoinRaid(true);
@@ -183,7 +186,7 @@ public class RaidEvent implements Listener {
             RewardItem rewardItem = new RewardItem(plugin,emerald.toItemStack(), 1, 1, 3 * level);
             for(Player player : winner){
                 rewardItem.tryDropLoot(player);
-                int p = bouns + (random.nextInt(level*100)-level*50);
+                int p = bouns + (random.nextInt(level*150)-level*80);
                 plugin.getEconomy().depositPlayer(player, p);
                 player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+p+"&a元的獎金！"));
                 plugin.getPlayerData(player).addRaidPoint(1);

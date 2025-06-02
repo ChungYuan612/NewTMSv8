@@ -50,10 +50,13 @@ public class MonsterRegister implements Listener {
     public void onMobSpawning(CreatureSpawnEvent event){
 
         if(event.getEntity() instanceof Vex vex){
-            if(event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPELL){
+            if(event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPELL
+             || event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.REINFORCEMENTS){
+
                 vex.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE,20*90,1,true,false));
                 vex.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE,20*90,0,true,false));
                 vex.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION,20*10,0,true,false));
+                vex.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH,20*90,0,true,false));
             }
         }
 

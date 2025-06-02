@@ -22,11 +22,11 @@ enum ShopItem{
     BIRCH_LOG(Material.BIRCH_LOG, 1, 16,-1),
     CHERRY_LOG(Material.CHERRY_LOG, 1, 16,-1),
     STONE(Material.STONE, 1, 7,-1),
-    DIORITE(Material.DIORITE, 1, 7,-1),
-    COBBLED_DEEPSLATE(Material.COBBLED_DEEPSLATE, 1, 8,-1),
-    SAND(Material.SAND, 1, 7,-1),
-    GRAVEL(Material.GRAVEL, 1, 7,-1),
-    SLIME_BALL(Material.SLIME_BALL, 1, 22,-1),
+    DIORITE(Material.DIORITE, 1, 8,-1),
+    COBBLED_DEEPSLATE(Material.COBBLED_DEEPSLATE, 1, 9,-1),
+    SAND(Material.SAND, 1, 8,-1),
+    GRAVEL(Material.GRAVEL, 1, 8,-1),
+    SLIME_BALL(Material.SLIME_BALL, 1, 25,-1),
     WEB(Material.COBWEB, 1, 28,-1),
     RED_STONE(Material.REDSTONE, 1, 18,-1),
     QUARTZ(Material.QUARTZ, 1, 7,-1),
@@ -89,9 +89,9 @@ enum ShopItem{
         else lore = new ArrayList<>();
         lore.add(colors(""));
         if(buyPrice != -1)
-            lore.add(colors("&f買入價格：&6"+ String.format("%.1f", buyPrice)));
+            lore.add(colors("&f買入價格：&6"+ String.format("%,.1f", buyPrice)));
         if(sellPrice != -1)
-            lore.add(colors("&f賣出價格：&6"+ String.format("%.1f", sellPrice)));
+            lore.add(colors("&f賣出價格：&6"+ String.format("%,.1f", sellPrice)));
         lore.add(colors(""));
         if(buyPrice != -1){
             lore.add(colors("&e左鍵買入"));

@@ -33,8 +33,8 @@ public class Terminator extends Class implements Listener {
     private final HashMap<UUID,Integer> playerSteps = new HashMap<>();
 
     public double costManaOnShot = 3;
-    private final float DamageBase = 5.5f;
-    private final float DamageMultiplier = 0.5f;
+    private final float DamageBase = 2.0f;//5.5f
+    private final float DamageMultiplier = 0.3f;//0.5f
     public Terminator(NewTMSv8 plugin) {
         super(plugin);
     }

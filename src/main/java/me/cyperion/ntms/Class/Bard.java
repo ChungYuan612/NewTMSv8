@@ -104,6 +104,9 @@ public class Bard extends Class implements Listener {
     //當玩家吹號角
     @EventHandler
     public void onPlayerBlowHorn(PlayerInteractEvent event) {
+
+        if (plugin.getPlayerData(event.getPlayer()).getClassType() != ClassType.BARD) return;
+
         // 避免觸發兩次（副手與主手）
         if (event.getHand() != EquipmentSlot.HAND) return;
 
