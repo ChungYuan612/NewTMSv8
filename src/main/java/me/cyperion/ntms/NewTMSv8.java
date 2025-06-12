@@ -1,5 +1,7 @@
 package me.cyperion.ntms;
 
+import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
+import me.cyperion.ntms.Bazaar.Data.SQLiteDatabase;
 import me.cyperion.ntms.Class.Bard;
 import me.cyperion.ntms.Class.Class;
 import me.cyperion.ntms.Class.Explosion;
@@ -9,6 +11,7 @@ import me.cyperion.ntms.Event.*;
 import me.cyperion.ntms.ItemStacks.CartographyBlocker;
 import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
+import me.cyperion.ntms.ItemStacks.NTMSItemFactory;
 import me.cyperion.ntms.Menu.BaseMenu.MenuListener;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.Monster.MonsterRegister;
@@ -62,6 +65,10 @@ public final class NewTMSv8 extends JavaPlugin {
     private Mana mana;
     private ModifierMain modifierMain;
 
+    private SQLiteDatabase sqlDatabase;
+    private CommodityMarketAPI commodityMarketAPI;
+    private NTMSItemFactory factory;
+
     private Class explosion,terminator,bard;
 
     public final boolean enableMana = true;
@@ -90,6 +97,11 @@ public final class NewTMSv8 extends JavaPlugin {
         //mySQL
         //this.database = new SQLite(this);
         //this.database.load();
+        sqlDatabase = new SQLiteDatabase(this.getDataFolder(), this.getLogger());
+        sqlDatabase.initialize();
+        commodityMarketAPI = new CommodityMarketAPI(sqlDatabase);
+        factory = new NTMSItemFactory(this);
+
         nsKeyRepo = new NSKeyRepo();
         //Mana system
         if(enableMana){
@@ -115,6 +127,8 @@ public final class NewTMSv8 extends JavaPlugin {
         //傷害顯示
         //DamageIcon damageIcon = new DamageIcon(this);
         //getServer().getPluginManager().registerEvents(damageIcon,this);
+
+
 
         //突襲
         getServer().getPluginManager().registerEvents(new RaidEvent(this),this);
@@ -253,6 +267,18 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public CraftHandler getCraftHandler() {
         return craftHandler;
+    }
+
+    public SQLiteDatabase getSqlDatabase() {
+        return sqlDatabase;
+    }
+
+    public NTMSItemFactory getFactory() {
+        return factory;
+    }
+
+    public CommodityMarketAPI getCommodityMarketAPI() {
+        return commodityMarketAPI;
     }
 
     //自定義Config

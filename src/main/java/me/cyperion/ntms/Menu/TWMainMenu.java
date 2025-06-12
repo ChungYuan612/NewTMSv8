@@ -87,8 +87,8 @@ public class TWMainMenu extends Menu {
                 player.closeInventory();
                 player.performCommand("menu shop");
             }else if(item.isSimilar(market)){
-                player.performCommand("bazaar");
-                //player.performCommand("menu market");
+                //player.performCommand("bazaar");
+                player.performCommand("menu market");
                 //player.sendMessage(colors("&c&l正在維修中..."));
             }
         }

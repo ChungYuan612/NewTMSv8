@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Menu.Bazaar;
 
-import me.cyperion.ntms.Bazaar.MarketItem;
+import me.cyperion.ntms.Bazaar.Data.BazaarItem;
+import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
 import me.cyperion.ntms.Bazaar.TradingAPI;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.ItemStacks.Item.JadeCore;
@@ -24,11 +25,12 @@ public class BazaarMenu extends Menu {
 
     private ItemStack background;
     private ItemStack close;
-    private List<MarketItem> marketItem;
-    private final TradingAPI tradingAPI = new TradingAPI(plugin);
+    private List<BazaarItem> bazaarItems;
+    private final CommodityMarketAPI commodityMarketAPI;
 
     public BazaarMenu(PlayerMenuUtility utility, NewTMSv8 plugin) {
         super(utility, plugin);
+        commodityMarketAPI = plugin.getCommodityMarketAPI();
         init();
     }
 
@@ -46,55 +48,83 @@ public class BazaarMenu extends Menu {
     public void handleMenu(InventoryClickEvent event) {
         if(!event.isLeftClick()) return;
         Player player = (Player) event.getWhoClicked();
-        int solt = event.getSlot();
-        if(solt == 31) player.closeInventory();
-        if(mapToCenterIndex(solt) != -1) {
-            player.sendMessage(colors("&6[錯誤] &c目前市場正在維修中..."));
-            return;
-            //MarketItem item = marketItem.get(mapToCenterIndex(solt)-1);
+        int slot = event.getSlot();
 
+        // 關閉按鈕
+        if(slot == 31) {
+            player.closeInventory();
+            return;
+        }
+
+        // 檢查是否點擊商品
+        int itemIndex = mapToCenterIndex(slot);
+        if(itemIndex != -1 && itemIndex < bazaarItems.size()) {
+            BazaarItem selectedItem = bazaarItems.get(itemIndex);
+            // 打開商品詳細介面
+            new BazaarItemDetailMenu(this.playerMenuUtility, plugin, selectedItem, commodityMarketAPI).open();
         }
     }
 
     @Override
     public void setMenuItems() {
         for(int i = 0; i < 4*9; i++){
-            if(i == 31) inventory.setItem(i,close);
-            else if(mapToCenterIndex(i)==-1) inventory.setItem(i,background);
-            else if(mapToCenterIndex(i) < marketItem.size()){
-                inventory.setItem(i,toDisplay(marketItem.get(mapToCenterIndex(i)).getItemStack()));
+            if(i == 31) {
+                inventory.setItem(i, close);
+            } else if(mapToCenterIndex(i) == -1) {
+                inventory.setItem(i, background);
+            } else if(mapToCenterIndex(i) < bazaarItems.size()) {
+                BazaarItem item = bazaarItems.get(mapToCenterIndex(i));
+                inventory.setItem(i, toDisplay(item));
             }
         }
     }
 
-    private ItemStack toDisplay(ItemStack itemStack){
-        ItemStack item = itemStack.clone();
-        try{
-            ItemMeta meta =  item.getItemMeta();
+    private ItemStack toDisplay(BazaarItem bazaarItem) {
+        ItemStack item = bazaarItem.getIcon().clone();
+        try {
+            ItemMeta meta = item.getItemMeta();
             ArrayList<String> lore = new ArrayList<>();
-            //if (meta.hasLore()) lore = (ArrayList<String>) meta.getLore();
-            //else lore = new ArrayList<>();
-            lore.add(colors(""));
-            String buyPriceString = "N/A";//TODO
-            String sellPriceString = "N/A";//TODO
-            lore.add(colors("&7最低賣出價格：&c"+ buyPriceString));
-            lore.add(colors("&7最高買入價格：&c"+ sellPriceString));
-            lore.add(colors(""));
-            lore.add(colors("&e點擊查看更多"));
+            // 獲取市場數據
+            CommodityMarketAPI.MarketData marketData = commodityMarketAPI.getMarketData(bazaarItem.getProductId());
 
+            lore.add(colors(""));
+
+            // 顯示價格信息
+            String buyPriceString = marketData.getLowestSellPrice() > 0 ?
+                    String.format("%.2f", marketData.getLowestSellPrice()) : "N/A";
+            String sellPriceString = marketData.getHighestBuyPrice() > 0 ?
+                    String.format("%.2f", marketData.getHighestBuyPrice()) : "N/A";
+
+            lore.add(colors("&a最低賣出價格：&f" + buyPriceString + " &6元"));
+            lore.add(colors("&c最高買入價格：&f" + sellPriceString + " &6元"));
+
+            // 顯示交易量
+            if(marketData.getTotalSellVolume() > 0 || marketData.getTotalBuyVolume() > 0) {
+                lore.add(colors(""));
+                lore.add(colors("&7賣單量：&e" + marketData.getTotalSellVolume()));
+                lore.add(colors("&7買單量：&e" + marketData.getTotalBuyVolume()));
+            }
+
+            // 顯示價差
+            if(marketData.getSpread() > 0) {
+                lore.add(colors("&7價差：&6" + String.format("%.2f", marketData.getSpread())));
+            }
+
+            lore.add(colors(""));
+            lore.add(colors("&e點擊查看詳細交易介面"));
 
             meta.setLore(lore);
             item.setItemMeta(meta);
 
-        }catch (Exception e){
-            System.out.println("[Bazaar] 在顯示展示的物品時出現錯誤。toDisplay(ItemStack)");
+        } catch (Exception e) {
+            plugin.getLogger().warning("[Bazaar] 在顯示展示的物品時出現錯誤: " + e.getMessage());
         }
 
         return item;
     }
 
-    private void init(){
-        //背景
+    private void init() {
+        // 背景
         background = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         ItemMeta backgroundMeta = background.getItemMeta();
         backgroundMeta.setDisplayName(" ");
@@ -103,27 +133,32 @@ public class BazaarMenu extends Menu {
         List<String> clickLore = new ArrayList<>();
         clickLore.add("");
         clickLore.add(colors("&e左鍵點擊"));
-        //關閉按鈕
+
+        // 關閉按鈕
         close = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = close.getItemMeta();
         closeMeta.setDisplayName(colors("&c關閉"));
         closeMeta.setLore(clickLore);
         close.setItemMeta(closeMeta);
 
-        marketItem = new ArrayList<>();
-        marketItem.add(new MarketItem(NTMSItems.REINFINED_LAPIS.name()
-                , new ReinfinedLapis(plugin).toItemStack()));
-        marketItem.add(new MarketItem(NTMSItems.EMERALD_COINS.name()
-                , new Emerald_Coins().toItemStack()));
-        marketItem.add(new MarketItem(NTMSItems.JADE_CORE.name()
-                , new JadeCore().toItemStack()));
-
-
+        // 初始化商品列表
+        bazaarItems = new ArrayList<>();
+        bazaarItems.add(new BazaarItem(
+                NTMSItems.REINFINED_LAPIS.name(),
+                new ReinfinedLapis(plugin).toItemStack()
+        ));
+        bazaarItems.add(new BazaarItem(
+                NTMSItems.EMERALD_COINS.name(),
+                new Emerald_Coins().toItemStack()
+        ));
+        bazaarItems.add(new BazaarItem(
+                NTMSItems.JADE_CORE.name(),
+                new JadeCore().toItemStack()
+        ));
     }
 
     /**
-     * 將 slot index（0~35）轉為中間 7x2 區域中的編號（1~14）
-     * 從0開始
+     * 將 slot index（0~35）轉為中間 7x2 區域中的編號（0~13）
      * 若不在區域內，回傳 -1
      */
     private static int mapToCenterIndex(int slotIndex) {
@@ -133,9 +168,12 @@ public class BazaarMenu extends Menu {
         // 中間區域只包含 row 1 和 2，col 1～7（排除邊緣）
         if ((row == 1 || row == 2) && (col >= 1 && col <= 7)) {
             int rowOffset = (row - 1) * 7;         // 第 2 排起始是 +0，第 3 排起始是 +7
-            return rowOffset + (col - 1);      // col 1 對應 offset 0，加 1 就是編號
+            return rowOffset + (col - 1);          // col 1 對應 offset 0
         }
 
         return -1; // 不在中心區域
     }
 }
+
+
+

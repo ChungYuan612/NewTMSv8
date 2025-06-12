@@ -2,15 +2,21 @@ package me.cyperion.ntms.Command;
 
 import me.cyperion.ntms.NSKeyRepo;
 import me.cyperion.ntms.NewTMSv8;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -26,8 +32,9 @@ public class SignCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(sender instanceof Player player) {
             try{
+
                 ItemStack itemStack = player.getInventory().getItemInMainHand();
-                if(itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() && !itemStack.getEnchantments().isEmpty()){
+                if(itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() || !itemStack.getEnchantments().isEmpty()){
                     player.sendMessage(colors("&c該物品不是原版物品"));
                     return true;
                 }
@@ -52,4 +59,6 @@ public class SignCommand implements CommandExecutor {
         }
         return false;
     }
+
+
 }

@@ -60,60 +60,12 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             return true;
         }else if ( args.length == 1){
             String name = args[0];
-            ItemStack item;
-            if(name.equals(NTMSItems.RED_WAND.name())){
-                item = new RedWand(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.JADE_CORE.name())){
-                item = new JadeCore().toItemStack();
-            }else if(name.equals(NTMSItems.EMERALD_COINS.name())) {
-                item = new Emerald_Coins().toItemStack();
-            }else if(name.equals(NTMSItems.INFINITE_WIND_CHARGE.name())) {
-                item = new InfiniteWindCharge(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.ENCHANTED_SEEDS.name())) {
-                item = new EnchantedSeeds(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.ENCHANTED_SUGAR.name())) {
-                item = new EnchantedSugar(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.ENCHANTED_ROTTEN.name())) {
-                item = new EnchantedRotten(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.ENCHANTED_ENDER_PEARL.name())) {
-                item = new EnchantedEnderPearl(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.WIRED_ROTTEN.name())) {
-                item = new WiredRotten(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.LOWER_WIRED_ROTTEN.name())) {
-                item = new LowerWiredRotten(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.ENCHANTED_RED_STONE.name())) {
-                item = new EnchantedRedstone(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.ENCHANTED_RED_STONE_BLOCK.name())) {
-                item = new EnchantedRedstoneBlock(plugin).toItemStack();
-            }else if(name.equals(NTMSItems.STOCK_3607.name())) {
-                item = new Stocks(plugin).getItem(Stocks.StockType.s3607);
-            }else if(name.equals(NTMSItems.STOCK_3230.name())) {
-                item = new Stocks(plugin).getItem(Stocks.StockType.s3230);
-            }else if(name.equals(NTMSItems.STOCK_3391.name())) {
-                item = new Stocks(plugin).getItem(Stocks.StockType.s3391);
-            }else if(name.equals(NTMSItems.STOCK_XAUD.name())) {
-                item = new Stocks(plugin).getItem(Stocks.StockType.xaud);
-            }else if(name.equals(NTMSItems.REINFINED_LAPIS.name())) {
-                item = new ReinfinedLapis(plugin).toItemStack();
-            }else if(name.equalsIgnoreCase("Mana")){
-                item = null;
+            if(name.equalsIgnoreCase("Mana")){
                 plugin.getPlayerData(player).setMana(plugin.getPlayerData(player).getMaxMana());
-            }else{
-                if(name.equals(NTMSItems.LAPIS_ARMOR.name())) {
-                    ItemStack[] items = new LapisArmor(plugin).getItemStacks();
-                    for(ItemStack i : items){
-                        player.getInventory().addItem(i);
-                    }
-                    return true;
-                }else if(name.equals(NTMSItems.EMERALD_ARMOR.name())) {
-                    ItemStack[] items = new EmeraldArmor(plugin).getItemStacks();
-                    for(ItemStack i : items){
-                        player.getInventory().addItem(i);
-                    }
-                    return true;
-                }
-                item = new ItemStack(Material.BARRIER);
+                return true;
             }
+            ItemStack item;
+            item = plugin.getFactory().getNTMSItem(name);
             if(item != null){
                 player.getInventory().addItem(item);
                 player.sendMessage(colors("&a已給予 &2"+name));
@@ -142,4 +94,5 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
         }
         options.add("Mana");
     }
+
 }

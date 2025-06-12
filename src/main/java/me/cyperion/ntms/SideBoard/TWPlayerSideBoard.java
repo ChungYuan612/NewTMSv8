@@ -43,7 +43,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
             Scoreboard scoreboard = p.getScoreboard();
             refreshTimer(p,false);
             scoreboard.getTeam(MONEY_SBTEAM)
-                    .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + String.format("%.1f", player_coins));
+                    .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + String.format("%,.1f", player_coins));
         }
     }
 
