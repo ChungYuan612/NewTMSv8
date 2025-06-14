@@ -30,7 +30,7 @@ public class ClassCommand implements CommandExecutor {
         PlayerData data = plugin.getPlayerData(player);
         int adv = data.getAdvancePoint();
 
-        if(adv < 150 && !player.isOp()){
+        if(adv < 100 && !player.isOp()){
             player.sendMessage(colors("&6[提示] &c職業需要成就點數&a150&c點才開放喔"));
             return true;
         }

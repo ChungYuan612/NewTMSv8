@@ -7,6 +7,7 @@ import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.ArrayList;
 
+import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_ENCHANTED_ROTTEN;
 import static me.cyperion.ntms.Utils.colors;
 
 public class EnchantedRotten extends NTMSMaterial {
@@ -35,7 +36,7 @@ public class EnchantedRotten extends NTMSMaterial {
 
     @Override
     public int getCustomModelData() {
-        return 4008;
+        return CMD_ENCHANTED_ROTTEN;
     }
 
     @Override

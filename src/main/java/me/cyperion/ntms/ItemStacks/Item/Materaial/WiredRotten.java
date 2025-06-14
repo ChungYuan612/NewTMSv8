@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_WIRED_ROTTEN;
 import static me.cyperion.ntms.Utils.colors;
 
 public class WiredRotten extends NTMSMaterial implements Listener {
@@ -51,7 +52,7 @@ public class WiredRotten extends NTMSMaterial implements Listener {
 
     @Override
     public int getCustomModelData() {
-        return 4006;
+        return CMD_WIRED_ROTTEN;
     }
 
     @Override

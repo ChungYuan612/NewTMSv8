@@ -8,36 +8,36 @@ import org.bukkit.inventory.ShapedRecipe;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_ENCHANTED_OBSIDIAN_PART;
 import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_ENCHANTED_RED_STONE;
 import static me.cyperion.ntms.Utils.colors;
 
-public class EnchantedRedstone extends NTMSMaterial{
-
-    public EnchantedRedstone(NewTMSv8 plugin) {
+public class EnchantedObsidianPart extends NTMSMaterial{
+    public EnchantedObsidianPart(NewTMSv8 plugin) {
         super(plugin);
     }
 
     @Override
     protected ArrayList<String> getLore() {
         return new ArrayList<>( Arrays.asList(
-                colors("&f由&a6&f個紅石磚壓縮而成"),
-                colors("&f散發著紅色光芒")
+                colors("&f由&a9&f個黑曜石製作而成，過程中"),
+                colors("&f損耗嚴重只剩碎片的加工物。")
         ));
     }
 
     @Override
     public Material getMaterailType() {
-        return Material.REDSTONE;
+        return Material.FLINT;
     }
 
     @Override
     public String getItemName() {
-        return colors("&a附魔紅石");
+        return colors("&7附魔黑曜石碎片");
     }
 
     @Override
     public int getCustomModelData() {
-        return CMD_ENCHANTED_RED_STONE;
+        return CMD_ENCHANTED_OBSIDIAN_PART;
     }
 
     @Override
@@ -47,9 +47,9 @@ public class EnchantedRedstone extends NTMSMaterial{
 
     @Override
     public ShapedRecipe toNMSRecipe() {
-        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"EnchantedRedstone"),this.toItemStack());
-        recipe.shape("xxx","xxx","   ");
-        recipe.setIngredient('x',Material.REDSTONE_BLOCK);
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"EnchantedObsidianPart"),this.toItemStack());
+        recipe.shape("xxx","xxx","xxx");
+        recipe.setIngredient('x',Material.OBSIDIAN);
         return recipe;
     }
 }

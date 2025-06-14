@@ -82,7 +82,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "     "+"&d全新職業&f、&2綠寶石裝備&f還有很多更新！ &b歡迎加入!")
+                "      "+"&d市場更新&7+&8黑曜石更新&f還有很多更新！ &b歡迎加入!")
         );
 
 
@@ -167,8 +167,8 @@ public final class NewTMSv8 extends JavaPlugin {
 
 
         //Craft
-        this.craftHandler = new CraftHandler(this);
-        getServer().getPluginManager().registerEvents(craftHandler,this);
+        //this.craftHandler = new CraftHandler(this);
+        //getServer().getPluginManager().registerEvents(craftHandler,this);
         getServer().getPluginManager().registerEvents(new CartographyBlocker(),this);
 
         //Monster 目前關閉 只開啟突襲的部分

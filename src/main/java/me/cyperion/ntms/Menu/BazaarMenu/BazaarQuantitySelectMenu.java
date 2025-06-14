@@ -1,4 +1,4 @@
-package me.cyperion.ntms.Menu.Bazaar;
+package me.cyperion.ntms.Menu.BazaarMenu;
 
 import me.cyperion.ntms.Bazaar.Data.BazaarItem;
 import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
@@ -17,51 +17,43 @@ import java.util.List;
 import static me.cyperion.ntms.Utils.colors;
 
 // ============================================================================
-// BazaarOrderPlaceMenu.java - 下單介面 (買單/賣單)
+// BazaarQuantitySelectMenu.java - 數量選擇介面 (快速買賣)
 // ============================================================================
-public class BazaarOrderPlaceMenu extends Menu {
+public class BazaarQuantitySelectMenu extends Menu {
 
     private final BazaarItem bazaarItem;
     private final CommodityMarketAPI tradingAPI;
-    private final boolean isBuyOrder; // true = 買單, false = 賣單
+    private final boolean isBuying; // true = 購買, false = 出售
+    private final double unitPrice; // 單價
     private ItemStack background;
     private ItemStack backButton;
     private ItemStack confirmButton;
     private ItemStack itemDisplay;
-    private ItemStack priceDisplay;
     private ItemStack quantityDisplay;
-    private ItemStack increasePrice;
-    private ItemStack decreasePrice;
-    private ItemStack increaseMorePrice;
-    private ItemStack decreaseMorePrice;
     private ItemStack increaseQuantity;
     private ItemStack decreaseQuantity;
+    private ItemStack setQuantity1;
+    private ItemStack setQuantity8;
+    private ItemStack setQuantity16;
+    private ItemStack setQuantity32;
+    private ItemStack setQuantity64;
 
-    private double currentPrice = 1000.0;
     private int currentQuantity = 1;
 
-    public BazaarOrderPlaceMenu(PlayerMenuUtility utility, NewTMSv8 plugin,
-                                BazaarItem bazaarItem, CommodityMarketAPI tradingAPI,
-                                boolean isBuyOrder) {
+    public BazaarQuantitySelectMenu(PlayerMenuUtility utility, NewTMSv8 plugin,
+                                    BazaarItem bazaarItem, CommodityMarketAPI tradingAPI,
+                                    boolean isBuying, double unitPrice) {
         super(utility, plugin);
         this.bazaarItem = bazaarItem;
         this.tradingAPI = tradingAPI;
-        this.isBuyOrder = isBuyOrder;
-
-        // 設置初始價格為市場參考價格
-        CommodityMarketAPI.MarketData marketData = tradingAPI.getMarketData(bazaarItem.getProductId());
-        if (isBuyOrder && marketData.getHighestBuyPrice() > 0) {
-            this.currentPrice = marketData.getHighestBuyPrice();
-        } else if (!isBuyOrder && marketData.getLowestSellPrice() > 0) {
-            this.currentPrice = marketData.getLowestSellPrice();
-        }
-
+        this.isBuying = isBuying;
+        this.unitPrice = unitPrice;
         init();
     }
 
     @Override
     public String getMenuName() {
-        return colors("&3" + (isBuyOrder ? "下買單" : "下賣單") + " - " +
+        return colors("&3" + (isBuying ? "購買" : "出售") + " - " +
                 bazaarItem.getIcon().getItemMeta().getDisplayName());
     }
 
@@ -81,46 +73,47 @@ public class BazaarOrderPlaceMenu extends Menu {
                 new BazaarItemDetailMenu(this.playerMenuUtility, plugin, bazaarItem, tradingAPI).open();
                 break;
 
-            case 31: // 確認下單
-                handleConfirmOrder(player);
+            case 31: // 確認交易
+                handleConfirmTrade(player);
                 break;
 
-            case 19: // 價格減少
-                if (currentPrice > 0.1) {
-                    currentPrice = Math.round((currentPrice - 0.1) * 100.0) / 100.0;
-                    updateDisplays();
-                }
-                break;
-
-            case 21: // 價格增加0.1
-                currentPrice = Math.round((currentPrice + 0.1) * 100.0) / 100.0;
-                updateDisplays();
-                break;
-            case 28: // 價格減少 10
-                if (currentPrice > 10.0) {
-                    currentPrice = Math.round((currentPrice - 10.0) * 100.0) / 100.0;
-                    updateDisplays();
-                }
-                break;
-            case 30: // 價格增加 10
-                if (currentPrice > 10.0) {
-                    currentPrice = Math.round((currentPrice + 10.0) * 100.0) / 100.0;
-                    updateDisplays();
-                }
-                break;
-
-            case 23: // 數量減少
+            case 28: // 數量減少
                 if (currentQuantity > 1) {
                     currentQuantity--;
                     updateDisplays();
                 }
                 break;
 
-            case 25: // 數量增加
+            case 34: // 數量增加
                 if (currentQuantity < 64) {
                     currentQuantity++;
                     updateDisplays();
                 }
+                break;
+
+            case 19: // 設置為1
+                currentQuantity = 1;
+                updateDisplays();
+                break;
+
+            case 20: // 設置為8
+                currentQuantity = 8;
+                updateDisplays();
+                break;
+
+            case 21: // 設置為16
+                currentQuantity = 16;
+                updateDisplays();
+                break;
+
+            case 22: // 設置為32
+                currentQuantity = 32;
+                updateDisplays();
+                break;
+
+            case 23: // 設置為64
+                currentQuantity = 64;
+                updateDisplays();
                 break;
         }
     }
@@ -139,56 +132,61 @@ public class BazaarOrderPlaceMenu extends Menu {
         inventory.setItem(45, backButton);
         inventory.setItem(31, confirmButton);
 
-        // 價格控制
-        inventory.setItem(19, decreasePrice);
-        inventory.setItem(20, priceDisplay);
-        inventory.setItem(21, increasePrice);
-
-        inventory.setItem(28, decreaseMorePrice);
-        inventory.setItem(30, increaseMorePrice);
-
         // 數量控制
-        inventory.setItem(23, decreaseQuantity);
-        inventory.setItem(24, quantityDisplay);
-        inventory.setItem(25, increaseQuantity);
+        inventory.setItem(28, decreaseQuantity);
+        inventory.setItem(29, quantityDisplay);
+        inventory.setItem(34, increaseQuantity);
 
-        //更新顯示
+        // 快速設置按鈕
+        inventory.setItem(19, setQuantity1);
+        inventory.setItem(20, setQuantity8);
+        inventory.setItem(21, setQuantity16);
+        inventory.setItem(22, setQuantity32);
+        inventory.setItem(23, setQuantity64);
+
         updateDisplays();
     }
 
-    private void handleConfirmOrder(Player player) {
+    private void handleConfirmTrade(Player player) {
         try {
-            // 計算總價
-            double totalCost = currentPrice * currentQuantity;
+            double totalCost = unitPrice * currentQuantity;
 
-            if (isBuyOrder) {
-                // 檢查玩家是否有足夠金錢
-                // 這裡需要你的經濟系統API
+            if (isBuying) {
+                // 執行購買
+                //檢查玩家是否有足夠金錢
                 if (plugin.getEconomy().getBalance(player) < totalCost) {
-                    player.sendMessage(colors("&c你沒有足夠的金錢！需要 " + String.format("%,.2f", totalCost) + " 元"));
+                    player.sendMessage(colors("&c你沒有足夠的金錢！需要 " + String.format("%.2f", totalCost) + " 元"));
                     return;
                 }
 
-                // 下買單
+                // 執行即時購買
                 CommodityMarketAPI.TradeResult result = tradingAPI.placeBuyOrder(
                         bazaarItem.getProductId(),
                         currentQuantity,
-                        currentPrice,
+                        unitPrice,
                         player.getUniqueId().toString()
                 );
-                plugin.getLogger().fine(result.toString());
 
                 if (result.isSuccess()) {
-                    player.sendMessage(colors("&a成功下買單！價格：" + String.format("%.2f", currentPrice) +
-                            " 元，數量：" + currentQuantity));
+                    player.sendMessage(colors("&a成功購買 " + currentQuantity + " 個 " +
+                            bazaarItem.getIcon().getItemMeta().getDisplayName() +
+                            "！總花費：" + String.format("%.2f", totalCost) + " 元"));
+
                     // 扣除玩家金錢
                     // economyAPI.withdrawBalance(player, totalCost);
                     plugin.getEconomy().withdrawPlayer(player, totalCost);
+
+                    // 給予玩家物品
+                    ItemStack purchasedItem = bazaarItem.getIcon().clone();
+                    purchasedItem.setAmount(currentQuantity);
+                    giveItemToPlayer(player, purchasedItem);
+
                 } else {
-                    player.sendMessage(colors("&c下買單失敗！"));
+                    player.sendMessage(colors("&c購買失敗！可能沒有足夠的賣單。"));
                 }
+
             } else {
-                // 檢查玩家是否有足夠物品
+                // 執行出售
                 ItemStack requiredItem = bazaarItem.getIcon().clone();
                 requiredItem.setAmount(currentQuantity);
 
@@ -197,22 +195,28 @@ public class BazaarOrderPlaceMenu extends Menu {
                     return;
                 }
 
-                // 下賣單
+                // 執行即時出售
                 CommodityMarketAPI.TradeResult result = tradingAPI.placeSellOrder(
                         bazaarItem.getProductId(),
                         currentQuantity,
-                        currentPrice,
+                        unitPrice,
                         player.getUniqueId().toString()
                 );
-                System.out.println(result.toString());
 
                 if (result.isSuccess()) {
-                    player.sendMessage(colors("&a成功下賣單！價格：" + String.format("%.2f", currentPrice) +
-                            " 元，數量：" + currentQuantity));
+                    player.sendMessage(colors("&a成功出售 " + currentQuantity + " 個 " +
+                            bazaarItem.getIcon().getItemMeta().getDisplayName() +
+                            "！總收入：" + String.format("%.2f", totalCost) + " 元"));
+
                     // 移除玩家物品
                     removeItems(player, requiredItem);
+
+                    // 給予玩家金錢
+                    // economyAPI.depositBalance(player, totalCost);
+                    plugin.getEconomy().depositPlayer(player, totalCost);
+
                 } else {
-                    player.sendMessage(colors("&c下賣單失敗！"));
+                    player.sendMessage(colors("&c出售失敗！可能沒有足夠的買單。"));
                 }
             }
 
@@ -220,7 +224,7 @@ public class BazaarOrderPlaceMenu extends Menu {
             new BazaarItemDetailMenu(this.playerMenuUtility, plugin, bazaarItem, tradingAPI).open();
 
         } catch (Exception e) {
-            player.sendMessage(colors("&c下單時發生錯誤！"));
+            player.sendMessage(colors("&c交易時發生錯誤！"));
             e.printStackTrace();
         }
     }
@@ -252,46 +256,49 @@ public class BazaarOrderPlaceMenu extends Menu {
         }
     }
 
-    private void updateDisplays() {
-        // 更新價格顯示
-        ItemMeta priceMeta = priceDisplay.getItemMeta();
-        List<String> priceLore = new ArrayList<>();
-        priceLore.add(colors("&7當前價格：&6" + String.format("%.2f", currentPrice) + " 元"));
-        priceLore.add(colors("&e點擊上方按鈕調整價格"));
-        priceMeta.setLore(priceLore);
-        priceDisplay.setItemMeta(priceMeta);
+    private void giveItemToPlayer(Player player, ItemStack item) {
+        // 嘗試直接給予物品到背包
+        if (player.getInventory().firstEmpty() != -1) {
+            player.getInventory().addItem(item);
+        } else {
+            // 背包滿了，掉落到地上
+            player.getWorld().dropItemNaturally(player.getLocation(), item);
+            player.sendMessage(colors("&e背包已滿，物品已掉落到地上！"));
+        }
+    }
 
+    private void updateDisplays() {
         // 更新數量顯示
         ItemMeta quantityMeta = quantityDisplay.getItemMeta();
+        quantityMeta.setDisplayName(colors("&b數量：" + currentQuantity));
         List<String> quantityLore = new ArrayList<>();
-        quantityLore.add(colors("&7當前數量：&b" + currentQuantity));
-        quantityLore.add(colors("&e點擊上方按鈕調整數量"));
+        quantityLore.add(colors("&7點擊旁邊按鈕調整數量"));
+        quantityLore.add(colors("&7或使用下方快速設置"));
         quantityMeta.setLore(quantityLore);
         quantityDisplay.setItemMeta(quantityMeta);
 
         // 更新確認按鈕
         ItemMeta confirmMeta = confirmButton.getItemMeta();
+        double totalCost = unitPrice * currentQuantity;
+        confirmMeta.setDisplayName(colors("&a確認" + (isBuying ? "購買" : "出售")));
         List<String> confirmLore = new ArrayList<>();
-        confirmLore.add(colors("&7總價：&6" + String.format("%,.2f", currentPrice * currentQuantity) + " 元"));
-        confirmLore.add(colors("&7數量：&b" + currentQuantity));
-        confirmLore.add(colors("&7單價：&6" + String.format("%,.2f", currentPrice) + " 元"));
         confirmLore.add(colors(""));
-        confirmLore.add(colors("&e點擊確認" + (isBuyOrder ? "買單" : "賣單")));
+        confirmLore.add(colors("&7數量：&b" + currentQuantity));
+        confirmLore.add(colors("&7單價：&6" + String.format("%,.2f", unitPrice) + " 元"));
+        confirmLore.add(colors("&7總價：&6" + String.format("%,.2f", totalCost) + " 元"));
+        confirmLore.add(colors(""));
+        confirmLore.add(colors("&e點擊確認" + (isBuying ? "購買" : "出售")));
         confirmMeta.setLore(confirmLore);
         confirmButton.setItemMeta(confirmMeta);
 
         // 更新庫存顯示
-        inventory.setItem(20, priceDisplay);
-        inventory.setItem(24, quantityDisplay);
+        inventory.setItem(29, quantityDisplay);
         inventory.setItem(31, confirmButton);
     }
 
     private void init() {
         // 背景
-        if(isBuyOrder)
-            background = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
-        else
-            background = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        background = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta backgroundMeta = background.getItemMeta();
         backgroundMeta.setDisplayName(" ");
         background.setItemMeta(backgroundMeta);
@@ -307,29 +314,14 @@ public class BazaarOrderPlaceMenu extends Menu {
 
         // 物品展示
         itemDisplay = bazaarItem.getIcon().clone();
-
-        // 價格控制按鈕
-        decreasePrice = new ItemStack(Material.RED_CONCRETE);
-        ItemMeta decreasePriceMeta = decreasePrice.getItemMeta();
-        decreasePriceMeta.setDisplayName(colors("&c價格 -0.1"));
-        decreasePrice.setItemMeta(decreasePriceMeta);
-
-        increasePrice = new ItemStack(Material.GREEN_CONCRETE);
-        ItemMeta increasePriceMeta = increasePrice.getItemMeta();
-        increasePriceMeta.setDisplayName(colors("&a價格 +0.1"));
-        increasePrice.setItemMeta(increasePriceMeta);
-
-        decreaseMorePrice = new ItemStack(Material.RED_STAINED_GLASS);
-        ItemMeta decreaseMorePriceMeta = decreaseMorePrice.getItemMeta();
-        decreaseMorePriceMeta.setDisplayName(colors("&a價格 -10"));
-        decreaseMorePrice.setItemMeta(decreaseMorePriceMeta);
-
-        increaseMorePrice = new ItemStack(Material.GREEN_STAINED_GLASS);
-        ItemMeta increaseMorePriceMeta = increaseMorePrice.getItemMeta();
-        increaseMorePriceMeta.setDisplayName(colors("&a價格 +10"));
-        increaseMorePrice.setItemMeta(increaseMorePriceMeta);
-
-
+        ItemMeta itemMeta = itemDisplay.getItemMeta();
+        List<String> itemLore = new ArrayList<>();
+        itemLore.add(colors(""));
+        itemLore.add(colors("&6=== " + (isBuying ? "購買" : "出售") + "信息 ==="));
+        itemLore.add(colors("&7單價：&6" + String.format("%.2f", unitPrice) + " 元"));
+        itemLore.add(colors("&7操作：" + (isBuying ? "&a立即購買" : "&c立即出售")));
+        itemMeta.setLore(itemLore);
+        itemDisplay.setItemMeta(itemMeta);
 
         // 數量控制按鈕
         decreaseQuantity = new ItemStack(Material.RED_CONCRETE);
@@ -342,25 +334,38 @@ public class BazaarOrderPlaceMenu extends Menu {
         increaseQuantityMeta.setDisplayName(colors("&a數量 +1"));
         increaseQuantity.setItemMeta(increaseQuantityMeta);
 
-        // 價格顯示
-        priceDisplay = new ItemStack(Material.GOLD_NUGGET);
-        ItemMeta priceMeta = priceDisplay.getItemMeta();
-        priceMeta.setDisplayName(colors("&6價格設定"));
-        priceDisplay.setItemMeta(priceMeta);
-
         // 數量顯示
         quantityDisplay = new ItemStack(Material.IRON_NUGGET);
         ItemMeta quantityMeta = quantityDisplay.getItemMeta();
-        quantityMeta.setDisplayName(colors("&b數量設定"));
+        quantityMeta.setDisplayName(colors("&b數量：" + currentQuantity));
         quantityDisplay.setItemMeta(quantityMeta);
 
         // 確認按鈕
-        confirmButton = new ItemStack(isBuyOrder ? Material.EMERALD_BLOCK : Material.GOLD_BLOCK);
+        confirmButton = new ItemStack(isBuying ? Material.EMERALD_BLOCK : Material.REDSTONE_BLOCK);
         ItemMeta confirmMeta = confirmButton.getItemMeta();
-        confirmMeta.setDisplayName(colors(isBuyOrder ? "&a確認下買單" : "&c確認下賣單"));
+        confirmMeta.setDisplayName(colors(isBuying ? "&a確認購買" : "&c確認出售"));
         confirmButton.setItemMeta(confirmMeta);
+
+        // 快速設置按鈕
+        setQuantity1 = createQuickSetButton(1);
+        setQuantity8 = createQuickSetButton(8);
+        setQuantity16 = createQuickSetButton(16);
+        setQuantity32 = createQuickSetButton(32);
+        setQuantity64 = createQuickSetButton(64);
 
         // 初始化顯示
         //updateDisplays();
+    }
+
+    private ItemStack createQuickSetButton(int quantity) {
+        ItemStack button = new ItemStack(Material.LIGHT_BLUE_CONCRETE);
+        ItemMeta meta = button.getItemMeta();
+        meta.setDisplayName(colors("&b設置為 " + quantity));
+        List<String> lore = new ArrayList<>();
+        lore.add(colors("&7快速設置數量為 " + quantity));
+        lore.add(colors("&7總價：&6" + String.format("%.2f", unitPrice * quantity) + " 元"));
+        meta.setLore(lore);
+        button.setItemMeta(meta);
+        return button;
     }
 }

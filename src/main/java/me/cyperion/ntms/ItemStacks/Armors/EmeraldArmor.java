@@ -222,11 +222,12 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
         if(count == 4) {
             double health = player.getHealth();
             double maxHealth = player.getAttribute(Attribute.MAX_HEALTH).getValue();
+            emeraldFullSet.put(player.getUniqueId(),0);
+            if(health <=0) return;
             if(health +1 > maxHealth)
                 player.setHealth(maxHealth);
             else
                 player.setHealth(health + 1);
-            emeraldFullSet.put(player.getUniqueId(),0);
             return;
         }
         emeraldFullSet.put(player.getUniqueId(),count);

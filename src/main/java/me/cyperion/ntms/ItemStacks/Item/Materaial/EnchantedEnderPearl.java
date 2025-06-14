@@ -1,5 +1,6 @@
 package me.cyperion.ntms.ItemStacks.Item.Materaial;
 
+import me.cyperion.ntms.ItemStacks.ItemRegister;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -37,7 +38,7 @@ public class EnchantedEnderPearl extends NTMSMaterial {
 
     @Override
     public int getCustomModelData() {
-        return 4007;
+        return ItemRegister.CMD_ENCHANTED_ENDER_PEARL;
     }
 
     @Override

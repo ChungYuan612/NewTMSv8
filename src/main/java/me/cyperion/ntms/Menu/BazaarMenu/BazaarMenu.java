@@ -1,8 +1,7 @@
-package me.cyperion.ntms.Menu.Bazaar;
+package me.cyperion.ntms.Menu.BazaarMenu;
 
 import me.cyperion.ntms.Bazaar.Data.BazaarItem;
 import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
-import me.cyperion.ntms.Bazaar.TradingAPI;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.ItemStacks.Item.JadeCore;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
@@ -144,15 +143,15 @@ public class BazaarMenu extends Menu {
         // 初始化商品列表
         bazaarItems = new ArrayList<>();
         bazaarItems.add(new BazaarItem(
-                NTMSItems.REINFINED_LAPIS.name(),
+                NTMSItems.REINFINED_LAPIS.getBazaarID(),
                 new ReinfinedLapis(plugin).toItemStack()
         ));
         bazaarItems.add(new BazaarItem(
-                NTMSItems.EMERALD_COINS.name(),
+                NTMSItems.EMERALD_COINS.getBazaarID(),
                 new Emerald_Coins().toItemStack()
         ));
         bazaarItems.add(new BazaarItem(
-                NTMSItems.JADE_CORE.name(),
+                NTMSItems.JADE_CORE.getBazaarID(),
                 new JadeCore().toItemStack()
         ));
     }

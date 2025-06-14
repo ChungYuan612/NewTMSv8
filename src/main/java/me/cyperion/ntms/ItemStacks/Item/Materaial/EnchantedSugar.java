@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_ENCHANTED_SUGAR;
 import static me.cyperion.ntms.Utils.colors;
 
 /**
@@ -40,7 +41,7 @@ public class EnchantedSugar extends NTMSMaterial {
 
     @Override
     public int getCustomModelData() {
-        return 4001;
+        return CMD_ENCHANTED_SUGAR;
     }
 
     @Override

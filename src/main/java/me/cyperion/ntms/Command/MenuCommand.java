@@ -2,7 +2,7 @@ package me.cyperion.ntms.Command;
 
 import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
-import me.cyperion.ntms.Menu.Bazaar.BazaarMenu;
+import me.cyperion.ntms.Menu.BazaarMenu.BazaarMenu;
 import me.cyperion.ntms.Menu.ShopMenu;
 import me.cyperion.ntms.Menu.TWMainMenu;
 import me.cyperion.ntms.Menu.WarpMenu;

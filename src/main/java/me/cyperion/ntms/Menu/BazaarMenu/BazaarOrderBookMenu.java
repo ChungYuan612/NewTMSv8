@@ -1,4 +1,4 @@
-package me.cyperion.ntms.Menu.Bazaar;
+package me.cyperion.ntms.Menu.BazaarMenu;
 
 import me.cyperion.ntms.Bazaar.Data.BazaarItem;
 import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_ENCHANTED_SEEDS;
 import static me.cyperion.ntms.Utils.colors;
 
 /**
@@ -45,7 +46,7 @@ public class EnchantedSeeds extends NTMSMaterial {
 
     @Override
     public int getCustomModelData() {
-        return 4002;
+        return CMD_ENCHANTED_SEEDS;
     }
 
     @Override

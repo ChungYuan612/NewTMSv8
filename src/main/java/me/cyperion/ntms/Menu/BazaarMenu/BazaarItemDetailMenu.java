@@ -1,4 +1,4 @@
-package me.cyperion.ntms.Menu.Bazaar;
+package me.cyperion.ntms.Menu.BazaarMenu;
 
 
 import me.cyperion.ntms.Bazaar.Data.BazaarItem;
@@ -14,7 +14,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static me.cyperion.ntms.Utils.colors;
 // ============================================================================

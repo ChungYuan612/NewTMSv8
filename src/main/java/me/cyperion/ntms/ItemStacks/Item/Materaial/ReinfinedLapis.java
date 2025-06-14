@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_REINFINED_LAPIS;
 import static me.cyperion.ntms.Utils.colors;
 
 /**
@@ -38,7 +39,7 @@ public class ReinfinedLapis extends NTMSMaterial{
 
     @Override
     public int getCustomModelData() {
-        return 4005;
+        return CMD_REINFINED_LAPIS;
     }
 
     @Override

@@ -22,6 +22,18 @@ public class ItemRegister {
 
     private NewTMSv8 plugin;
 
+    public static final int CMD_ENCHANTED_ENDER_PEARL = 4007; //附魔終界珍珠
+    public static final int CMD_ENCHANTED_RED_STONE = 4003; //附魔紅石
+    public static final int CMD_ENCHANTED_RED_STONE_BLOCK = 4004; //附魔紅石方塊
+    public static final int CMD_ENCHANTED_ROTTEN = 4008; //附魔腐肉
+    public static final int CMD_ENCHANTED_SEEDS = 4002; //附魔種子
+    public static final int CMD_ENCHANTED_SUGAR = 4001; //附魔蔗糖
+    public static final int CMD_REINFINED_LAPIS = 4005; //精煉青金石
+    public static final int CMD_WIRED_ROTTEN = 4006; //破咒肉塊
+    public static final int CMD_ENCHANTED_OBSIDIAN_PART = 4009; //附魔黑曜石碎片
+    public static final int CMD_ENCHANTED_OBSIDIAN = 4010; //附魔黑曜石
+
+
     public ItemRegister(NewTMSv8 plugin) {
         this.plugin = plugin;
         allPieceFullBouns.add(new LapisArmor(plugin));
@@ -65,6 +77,9 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new EnchantedRedstone(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new EnchantedRedstoneBlock(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new RedWand(plugin).getRecipe());
+
+        Bukkit.getServer().addRecipe(new EnchantedObsidianPart(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new EnchantedObsidian(plugin).toNMSRecipe());
 
         LapisArmor lapisArmor = new LapisArmor(plugin);
         ShapedRecipe[] lapisRrecipe = lapisArmor.toNMSRecipe();

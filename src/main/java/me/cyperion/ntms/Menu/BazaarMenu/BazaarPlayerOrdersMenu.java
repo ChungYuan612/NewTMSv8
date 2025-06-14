@@ -1,7 +1,7 @@
-package me.cyperion.ntms.Menu.Bazaar;
+package me.cyperion.ntms.Menu.BazaarMenu;
 
 import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
-import me.cyperion.ntms.ItemStacks.NTMSItems;
+import me.cyperion.ntms.ItemStacks.NTMSItemFactory;
 import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
 import me.cyperion.ntms.NewTMSv8;
@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static me.cyperion.ntms.Utils.colors;
 
@@ -348,8 +347,8 @@ public class BazaarPlayerOrdersMenu extends Menu {
 
         // 基本訂單信息
         String productId = order.getProductId();
-        String itemId = productId.startsWith("ntms:") ? productId.substring(5) : productId;
-        //lore.add(colors("&7商品：&b" + itemId));
+        String itemId = productId.startsWith("NTMS_") ? productId.substring(5) : productId;
+        lore.add(colors("&7商品：&b" + itemId));
         lore.add(colors("&7單價：&6" + String.format("%.2f", order.getUnitPrice()) + " 元"));
         lore.add(colors("&7總量：&b" + order.getAmount()));
         lore.add(colors("&7已成交：&e" + order.getFilled()));
