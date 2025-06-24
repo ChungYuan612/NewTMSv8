@@ -109,6 +109,9 @@ public class RaidEvent implements Listener {
             }
             trySpawnBuffRaider(e.getRaid(),e.getRaid().getBadOmenLevel());
 
+            if(random.nextInt(10) > 7){
+                trySpawnBuffWarden(e.getRaid());
+            }
 
         }
 
@@ -169,6 +172,35 @@ public class RaidEvent implements Listener {
             }catch (Exception error){
                 System.out.println("[突襲突襲 ERROR]: "+error.toString());
             }
+    }
+
+    private void trySpawnBuffWarden(Raid raid){
+
+        //嘗試生成伏守者
+        try{
+            Location location = raid.getRaiders().get(random.nextInt(raid.getRaiders().size())).getLocation();
+            LivingEntity raider;
+            raider = location.getWorld().spawn(location, Warden.class);
+            raider.addPotionEffect(
+                    new PotionEffect(PotionEffectType.RESISTANCE,
+                            900*20,2,false,true)
+            );
+            raider.addPotionEffect(
+                    new PotionEffect(PotionEffectType.STRENGTH,
+                            900*20, 1, false, false));
+            raider.addPotionEffect(
+                    new PotionEffect(PotionEffectType.REGENERATION,
+                            90*20, 0, false, false));
+
+            raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
+            raider.setCustomName(colors("&d奇厄伏守者"));
+            raider.setCustomNameVisible(true);
+
+            Bukkit.broadcastMessage(colors("&6[突襲資訊] &c突襲中出現了 &d奇厄伏守者 &c!"));
+
+        }catch (Exception error){
+            System.out.println("[突襲突襲 ERROR]: "+error.toString());
+        }
     }
 
     private final Emerald_Coins emerald = new Emerald_Coins();

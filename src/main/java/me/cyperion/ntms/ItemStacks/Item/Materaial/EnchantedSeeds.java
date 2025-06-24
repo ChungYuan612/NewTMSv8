@@ -50,8 +50,8 @@ public class EnchantedSeeds extends NTMSMaterial {
     }
 
     @Override
-    public MaterailRate getMaterailRate() {
-        return MaterailRate.NORMAL;
+    public MaterialRate getMaterialRate() {
+        return MaterialRate.NORMAL;
     }
 
     @Override

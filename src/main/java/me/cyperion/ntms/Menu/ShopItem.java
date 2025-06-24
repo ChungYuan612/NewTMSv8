@@ -1,6 +1,7 @@
 package me.cyperion.ntms.Menu;
 
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.GoldenEssence;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.ItemStacks.NTMSItems;
 import me.cyperion.ntms.NewTMSv8;
@@ -17,6 +18,7 @@ enum ShopItem{
 
     NTMS_XAUD(NTMSItems.STOCK_XAUD, 1, 100,100),
     INFINITE_WIND_CHARGE(NTMSItems.INFINITE_WIND_CHARGE, 1, 100000,-1),
+    GOLDEN_ESSENCE(NTMSItems.GOLDEN_ESSENCE, 1, 51200,5120),
     OAK_LOG(Material.OAK_LOG, 1, 16,-1),
     SPRUCE_LOG(Material.SPRUCE_LOG, 1, 16,-1),
     BIRCH_LOG(Material.BIRCH_LOG, 1, 16,-1),
@@ -76,6 +78,8 @@ enum ShopItem{
                 this.item = new Stocks(plugin).getItem(Stocks.StockType.xaud);
             }else if (ntmsItems.equals(NTMSItems.INFINITE_WIND_CHARGE)) {
                 this.item = new InfiniteWindCharge(plugin).toItemStack();
+            }else if (ntmsItems.equals(NTMSItems.GOLDEN_ESSENCE)) {
+                this.item = new GoldenEssence(plugin).toItemStack();
             }
         }
     }

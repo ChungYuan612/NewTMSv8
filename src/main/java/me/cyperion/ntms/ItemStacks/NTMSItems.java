@@ -25,6 +25,10 @@ public enum NTMSItems {
     LAPIS_ARMOR,
     EMERALD_ARMOR,
     REINFINED_LAPIS,
+    ENCHANTED_OBSIDIAN_PART,
+    ENCHANTED_OBSIDIAN,
+    GOLDEN_ESSENCE,
+    PURE_GOLDEN_PICKAXE,
     ;
     public String getBazaarID(){
         return "NTMS_"+this.name();

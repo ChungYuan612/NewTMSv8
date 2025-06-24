@@ -1,3 +1,4 @@
+me\cyperion\ntms\ItemStacks\Item\Materaial\GoldenEssence.class
 me\cyperion\ntms\SQL\SQLError\SQLErrors.class
 me\cyperion\ntms\Class\Explosion$1.class
 me\cyperion\ntms\Menu\BaseMenu\PlayerMenuUtility.class
@@ -12,6 +13,7 @@ me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRedstoneBlock.class
 me\cyperion\ntms\SideBoard\TWPlayerSideBoard.class
 me\cyperion\ntms\Bazaar\Order.class
 me\cyperion\ntms\Event\DamageIcon$1.class
+me\cyperion\ntms\ItemStacks\Tools\PureGoldenPickaxe.class
 me\cyperion\ntms\Menu\BaseMenu\MenuListener.class
 me\cyperion\ntms\ItemStacks\ItemRegister.class
 me\cyperion\ntms\Class\ClassUpgrade.class
@@ -23,7 +25,6 @@ me\cyperion\ntms\ItemStacks\NTMSItemFactory.class
 me\cyperion\ntms\ItemStacks\Armors\EmeraldArmor.class
 me\cyperion\ntms\Bazaar\Data\CommodityMarketAPI$Order.class
 me\cyperion\ntms\Bazaar\Event\OrderMatchedEvent.class
-me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial$MaterailRate.class
 me\cyperion\ntms\NewTMSv8.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\Bazaar\Event\OrderEvent.class
@@ -108,3 +109,4 @@ me\cyperion\ntms\Bazaar\Event\OrderCancelledEvent.class
 me\cyperion\ntms\Bazaar\Data\CommodityMarketAPI$MarketData.class
 me\cyperion\ntms\ItemStacks\Item\JadeCore.class
 me\cyperion\ntms\Monster\LootItem.class
+me\cyperion\ntms\ItemStacks\Item\Materaial\MaterialRate.class

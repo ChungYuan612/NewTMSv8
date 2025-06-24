@@ -82,7 +82,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "      "+"&d市場更新&7+&8黑曜石更新&f還有很多更新！ &b歡迎加入!")
+                "        "+"&d突襲&f與&6黃金更新&f還有很多更新！ &b歡迎加入!")
         );
 
 

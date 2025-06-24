@@ -115,7 +115,7 @@ public class Bard extends Class implements Listener {
         Player player = event.getPlayer();
 
         ItemStack item = event.getItem();
-        /*
+
         UUID uuid = player.getUniqueId();
         // 初始化玩家冷卻資料
         cooldowns.putIfAbsent(uuid, 0L);
@@ -129,7 +129,7 @@ public class Bard extends Class implements Listener {
         }
         // 記錄冷卻時間
         cooldowns.put(uuid, now);
-        */
+
         if(player.hasCooldown(Material.GOAT_HORN)) {
             player.sendMessage("§6[錯誤] §c技能還在冷卻中！");
             event.setCancelled(true);

@@ -29,7 +29,7 @@ public class NTMSCommand implements CommandExecutor {
             sender.sendMessage(colors("&3 /signin"));
             sender.sendMessage(colors("&f 每次簽到指令，每次開服都可以簽到獲得1500元"));
             sender.sendMessage(colors("&3 /class"));
-            sender.sendMessage(colors("&f 可以選擇職業的介面，需要成就點數&d150&f點以上"));
+            sender.sendMessage(colors("&f 可以選擇職業的介面，需要成就點數&d100&f點以上"));
             sender.sendMessage(colors("&b未來還會有更多指令加入，到時候一樣可以透過輸入 &3/ntms help &b查詢哦"));
             sender.sendMessage(colors("&f "));
             sender.sendMessage(colors("&6介紹可能不太完全，如果看完後還有疑問，歡迎到Discord社群發問喔!"));

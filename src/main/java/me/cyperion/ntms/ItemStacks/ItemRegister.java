@@ -6,6 +6,7 @@ import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.Item.RedWand;
+import me.cyperion.ntms.ItemStacks.Tools.PureGoldenPickaxe;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public class ItemRegister {
 
     private NewTMSv8 plugin;
 
-    public static final int CMD_ENCHANTED_ENDER_PEARL = 4007; //附魔終界珍珠
+    public static final int CMD_ENCHANTED_ENDER_PEARL = 4012; //附魔終界珍珠
     public static final int CMD_ENCHANTED_RED_STONE = 4003; //附魔紅石
     public static final int CMD_ENCHANTED_RED_STONE_BLOCK = 4004; //附魔紅石方塊
     public static final int CMD_ENCHANTED_ROTTEN = 4008; //附魔腐肉
@@ -32,6 +33,7 @@ public class ItemRegister {
     public static final int CMD_WIRED_ROTTEN = 4006; //破咒肉塊
     public static final int CMD_ENCHANTED_OBSIDIAN_PART = 4009; //附魔黑曜石碎片
     public static final int CMD_ENCHANTED_OBSIDIAN = 4010; //附魔黑曜石
+    public static final int CMD_GOLDEN_ESSENCE = 4011; //純金元素
 
 
     public ItemRegister(NewTMSv8 plugin) {
@@ -80,6 +82,9 @@ public class ItemRegister {
 
         Bukkit.getServer().addRecipe(new EnchantedObsidianPart(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new EnchantedObsidian(plugin).toNMSRecipe());
+
+        Bukkit.getServer().addRecipe(new PureGoldenPickaxe(plugin).getNMSRecipe());
+
 
         LapisArmor lapisArmor = new LapisArmor(plugin);
         ShapedRecipe[] lapisRrecipe = lapisArmor.toNMSRecipe();

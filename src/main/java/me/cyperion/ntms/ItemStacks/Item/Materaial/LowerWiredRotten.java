@@ -36,8 +36,8 @@ public class LowerWiredRotten extends WiredRotten {
     }
 
     @Override
-    public MaterailRate getMaterailRate() {
-        return MaterailRate.NORMAL;
+    public MaterialRate getMaterialRate() {
+        return MaterialRate.NORMAL;
     }
 
     @Override

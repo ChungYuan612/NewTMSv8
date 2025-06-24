@@ -7,6 +7,7 @@ import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.NTMSItems;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
+import me.cyperion.ntms.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -66,10 +67,22 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             }
             ItemStack item;
             item = plugin.getFactory().getNTMSItem(name);
-            if(item != null){
+
+            if(item != null || item.getType() != Material.BARRIER){
                 player.getInventory().addItem(item);
                 player.sendMessage(colors("&a已給予 &2"+name));
             }
+            ItemStack[] items = new ItemStack[4];
+            if(args[0].equalsIgnoreCase(NTMSItems.EMERALD_ARMOR.name())){
+                 items = new EmeraldArmor(plugin).getItemStacks();
+            }else if(args[0].equalsIgnoreCase(NTMSItems.LAPIS_ARMOR.name())){
+                items = new LapisArmor(plugin).getItemStacks();
+            }
+            for(int i = 0;i<items.length;i++){
+                if(items[i] != null)
+                    Utils.giveItem(player,items[i],1);
+            }
+
         }
         return true;
     }

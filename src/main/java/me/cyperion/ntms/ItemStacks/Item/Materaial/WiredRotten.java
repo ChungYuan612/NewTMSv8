@@ -56,8 +56,8 @@ public class WiredRotten extends NTMSMaterial implements Listener {
     }
 
     @Override
-    public MaterailRate getMaterailRate() {
-        return MaterailRate.RARE;
+    public MaterialRate getMaterialRate() {
+        return MaterialRate.RARE;
     }
 
     @EventHandler(priority = EventPriority.LOW)
@@ -75,7 +75,7 @@ public class WiredRotten extends NTMSMaterial implements Listener {
             event.setCancelled(true);
             if(event.getPlayer().getHealth() >=20) return;
             int reduce = random.nextInt(2,3+1);
-            if(getMaterailRate() == MaterailRate.NORMAL) reduce = 4;//專為低階設計
+            if(getMaterialRate() == MaterialRate.NORMAL) reduce = 4;//專為低階設計
             int food = event.getPlayer().getFoodLevel();
             if(food <= reduce) food= 0;else food -= reduce;
             event.getPlayer().setFoodLevel(food);

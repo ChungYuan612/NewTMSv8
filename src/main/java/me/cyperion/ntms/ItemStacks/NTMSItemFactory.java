@@ -2,6 +2,7 @@ package me.cyperion.ntms.ItemStacks;
 
 import me.cyperion.ntms.ItemStacks.Item.*;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
+import me.cyperion.ntms.ItemStacks.Tools.PureGoldenPickaxe;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -50,6 +51,14 @@ public class NTMSItemFactory {
             item = new Stocks(plugin).getItem(Stocks.StockType.xaud);
         }else if(name.equals(NTMSItems.REINFINED_LAPIS.name())) {
             item = new ReinfinedLapis(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.ENCHANTED_OBSIDIAN_PART.name())) {
+            item = new EnchantedObsidianPart(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.ENCHANTED_OBSIDIAN.name())) {
+            item = new EnchantedObsidian(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.GOLDEN_ESSENCE.name())) {
+            item = new GoldenEssence(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.PURE_GOLDEN_PICKAXE.name())) {
+            item = new PureGoldenPickaxe(plugin).getItemStack();
         }else{
             item = new ItemStack(Material.BARRIER);
         }

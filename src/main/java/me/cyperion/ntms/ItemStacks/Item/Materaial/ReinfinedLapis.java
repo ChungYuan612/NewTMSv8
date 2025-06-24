@@ -43,7 +43,7 @@ public class ReinfinedLapis extends NTMSMaterial{
     }
 
     @Override
-    public MaterailRate getMaterailRate() {
-        return MaterailRate.RARE;
+    public MaterialRate getMaterialRate() {
+        return MaterialRate.RARE;
     }
 }

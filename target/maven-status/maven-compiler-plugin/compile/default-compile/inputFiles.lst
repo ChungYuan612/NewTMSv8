@@ -50,7 +50,9 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Item
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRotten.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSeeds.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSugar.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\GoldenEssence.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\LowerWiredRotten.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\MaterialRate.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\ReinfinedLapis.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Materaial\WiredRotten.java
@@ -59,6 +61,7 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Item
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\ItemRegister.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\NTMSItemFactory.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\NTMSItems.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Tools\PureGoldenPickaxe.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Mana.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\BaseMenu\Menu.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Menu\BaseMenu\MenuListener.java

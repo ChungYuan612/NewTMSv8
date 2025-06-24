@@ -2,6 +2,7 @@ package me.cyperion.ntms.Monster;
 
 import me.cyperion.ntms.Event.RaidEvent;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
+import me.cyperion.ntms.ItemStacks.Item.Materaial.GoldenEssence;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.NewTMSv8;
@@ -9,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Vex;
 import org.bukkit.event.EventHandler;
@@ -36,6 +38,8 @@ public class MonsterRegister implements Listener {
     private final boolean customMobSpawn = false;
     private final LootItem raidLapis;//突襲掉落物 先放這裡
     private final LootItem emerald;//突襲掉落物 先放這裡
+    private final LootItem goldenEssence;//突襲掉落物 先放這裡
+
 
     public MonsterRegister(NewTMSv8 plugin) {
         this.plugin = plugin;
@@ -43,6 +47,7 @@ public class MonsterRegister implements Listener {
         //突襲掉落物 先放這裡
         raidLapis = new LootItem(new ReinfinedLapis(plugin).toItemStack(),1,1,4);
         emerald = new LootItem(new Emerald_Coins().toItemStack(),1,1,0.1);
+        goldenEssence = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,5);
     }
 
 
@@ -101,6 +106,10 @@ public class MonsterRegister implements Listener {
             //event.getDrops().clear();
             raidLapis.tryDropLoot(event.getEntity().getLocation());
             emerald.tryDropLoot(event.getEntity().getLocation());
+            //伏守者
+            if(event.getEntity().getType() == EntityType.WARDEN){
+                goldenEssence.tryDropLoot(event.getEntity().getLocation());
+            }
             return;
         }
         if(!customMobSpawn) return;

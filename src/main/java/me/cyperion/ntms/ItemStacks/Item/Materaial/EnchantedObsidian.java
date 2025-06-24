@@ -41,8 +41,8 @@ public class EnchantedObsidian extends NTMSMaterial{
     }
 
     @Override
-    public MaterailRate getMaterailRate() {
-        return MaterailRate.RARE;
+    public MaterialRate getMaterialRate() {
+        return MaterialRate.RARE;
     }
 
     @Override

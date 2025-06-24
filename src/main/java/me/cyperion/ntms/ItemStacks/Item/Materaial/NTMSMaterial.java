@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -35,7 +34,7 @@ public abstract class NTMSMaterial {
         meta.setDisplayName(getItemName());
         List<String> lore = getLore();
         lore.add(colors(""));
-        lore.add(colors(getMaterailRate().toLoreNoColor()+"素材"));
+        lore.add(colors(getMaterialRate().toLoreNoColor()+"素材"));
         meta.setLore(lore);
         meta.addEnchant(Enchantment.UNBREAKING, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -51,7 +50,7 @@ public abstract class NTMSMaterial {
 
     public abstract int getCustomModelData();
 
-    public abstract MaterailRate getMaterailRate();
+    public abstract MaterialRate getMaterialRate();
 
     public ItemStack toItemStack() {
         return itemStack.clone();
@@ -68,19 +67,5 @@ public abstract class NTMSMaterial {
 
 
 
-    public enum MaterailRate{
-        NORMAL("&2","普通"),
-        RARE("&3","稀有"),
-        EPIC("&5","罕見");
-        String color;
-        String rateName;
-        MaterailRate(String color,String rateName) {
-            this.color = color;
-            this.rateName = rateName;
-        }
 
-        public String toLoreNoColor(){
-            return color+rateName;
-        }
-    }
 }
