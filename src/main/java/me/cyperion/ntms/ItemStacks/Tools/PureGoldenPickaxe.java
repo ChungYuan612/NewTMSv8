@@ -29,7 +29,8 @@ public class PureGoldenPickaxe {
         meta.setDisplayName(colors("&6&l純金十字稿"));
         ArrayList<String > lore = new ArrayList<>();
         lore.add(colors("&f純&6金&f打造而成的高效率金稿，雖然挖"));
-        lore.add(colors("&f不了礦，但挖一些石頭等建材還是得心應手的!"));
+        lore.add(colors("&f不了礦，但挖一些石頭等建材還是得"));
+        lore.add(colors("&f心應手的!"));
         lore.add(colors(""));
         lore.add(colors(MaterialRate.LEGENDARY.toLoreNoColor()+"十字稿"));
         meta.setLore(lore);

@@ -9,10 +9,7 @@ import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Vex;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -20,9 +17,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Monster.LootItem.chanceIn;
@@ -100,6 +95,7 @@ public class MonsterRegister implements Listener {
         twMobs.put(creature.spawn(location),creature);
     }
 
+    private Random random = new Random();
     @EventHandler
     public void onMobDeathing(EntityDeathEvent event) {
         if(event.getEntity().hasMetadata(RaidEvent.META_RAID_BUFF)){
@@ -108,7 +104,16 @@ public class MonsterRegister implements Listener {
             emerald.tryDropLoot(event.getEntity().getLocation());
             //伏守者
             if(event.getEntity().getType() == EntityType.WARDEN){
+                event.getDrops().clear();
                 goldenEssence.tryDropLoot(event.getEntity().getLocation());
+                Collection<Entity> entityCollection = event.getEntity().getWorld().getNearbyEntities(event.getEntity().getLocation(), 100, 100, 100);
+                for(Player player: Bukkit.getOnlinePlayers()){
+                    if(!player.getWorld().equals(plugin.getTWWorld())) continue;
+                    if(!entityCollection.contains(player)) continue;
+                    double rewardCoins = random.nextInt(300);
+                    plugin.getEconomy().depositPlayer(player, rewardCoins);
+                    player.sendMessage(colors("&6[突襲資訊] &a成功討伐&d奇厄伏守者&a，獲得了&6"+rewardCoins+"&a元的獎金！"));
+                }
             }
             return;
         }

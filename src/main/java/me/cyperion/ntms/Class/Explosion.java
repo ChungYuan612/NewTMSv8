@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Class;
 
+import me.cyperion.ntms.Event.RaidEvent;
 import me.cyperion.ntms.ItemStacks.Item.RedWand;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
@@ -12,6 +13,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Warden;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -101,6 +103,8 @@ public class Explosion extends Class implements Listener {
         explosionLore.add(colors("&d&l詠唱&r&f："));
         explosionLore.add(colors("&f期間上方進度條會開始充能，並獲得&8緩速效果"));
         explosionLore.add(colors("&f必須全程蹲著才能完整施放，"));
+        explosionLore.add(colors(""));
+        explosionLore.add(colors("&7傷害會隨著目前最大魔力而指數上升"));
         explosionLore.add(colors(""));
 
         explosionMeta.setLore(explosionLore);
@@ -252,6 +256,17 @@ public class Explosion extends Class implements Listener {
         }
     }
 
+    private String[] wardenMessages = {
+            "什麼東西這麼亮？",
+            "這是什麼東西？",
+            "哈？",
+            "WRYYYYYY",
+            "啊啊啊啊啊啊ㄚ!",
+            "耖,老子才剛出來沒多久欸!",
+            "(那一刻，我變成了光)",
+    };
+    private Random random = new Random();
+
     /**
      * 施法結束時呼叫，觸發中心大爆炸 + DAMAGE 點傷害
      * @param player  觸發爆炸的玩家
@@ -274,10 +289,16 @@ public class Explosion extends Class implements Listener {
         world.spawnParticle(Particle.FLAME,center,1000,8,8,8,5);
         knockbackMonsters(center, EXPLOSION_FRONT_BLOCK-1, 1.2);
         int count = 0;
+        double finalDamage = DAMAGE + Math.pow(plugin.getPlayerData(player).getMaxMana(), 1.5d); //傷害為 600 + MaxMana^1.5
         // 2. 對範圍內所有敵對生物造成傷害
         for (Entity e : world.getNearbyEntities(center, EXPLOSION_RANGE, EXPLOSION_RANGE*2, EXPLOSION_RANGE)) {
             if (e instanceof Monster) {
-                ((Monster) e).damage(DAMAGE, player);
+                if(e.hasMetadata(RaidEvent.META_RAID_BUFF) && e instanceof Warden warden){
+                    Bukkit.broadcastMessage(colors("&c[BOSS] &d"+warden.getCustomName()+"&f+"+wardenMessages[random.nextInt(wardenMessages.length)]));
+                }
+                // 造成傷害
+                Monster monster = (Monster) e;
+                monster.damage(DAMAGE+finalDamage, player);
                 // 顯示傷害指示粒子
                 world.spawnParticle(Particle.DAMAGE_INDICATOR, e.getLocation().add(0, 1, 0), 20);
                 count++;

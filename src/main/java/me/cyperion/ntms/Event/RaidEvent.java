@@ -191,6 +191,9 @@ public class RaidEvent implements Listener {
             raider.addPotionEffect(
                     new PotionEffect(PotionEffectType.REGENERATION,
                             90*20, 0, false, false));
+            raider.addPotionEffect(
+                    new PotionEffect(PotionEffectType.GLOWING,
+                            300*20, 0, false, false));
 
             raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
             raider.setCustomName(colors("&d奇厄伏守者"));

@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Monster;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -32,6 +33,7 @@ public class LootItem {
         ItemStack item = this.itemStack.clone();
         item.setAmount(amount);
         location.getWorld().dropItemNaturally(location,item);
+        Bukkit.getLogger().fine(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()+" &b("+(dropChance)+"%)"));
     }
 
     public void tryDropLoot(Player player, Location location) {
