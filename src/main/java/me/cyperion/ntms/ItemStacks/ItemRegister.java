@@ -2,6 +2,7 @@ package me.cyperion.ntms.ItemStacks;
 
 import me.cyperion.ntms.ItemStacks.Armors.EmeraldArmor;
 import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
+import me.cyperion.ntms.ItemStacks.Armors.ObsidianChestplate;
 import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
@@ -84,6 +85,7 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new EnchantedObsidian(plugin).toNMSRecipe());
 
         Bukkit.getServer().addRecipe(new PureGoldenPickaxe(plugin).getNMSRecipe());
+        Bukkit.getServer().addRecipe(new ObsidianChestplate(plugin).toNMSRecipe());
 
 
         LapisArmor lapisArmor = new LapisArmor(plugin);

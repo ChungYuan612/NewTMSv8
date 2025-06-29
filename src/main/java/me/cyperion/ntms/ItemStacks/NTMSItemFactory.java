@@ -1,5 +1,6 @@
 package me.cyperion.ntms.ItemStacks;
 
+import me.cyperion.ntms.ItemStacks.Armors.ObsidianChestplate;
 import me.cyperion.ntms.ItemStacks.Item.*;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenPickaxe;
@@ -59,6 +60,8 @@ public class NTMSItemFactory {
             item = new GoldenEssence(plugin).toItemStack();
         }else if(name.equals(NTMSItems.PURE_GOLDEN_PICKAXE.name())) {
             item = new PureGoldenPickaxe(plugin).getItemStack();
+        }else if(name.equals(NTMSItems.OBSIDIAN_CHESTPLATE.name())) {
+            item = new ObsidianChestplate(plugin).toItemStack();
         }else{
             item = new ItemStack(Material.BARRIER);
         }

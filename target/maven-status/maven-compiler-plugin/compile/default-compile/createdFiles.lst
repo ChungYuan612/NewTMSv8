@@ -72,6 +72,7 @@ me\cyperion\ntms\ItemStacks\Armors\PieceFullBouns.class
 me\cyperion\ntms\Monster\MonsterRegister.class
 me\cyperion\ntms\Event\DamageIcon.class
 me\cyperion\ntms\Menu\WarpMenu.class
+me\cyperion\ntms\ItemStacks\Armors\ObsidianChestplate.class
 me\cyperion\ntms\Class\Explosion.class
 me\cyperion\ntms\Menu\ClassSelectMenu.class
 me\cyperion\ntms\NSKeyRepo.class

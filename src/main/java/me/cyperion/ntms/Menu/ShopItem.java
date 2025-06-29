@@ -19,19 +19,21 @@ enum ShopItem{
     NTMS_XAUD(NTMSItems.STOCK_XAUD, 1, 100,100),
     INFINITE_WIND_CHARGE(NTMSItems.INFINITE_WIND_CHARGE, 1, 100000,-1),
     GOLDEN_ESSENCE(NTMSItems.GOLDEN_ESSENCE, 1, 51200,5120),
-    OAK_LOG(Material.OAK_LOG, 1, 16,-1),
-    SPRUCE_LOG(Material.SPRUCE_LOG, 1, 16,-1),
-    BIRCH_LOG(Material.BIRCH_LOG, 1, 16,-1),
-    CHERRY_LOG(Material.CHERRY_LOG, 1, 16,-1),
-    STONE(Material.STONE, 1, 7,-1),
+    OAK_LOG(Material.OAK_LOG, 1, 18,-1),
+    SPRUCE_LOG(Material.SPRUCE_LOG, 1, 18,-1),
+    BIRCH_LOG(Material.BIRCH_LOG, 1, 18,-1),
+    CHERRY_LOG(Material.CHERRY_LOG, 1, 18,-1),
+    STONE(Material.STONE, 1, 8,-1),
     DIORITE(Material.DIORITE, 1, 8,-1),
     COBBLED_DEEPSLATE(Material.COBBLED_DEEPSLATE, 1, 9,-1),
     SAND(Material.SAND, 1, 8,-1),
     GRAVEL(Material.GRAVEL, 1, 8,-1),
+    CLAY_BALL(Material.CLAY_BALL, 1, 7,-1),
     SLIME_BALL(Material.SLIME_BALL, 1, 25,-1),
-    WEB(Material.COBWEB, 1, 28,-1),
+    WEB(Material.COBWEB, 1, 32,-1),
     RED_STONE(Material.REDSTONE, 1, 18,-1),
-    QUARTZ(Material.QUARTZ, 1, 7,-1),
+    QUARTZ(Material.QUARTZ, 1, 9,-1),
+    AMETHYST_SHARD(Material.AMETHYST_SHARD, 1, 11,-1),
     OCHRE_FROGLIGHT(Material.OCHRE_FROGLIGHT, 1, 100,-1),
     PEARLESCENT_FROGLIGHT(Material.PEARLESCENT_FROGLIGHT, 1, 100,-1),
     VERDANT_FROGLIGHT(Material.VERDANT_FROGLIGHT, 1, 100,-1),
@@ -48,7 +50,7 @@ enum ShopItem{
     NTMSItems ntmsItems;
 
     ShopItem(Material material, int amount, double buyPrice, double sellPrice) {
-        this.item = new ItemStack(material);
+        this.item = new ItemStack(material,amount);
         this.amount = amount;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;

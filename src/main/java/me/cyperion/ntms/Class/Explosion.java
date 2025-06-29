@@ -260,6 +260,7 @@ public class Explosion extends Class implements Listener {
             "什麼東西這麼亮？",
             "這是什麼東西？",
             "哈？",
+            "什麼鬼？",
             "WRYYYYYY",
             "啊啊啊啊啊啊ㄚ!",
             "耖,老子才剛出來沒多久欸!",
@@ -294,7 +295,7 @@ public class Explosion extends Class implements Listener {
         for (Entity e : world.getNearbyEntities(center, EXPLOSION_RANGE, EXPLOSION_RANGE*2, EXPLOSION_RANGE)) {
             if (e instanceof Monster) {
                 if(e.hasMetadata(RaidEvent.META_RAID_BUFF) && e instanceof Warden warden){
-                    Bukkit.broadcastMessage(colors("&c[BOSS] &d"+warden.getCustomName()+"&f+"+wardenMessages[random.nextInt(wardenMessages.length)]));
+                    Bukkit.broadcastMessage(colors("&c[BOSS] &d"+warden.getCustomName()+"&f: "+wardenMessages[random.nextInt(wardenMessages.length)]));
                 }
                 // 造成傷害
                 Monster monster = (Monster) e;
