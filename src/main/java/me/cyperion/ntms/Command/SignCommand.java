@@ -34,8 +34,8 @@ public class SignCommand implements CommandExecutor {
             try{
 
                 ItemStack itemStack = player.getInventory().getItemInMainHand();
-                if(itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() || !itemStack.getEnchantments().isEmpty()){
-                    player.sendMessage(colors("&c該物品不是原版物品"));
+                if(itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() || !itemStack.getEnchantments().isEmpty() || itemStack.getType() == Material.SHULKER_BOX){
+                    player.sendMessage(colors("&c該物品不是原版物品或特殊物品"));
                     return true;
                 }
                 ItemStack item = new ItemStack(itemStack.getType(),itemStack.getAmount());

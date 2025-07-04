@@ -3,6 +3,7 @@ package me.cyperion.ntms.ItemStacks;
 import me.cyperion.ntms.ItemStacks.Armors.ObsidianChestplate;
 import me.cyperion.ntms.ItemStacks.Item.*;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
+import me.cyperion.ntms.ItemStacks.Tools.PureGoldenDarkSword;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenPickaxe;
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
@@ -62,6 +63,8 @@ public class NTMSItemFactory {
             item = new PureGoldenPickaxe(plugin).getItemStack();
         }else if(name.equals(NTMSItems.OBSIDIAN_CHESTPLATE.name())) {
             item = new ObsidianChestplate(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.PURE_GOLDEN_DARK_SWORD.name())) {
+            item = new PureGoldenDarkSword(plugin).getItemStack();
         }else{
             item = new ItemStack(Material.BARRIER);
         }

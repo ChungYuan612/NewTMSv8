@@ -23,6 +23,7 @@ me\cyperion\ntms\Menu\TWMainMenu.class
 me\cyperion\ntms\Bazaar\OrderBook.class
 me\cyperion\ntms\ItemStacks\NTMSItemFactory.class
 me\cyperion\ntms\ItemStacks\Armors\EmeraldArmor.class
+me\cyperion\ntms\ItemStacks\Tools\PureGoldenDarkSword.class
 me\cyperion\ntms\Bazaar\Data\CommodityMarketAPI$Order.class
 me\cyperion\ntms\Bazaar\Event\OrderMatchedEvent.class
 me\cyperion\ntms\NewTMSv8.class

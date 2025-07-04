@@ -28,8 +28,10 @@ public class PlayerChatHandler implements Listener {
         Player player = event.getPlayer();
         String prefix = getPerfix(player);
         String s = colors(plugin.getConfig().getStringList(player.getUniqueId().toString()).get(2));
-        Bukkit.broadcastMessage(prefix +" "+ s + player.getName() + ChatColor.WHITE + ": " + message);
-        event.setCancelled(true);
+        if(message.startsWith("&"))
+            message = colors(message);
+        event.setMessage(message);
+        event.setFormat(prefix +" "+ s + "%s" + ChatColor.WHITE + ": %s");
 
     }
 
