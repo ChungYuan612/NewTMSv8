@@ -33,7 +33,7 @@ public class LootItem {
         ItemStack item = this.itemStack.clone();
         item.setAmount(amount);
         location.getWorld().dropItemNaturally(location,item);
-        Bukkit.getLogger().fine(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()+" &b("+(dropChance)+"%)"));
+        Bukkit.getLogger().info(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()+" &b("+(dropChance)+"%)"));
     }
 
     public void tryDropLoot(Player player, Location location) {

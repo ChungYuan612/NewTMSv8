@@ -5,6 +5,7 @@ import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.ItemStacks.Item.JadeCore;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
+import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.ItemStacks.NTMSItems;
 import me.cyperion.ntms.Menu.BaseMenu.Menu;
 import me.cyperion.ntms.Menu.BaseMenu.PlayerMenuUtility;
@@ -153,6 +154,10 @@ public class BazaarMenu extends Menu {
         bazaarItems.add(new BazaarItem(
                 NTMSItems.JADE_CORE.getBazaarID(),
                 new JadeCore().toItemStack()
+        ));
+        bazaarItems.add(new BazaarItem(
+                NTMSItems.STOCK_3369.getBazaarID(),
+                new Stocks(plugin).getItem(Stocks.StockType.s3369)
         ));
     }
 

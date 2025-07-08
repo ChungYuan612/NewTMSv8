@@ -85,7 +85,9 @@ public class SigninCommand implements CommandExecutor {
                 continue;
             }
             int bonus = random.nextInt(5,count*5);
-            p.sendMessage(colors("&6[紅包] &b"+player.getDisplayName()+"&3簽到成功，發放給你&6"+bonus+"&3元紅包。"));
+            p.sendMessage(colors("&6[紅包] &b"+player.getName()+"&3簽到成功，發放給你&6"+bonus+"&3元紅包。"));
+            player.sendMessage(colors("&6[紅包] &3你發給&b"+p.getName()+" &6"+bonus+"&3元紅包。"));
+            plugin.getLogger().info(p.getName()+"獲得"+bonus+"元紅包");
             plugin.getEconomy().depositPlayer(p,bonus);
         }
         signinedList.add(player.getUniqueId());

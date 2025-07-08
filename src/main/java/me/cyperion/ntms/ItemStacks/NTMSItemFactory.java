@@ -51,6 +51,10 @@ public class NTMSItemFactory {
             item = new Stocks(plugin).getItem(Stocks.StockType.s3391);
         }else if(name.equals(NTMSItems.STOCK_XAUD.name())) {
             item = new Stocks(plugin).getItem(Stocks.StockType.xaud);
+        }else if(name.equals(NTMSItems.STOCK_3369.name())) {
+            item = new Stocks(plugin).getItem(Stocks.StockType.s3369);
+        }else if(name.equals(NTMSItems.STOCK_5000.name())) {
+            item = new Stocks(plugin).getItem(Stocks.StockType.s5000);
         }else if(name.equals(NTMSItems.REINFINED_LAPIS.name())) {
             item = new ReinfinedLapis(plugin).toItemStack();
         }else if(name.equals(NTMSItems.ENCHANTED_OBSIDIAN_PART.name())) {

@@ -72,6 +72,26 @@ public class Stocks {
                         colors(""),
                         colors("&6&l金融證券")
                 )
+        ),
+        s3369(false, ChatColor.DARK_AQUA,
+                "彰化銀行","3369",
+             Arrays.asList(
+                    colors("&f由玩家&bCenterPlain229"),
+                    colors("&f為負責人發行的證券，流通數共"),
+                    colors("&31000&f張。"),
+                    colors(""),
+                    colors("&6&l金融證券")
+                )
+        ),
+        s5000(false, ChatColor.RED,
+                "國家債券","5000",
+                Arrays.asList(
+                        colors("&f中央政府發行的國家債券"),
+                        colors("&f每次普發時依照持有張數"),
+                        colors("&f分發現金或替代物品"),
+                        colors(""),
+                        colors("&6&l金融證券")
+                )
         );
         boolean isGold;
         ChatColor color;

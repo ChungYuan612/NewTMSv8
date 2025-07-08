@@ -30,7 +30,7 @@ public class PlayerChatHandler implements Listener {
         String s = colors(plugin.getConfig().getStringList(player.getUniqueId().toString()).get(2));
         if(message.startsWith("&"))
             message = colors(message);
-        event.setMessage(message);
+        event.setMessage(message.trim());
         event.setFormat(prefix +" "+ s + "%s" + ChatColor.WHITE + ": %s");
 
     }
@@ -40,7 +40,7 @@ public class PlayerChatHandler implements Listener {
         String prefix;
         ChatColor color = ChatColor.GRAY;
         int point = playerData.getAdvancePoint();
-        if (point > 200)
+        if (point > 185)
             color = ChatColor.DARK_RED;
         else if (point > 150)
             color = ChatColor.LIGHT_PURPLE;
