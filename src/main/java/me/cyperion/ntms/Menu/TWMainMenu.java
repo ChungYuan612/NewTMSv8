@@ -38,14 +38,16 @@ public class TWMainMenu extends Menu {
     private ItemStack market;
     private ItemStack changeMana;
     private ItemStack enderChest;
+    private ItemStack skulls;
 
     private final int SIGNIN_CMD = 1001;
     private final int WARP_CMD = 1002;
-    private final int CLASS_CMD = 1002;
+    private final int CLASS_CMD = 1003;
     private final int SHOP_CMD = 1004;
     private final int MARKET_CMD = 1005;
     private final int MANA_CMD = 1006;
     private final int ENDER_CMD = 1007;
+    private final int SKULL_CMD = 1009;
 
 
 
@@ -90,7 +92,10 @@ public class TWMainMenu extends Menu {
                 //player.performCommand("bazaar");
                 player.performCommand("menu market");
                 //player.sendMessage(colors("&c&l正在維修中..."));
+            }else if(item.isSimilar(skulls)){
+                player.performCommand("skulls");
             }
+
         }
 
 
@@ -167,6 +172,7 @@ public class TWMainMenu extends Menu {
         inventory.setItem(14,market);
         inventory.setItem(15,changeMana);
         inventory.setItem(16,enderChest);
+        inventory.setItem(21,skulls);
         inventory.setItem(22,close);
 
     }
@@ -255,6 +261,20 @@ public class TWMainMenu extends Menu {
         enderChestMeta.setCustomModelData(ENDER_CMD);//未來做資源包可用
         enderChestMeta.setLore(clickLore);
         enderChest.setItemMeta(enderChestMeta);
+
+        //頭顱商店
+        skulls = new ItemStack(Material.CREEPER_HEAD);
+        ItemMeta skullsMeta = skulls.getItemMeta();
+        skullsMeta.setDisplayName(colors("&9頭顱商店"));
+        ArrayList<String> skullsLore = new ArrayList<>();
+        skullsLore.add(colors("&8/skulls"));
+        skullsLore.add(colors("&7可以購買各種的頭顱，來裝飾自己"));
+        skullsLore.add(colors("&7的縣市，頭顱基本每個都是1000元"));
+        skullsLore.add(colors(""));
+        skullsLore.add(colors("&e點擊打開商店"));
+        skullsMeta.setLore(skullsLore);
+        skullsMeta.setCustomModelData(MARKET_CMD);//未來做資源包可用
+        skulls.setItemMeta(skullsMeta);
 
     }
 

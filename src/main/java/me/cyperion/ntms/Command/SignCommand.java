@@ -39,7 +39,8 @@ public class SignCommand implements CommandExecutor {
                     return true;
                 }
                 ItemStack item = new ItemStack(itemStack.getType(),itemStack.getAmount());
-                ItemMeta meta = item.getItemMeta();
+
+                ItemMeta meta = itemStack.getItemMeta();
                 meta.setDisplayName(colors(itemStack.getItemMeta().getDisplayName()));
                 ArrayList<String> lore = new ArrayList<>();
                 lore.add(colors("&6[&f簽名&6]&f: &b"+player.getName()));

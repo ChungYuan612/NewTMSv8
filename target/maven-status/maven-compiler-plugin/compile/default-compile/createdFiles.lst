@@ -47,6 +47,7 @@ me\cyperion\ntms\Bazaar\DBManager.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRotten.class
 me\cyperion\ntms\Player\PlayerJoinServerController.class
 me\cyperion\ntms\Class\Class.class
+me\cyperion\ntms\Event\PlayerFishingEvent$FishingReward.class
 me\cyperion\ntms\Modifier.class
 me\cyperion\ntms\Menu\BazaarMenu\BazaarOrderBookMenu.class
 me\cyperion\ntms\Menu\BazaarMenu\BazaarQuantitySelectMenu.class

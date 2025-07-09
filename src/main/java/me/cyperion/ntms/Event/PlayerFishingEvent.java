@@ -7,7 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static me.cyperion.ntms.Utils.colors;
@@ -18,37 +21,64 @@ public class PlayerFishingEvent implements Listener {
 
     private final Random random = new Random();
     private final JadeCore jadeCore = new JadeCore();
+    private final List<FishingReward> fishingRewardList = new ArrayList<>();
 
     public PlayerFishingEvent(NewTMSv8 plugin) {
         this.plugin = plugin;
+        fishingRewardList.add(new FishingReward(jadeCore.toItemStack(), 0.85d,1.0d));
+        fishingRewardList.add(new FishingReward(null, 2d,2.5d));
     }
 
     @EventHandler
     public void onPlayerFishing(PlayerFishEvent event){
+
+
         if(!event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH))
             return;
-        double rate = 0.85d;
-        if(!event.getPlayer().getLocation().getWorld().isClearWeather())
-            rate = 1d;
-        //防止釣魚機
-        if(!event.getHook().isInOpenWater())
-            rate /=2;
+        for(FishingReward reward : fishingRewardList){
+            double rate = reward.rate;
+            if(!event.getPlayer().getLocation().getWorld().isClearWeather())
+                rate = reward.rainyRate;
+            //防止釣魚機
+            if(!event.getHook().isInOpenWater())
+                rate /=3;
 
-        Player player = event.getPlayer();
-        double value;
-        double base = rate;
-        double luckbouns = plugin.getPlayerData(player).getLuck();
-        if(luckbouns <= 0) value = rate;
-        else value = rate * (1+luckbouns/100);
-        double v = Math.random() * 100;
-        if(v < value){
-            System.out.println(event.getPlayer().getDisplayName() + " 釣起了 碎玉核心! "+v+" in 100");
-            if(event.getCaught() instanceof Item item){
-                item.setItemStack(jadeCore.toItemStack().clone());
-                player.sendMessage(colors("&6[稀有釣魚] &f"
-                        +jadeCore.toItemStack().getItemMeta().getDisplayName()+" &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
+            Player player = event.getPlayer();
+            double value;
+            double base = rate;
+            double luckbouns = plugin.getPlayerData(player).getLuck();
+            if(luckbouns <= 0) value = rate;
+            else value = rate * (1+luckbouns/100);//機率門檻
 
+            double v = Math.random() * 100;
+            if(v < value){//這個v在機率門檻內
+
+                if(reward.reward != null){
+                    double coins = random.nextDouble(10,500);
+                    plugin.getEconomy().depositPlayer(player, coins);
+                    player.sendMessage(colors("&6[稀有釣魚] &6"
+                            +String.format("%,.0f",coins)+"元 &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
+                }else if(event.getCaught() instanceof Item item){
+                    System.out.println(event.getPlayer().getDisplayName() + " 釣起了 "+reward.reward.getItemMeta().getDisplayName()+"! "+v+" in 100");
+                    item.setItemStack(jadeCore.toItemStack().clone());
+                    player.sendMessage(colors("&6[稀有釣魚] &f"
+                            +jadeCore.toItemStack().getItemMeta().getDisplayName()+" &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
+
+                }
             }
         }
+
+    }
+
+    static class FishingReward{
+        ItemStack reward;
+        double rate,rainyRate;
+
+        public FishingReward(ItemStack reward, double rate,double rainyRate){
+            this.reward = reward;
+            this.rate = rate;
+            this.rainyRate = rainyRate;
+        }
+
     }
 }

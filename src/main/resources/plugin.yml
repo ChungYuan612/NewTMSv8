@@ -1,7 +1,7 @@
 name: NewTMSv8
 version: '${project.version}'
 main: me.cyperion.ntms.NewTMSv8
-softdepend: [Vault]
+softdepend: [Vault,Skulls]
 api-version: '1.21'
 commands:
   admin:
