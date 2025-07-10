@@ -53,10 +53,12 @@ public class PlayerFishingEvent implements Listener {
             double v = Math.random() * 100;
             if(v < value){//這個v在機率門檻內
 
-                if(reward.reward != null){
-                    double coins = random.nextDouble(10,500);
+                if(reward.reward == null){
+                    double coins = random.nextDouble(50,900);
                     plugin.getEconomy().depositPlayer(player, coins);
-                    player.sendMessage(colors("&6[稀有釣魚] &6"
+                    player.sendMessage(colors("&6[稀有釣魚] &e"
+                            +String.format("%,.0f",coins)+"元 &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
+                    System.out.println(colors(event.getPlayer().getDisplayName() + " 釣起了 "
                             +String.format("%,.0f",coins)+"元 &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
                 }else if(event.getCaught() instanceof Item item){
                     System.out.println(event.getPlayer().getDisplayName() + " 釣起了 "+reward.reward.getItemMeta().getDisplayName()+"! "+v+" in 100");
