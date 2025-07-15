@@ -74,7 +74,6 @@ public final class NewTMSv8 extends JavaPlugin {
     public final boolean enableMana = true;
 
 
-
     @Override
     public void onEnable() {
         //this.getConfig().options().copyDefaults(true);
@@ -82,7 +81,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "         "+"&3釣魚&7與&9頭顱商店更新&f還有很多更新！ &b歡迎加入!")
+                "         "+"&e&l光源&f與&9頭顱商店更新&f還有很多更新！ &b歡迎加入!")
         );
 
 
@@ -92,8 +91,12 @@ public final class NewTMSv8 extends JavaPlugin {
         getServer().getWorlds().forEach(world ->
                 System.out.println(world.getName())
         );
-
-
+        // 檢查是否安裝了 ProtocolLib
+        if (!getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
+            getLogger().severe("需要安裝 ProtocolLib 插件！");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         //mySQL
         //this.database = new SQLite(this);
         //this.database.load();

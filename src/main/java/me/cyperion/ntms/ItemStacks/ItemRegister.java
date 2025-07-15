@@ -61,6 +61,7 @@ public class ItemRegister {
 
     public void register() {
         registCraftItem();
+        plugin.getServer().getPluginManager().registerEvents(new SurvivalSpecialBlock(plugin),plugin);
         plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(plugin),plugin);
         plugin.getServer().getPluginManager().registerEvents(new WiredRotten(plugin),plugin);
         BukkitRunnable runnable = new BukkitRunnable() {
@@ -85,8 +86,8 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new EnchantedObsidianPart(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new EnchantedObsidian(plugin).toNMSRecipe());
 
-        Bukkit.getServer().addRecipe(new PureGoldenPickaxe(plugin).getNMSRecipe());
-        Bukkit.getServer().addRecipe(new PureGoldenDarkSword(plugin).getNMSRecipe());
+        Bukkit.getServer().addRecipe(new PureGoldenPickaxe(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new PureGoldenDarkSword(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new ObsidianChestplate(plugin).toNMSRecipe());
 
 

@@ -64,11 +64,11 @@ public class NTMSItemFactory {
         }else if(name.equals(NTMSItems.GOLDEN_ESSENCE.name())) {
             item = new GoldenEssence(plugin).toItemStack();
         }else if(name.equals(NTMSItems.PURE_GOLDEN_PICKAXE.name())) {
-            item = new PureGoldenPickaxe(plugin).getItemStack();
+            item = new PureGoldenPickaxe(plugin).getItem();
         }else if(name.equals(NTMSItems.OBSIDIAN_CHESTPLATE.name())) {
             item = new ObsidianChestplate(plugin).toItemStack();
         }else if(name.equals(NTMSItems.PURE_GOLDEN_DARK_SWORD.name())) {
-            item = new PureGoldenDarkSword(plugin).getItemStack();
+            item = new PureGoldenDarkSword(plugin).getItem();
         }else{
             item = new ItemStack(Material.BARRIER);
         }

@@ -15,36 +15,49 @@ import java.util.ArrayList;
 
 import static me.cyperion.ntms.Utils.colors;
 
-public class PureGoldenPickaxe {
+public class PureGoldenPickaxe extends PureGoldenTools {
     private final NewTMSv8 plugin;
-    private ItemStack itemStack;
 
     public PureGoldenPickaxe(NewTMSv8 plugin) {
+        super(plugin);
         this.plugin = plugin;
-        initialize();
     }
-    private void initialize(){
-        itemStack = new ItemStack(Material.GOLDEN_PICKAXE);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(colors("&6&l純金十字稿"));
+
+    @Override
+    protected ArrayList<String> getLore() {
         ArrayList<String > lore = new ArrayList<>();
         lore.add(colors("&f純&6金&f打造而成的高效率金稿，雖然挖"));
         lore.add(colors("&f不了礦，但挖一些石頭等建材還是得"));
         lore.add(colors("&f心應手的!"));
-        lore.add(colors(""));
-        lore.add(colors(MaterialRate.LEGENDARY.toLoreNoColor()+"十字稿"));
-        meta.setLore(lore);
+        return lore;
+    }
+
+    @Override
+    public Material getMaterailType() {
+        return Material.GOLDEN_PICKAXE;
+    }
+
+    @Override
+    public int getCustomModelData() {
+        return PureGoldenTools.CMD_PURE_GOLDEN_PICKAXE;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "十字稿";
+    }
+
+    @Override
+    public void otherSetup() {
+        ItemMeta meta = itemStack.getItemMeta();
         meta.setUnbreakable(true);
         itemStack.setItemMeta(meta);
         itemStack.addUnsafeEnchantment(Enchantment.EFFICIENCY,6);
-
     }
 
-    public ItemStack getItemStack() {
-        return itemStack;
-    }
-    public ShapedRecipe getNMSRecipe(){
-        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"PureGoldenPickaxe"),this.getItemStack());
+    @Override
+    public ShapedRecipe toNMSRecipe(){
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"PureGoldenPickaxe"),this.getItem());
         recipe.shape("xxx"," a "," a ");
         recipe.setIngredient('x', new RecipeChoice.ExactChoice(new GoldenEssence(plugin).toItemStack()));
         recipe.setIngredient('a', Material.STICK);

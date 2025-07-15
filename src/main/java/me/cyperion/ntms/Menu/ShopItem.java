@@ -40,6 +40,7 @@ enum ShopItem{
     SADDLE(Material.SADDLE, 1, -1,80),
     TOTEM_OF_UNDYING(Material.TOTEM_OF_UNDYING, 1, -1,60),
     EMERALD(Material.EMERALD, 1, -1,3),
+    LIGHT(Material.LIGHT, 1, 100,-1),
 
     ;
     String itemName;

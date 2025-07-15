@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -34,12 +35,16 @@ public class MonsterRegister implements Listener {
     private final LootItem raidLapis;//突襲掉落物 先放這裡
     private final LootItem emerald;//突襲掉落物 先放這裡
     private final LootItem goldenEssence;//突襲掉落物 先放這裡
+    private final LootItem normalEmerald;//突襲掉落物 先放這裡
+    private final LootItem normalEmeraldBlock;//突襲掉落物 先放這裡
 
 
     public MonsterRegister(NewTMSv8 plugin) {
         this.plugin = plugin;
 
         //突襲掉落物 先放這裡
+        normalEmerald = new LootItem(new ItemStack(Material.EMERALD),1,8,75);
+        normalEmeraldBlock = new LootItem(new ItemStack(Material.EMERALD_BLOCK),1,3,35);
         raidLapis = new LootItem(new ReinfinedLapis(plugin).toItemStack(),1,1,4);
         emerald = new LootItem(new Emerald_Coins().toItemStack(),1,1,0.1);
         goldenEssence = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,5);
@@ -106,6 +111,8 @@ public class MonsterRegister implements Listener {
             if(event.getEntity().getType() == EntityType.WARDEN){
                 event.getDrops().clear();
                 goldenEssence.tryDropLoot(event.getEntity().getLocation());
+                normalEmeraldBlock.tryDropLoot(event.getEntity().getLocation());
+                normalEmerald.tryDropLoot(event.getEntity().getLocation());
                 Collection<Entity> entityCollection = event.getEntity().getWorld().getNearbyEntities(event.getEntity().getLocation(), 100, 100, 100);
                 for(Player player: Bukkit.getOnlinePlayers()){
                     if(!player.getWorld().equals(plugin.getTWWorld())) continue;

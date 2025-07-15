@@ -44,6 +44,7 @@ me\cyperion\ntms\Event\PlayerAdvanceDoneHandler.class
 me\cyperion\ntms\Bazaar\Data\SQLDatabase.class
 me\cyperion\ntms\Bazaar\Event\OrderPlacedEvent.class
 me\cyperion\ntms\Bazaar\DBManager.class
+me\cyperion\ntms\ItemStacks\Tools\PureGoldenTools.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedRotten.class
 me\cyperion\ntms\Player\PlayerJoinServerController.class
 me\cyperion\ntms\Class\Class.class
@@ -93,6 +94,7 @@ me\cyperion\ntms\ItemStacks\Item\Materaial\WiredRotten.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
 me\cyperion\ntms\Bazaar\Data\BazaarItem.class
 me\cyperion\ntms\Bazaar\Data\DataAPI.class
+me\cyperion\ntms\ItemStacks\SurvivalSpecialBlock.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\ReinfinedLapis.class
 me\cyperion\ntms\Bazaar\Data\CommodityMarketAPI$OrderType.class
 me\cyperion\ntms\ItemStacks\Armors\LapisArmor.class

@@ -18,27 +18,43 @@ import java.util.UUID;
 
 import static me.cyperion.ntms.Utils.colors;
 
-public class PureGoldenDarkSword {
+public class PureGoldenDarkSword extends PureGoldenTools {
     private final NewTMSv8 plugin;
-    private ItemStack itemStack;
 
     public PureGoldenDarkSword(NewTMSv8 plugin) {
+        super(plugin);
         this.plugin = plugin;
-        initialize();
     }
-    private void initialize(){
-        itemStack = new ItemStack(Material.GOLDEN_SWORD);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(colors("&6&l純金黑長劍"));
+
+    @Override
+    protected ArrayList<String> getLore() {
         ArrayList<String > lore = new ArrayList<>();
         lore.add(colors("&f由&6純金&f+&8黑曜石&f打造而成的長劍"));
         lore.add(colors("&f傷害絕對是一流，但好像很容易"));
         lore.add(colors("&f壞掉，要小心使用!"));
         lore.add(colors(""));
         lore.add(colors("&c&l請注意這是有耐久消耗的物品"));
-        lore.add(colors(""));
-        lore.add(colors(MaterialRate.LEGENDARY.toLoreNoColor()+"長劍"));
-        meta.setLore(lore);
+        return lore;
+    }
+
+    @Override
+    public Material getMaterailType() {
+        return Material.GOLDEN_SWORD;
+    }
+
+    @Override
+    public int getCustomModelData() {
+        return CMD_PURE_GOLDEN_SWORD;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "黑長劍";
+    }
+
+    @Override
+    public void otherSetup() {
+        ItemMeta meta = itemStack.getItemMeta();
         NamespacedKey mojangKey = NamespacedKey.minecraft("attack_damage");
 //        NamespacedKey mojangKey2 = NamespacedKey.minecraft("attack_speed");
         meta.addAttributeModifier(Attribute.ATTACK_DAMAGE,
@@ -58,14 +74,11 @@ public class PureGoldenDarkSword {
         itemStack.setItemMeta(meta);
         itemStack.addUnsafeEnchantment(Enchantment.SHARPNESS,6);
         itemStack.addUnsafeEnchantment(Enchantment.UNBREAKING,10);
-
     }
 
-    public ItemStack getItemStack() {
-        return itemStack;
-    }
-    public ShapedRecipe getNMSRecipe(){
-        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"PureGoldenDarkSword"),this.getItemStack());
+    @Override
+    public ShapedRecipe toNMSRecipe(){
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin,"PureGoldenDarkSword"),this.getItem());
         recipe.shape("oxo","sxs","oao");
         recipe.setIngredient('x', new RecipeChoice.ExactChoice(new GoldenEssence(plugin).toItemStack()));
         recipe.setIngredient('o', new RecipeChoice.ExactChoice(new EnchantedObsidian(plugin).toItemStack()));
