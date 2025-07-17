@@ -66,6 +66,7 @@ public class RaidEvent implements Listener {
     public void onRaidSpawn(RaidSpawnWaveEvent e){
 
         for(Raider raider:e.getRaiders()){
+            raider.setPersistent(true);
             if(raider instanceof Pillager p){
                 if(random.nextInt(10) >= 5){
                     p.getEquipment().setItemInMainHand(quickCrossBow);
@@ -166,6 +167,7 @@ public class RaidEvent implements Listener {
                                 90*20, 0, false, false));
 
                 raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
+                raider.setPersistent(true);
                 raider.setCanJoinRaid(true);
                 raider.setRaid(raid);
                 raider.setWave(raid.getRaiders().getFirst().getWave());
@@ -198,6 +200,7 @@ public class RaidEvent implements Listener {
             raider.setMetadata(META_RAID_BUFF,new FixedMetadataValue(plugin,"true"));
             raider.setCustomName(colors("&d奇厄伏守者"));
             raider.setCustomNameVisible(true);
+            raider.setPersistent(true);
 
             Bukkit.broadcastMessage(colors("&6[突襲資訊] &c突襲中出現了 &d奇厄伏守者 &c!"));
 

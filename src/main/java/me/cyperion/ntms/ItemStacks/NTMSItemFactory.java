@@ -69,6 +69,8 @@ public class NTMSItemFactory {
             item = new ObsidianChestplate(plugin).toItemStack();
         }else if(name.equals(NTMSItems.PURE_GOLDEN_DARK_SWORD.name())) {
             item = new PureGoldenDarkSword(plugin).getItem();
+        }else if(name.equals(NTMSItems.MYSTERY_TURTLE_EGG.name())) {
+            item = new MysteryTurtleEgg().toItemStack();
         }else{
             item = new ItemStack(Material.BARRIER);
         }

@@ -92,6 +92,7 @@ me\cyperion\ntms\Command\EnderChestCommand.class
 me\cyperion\ntms\Monster\Creature.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\WiredRotten.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
+me\cyperion\ntms\ItemStacks\Item\MysteryTurtleEgg.class
 me\cyperion\ntms\Bazaar\Data\BazaarItem.class
 me\cyperion\ntms\Bazaar\Data\DataAPI.class
 me\cyperion\ntms\ItemStacks\SurvivalSpecialBlock.class

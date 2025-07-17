@@ -27,7 +27,7 @@ public class PayCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if(sender instanceof Player player){
-            if(args.length == 2){
+            if(args.length == 2 || args.length == 3){
                 if(Bukkit.getPlayer(args[0]) != null){
                     Player player2 = Bukkit.getPlayer(args[0]);
                     try{
@@ -50,11 +50,16 @@ public class PayCommand implements CommandExecutor {
 
                         plugin.getEconomy().withdrawPlayer(player,pay);
                         plugin.getEconomy().depositPlayer(player2,pay);
+                        String p1,p2;
+                        p1 = "&6[pay] &a已將&e"+pay+"元&a給&b"+Bukkit.getPlayer(args[0]).getName()+"&a!";
+                        p2 = "&6[pay] &a已收到&b"+player.getName()+"&a給的&e"+pay+"元&a!";
+                        if(args.length == 3){
+                            p1 += " &r&3備註: &f"+args[2];
+                            p2 += " &r&3備註: &f"+args[2];
+                        }
+                        player.sendMessage(colors(p1));
+                        player2.sendMessage(colors(p2));
 
-                        player.sendMessage(colors(
-                                "&6[pay] &a已將&e"+pay+"元&a給&b"+Bukkit.getPlayer(args[0]).getName()+"&a!"));
-                        player2.sendMessage(colors(
-                                "&6[pay] &a已收到&b"+player.getName()+"&a給的&e"+pay+"元&a!"));
                         return true;
                     }
                     player.sendMessage(ChatColor.RED+"你並沒有那麼多錢喔");
@@ -64,7 +69,7 @@ public class PayCommand implements CommandExecutor {
                     return true;
                 }
             }else{
-                player.sendRawMessage(ChatColor.RED+"用法: /pay <玩家> <金額>");
+                player.sendRawMessage(ChatColor.RED+"用法: /pay <玩家> <金額> <備註(可空白)>");
                 return true;
             }
         }

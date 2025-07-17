@@ -2,6 +2,7 @@ package me.cyperion.ntms.Menu;
 
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.GoldenEssence;
+import me.cyperion.ntms.ItemStacks.Item.MysteryTurtleEgg;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.ItemStacks.NTMSItems;
 import me.cyperion.ntms.NewTMSv8;
@@ -37,10 +38,12 @@ enum ShopItem{
     OCHRE_FROGLIGHT(Material.OCHRE_FROGLIGHT, 1, 100,-1),
     PEARLESCENT_FROGLIGHT(Material.PEARLESCENT_FROGLIGHT, 1, 100,-1),
     VERDANT_FROGLIGHT(Material.VERDANT_FROGLIGHT, 1, 100,-1),
+    LIGHT(Material.LIGHT, 1, 100,-1),
     SADDLE(Material.SADDLE, 1, -1,80),
     TOTEM_OF_UNDYING(Material.TOTEM_OF_UNDYING, 1, -1,60),
     EMERALD(Material.EMERALD, 1, -1,3),
-    LIGHT(Material.LIGHT, 1, 100,-1),
+    MYSTERY_TURTLE_EGG(NTMSItems.MYSTERY_TURTLE_EGG, 1, -1,200000),
+
 
     ;
     String itemName;
@@ -84,6 +87,8 @@ enum ShopItem{
                 this.item = new InfiniteWindCharge(plugin).toItemStack();
             }else if (ntmsItems.equals(NTMSItems.GOLDEN_ESSENCE)) {
                 this.item = new GoldenEssence(plugin).toItemStack();
+            }else if (ntmsItems.equals(NTMSItems.MYSTERY_TURTLE_EGG)) {
+                this.item = new MysteryTurtleEgg().toItemStack();
             }
         }
     }

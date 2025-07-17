@@ -1,7 +1,9 @@
 package me.cyperion.ntms.Event;
 
 import me.cyperion.ntms.ItemStacks.Item.JadeCore;
+import me.cyperion.ntms.ItemStacks.Item.MysteryTurtleEgg;
 import me.cyperion.ntms.NewTMSv8;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,12 +24,15 @@ public class PlayerFishingEvent implements Listener {
 
     private final Random random = new Random();
     private final JadeCore jadeCore = new JadeCore();
+    private final MysteryTurtleEgg mysteryTurtleEgg = new MysteryTurtleEgg();
     private final List<FishingReward> fishingRewardList = new ArrayList<>();
+    private final DecimalFormat df = new DecimalFormat("#.###");
 
     public PlayerFishingEvent(NewTMSv8 plugin) {
         this.plugin = plugin;
         fishingRewardList.add(new FishingReward(jadeCore.toItemStack(), 0.85d,1.0d));
         fishingRewardList.add(new FishingReward(null, 3d,3.5d));
+        fishingRewardList.add(new FishingReward(mysteryTurtleEgg.toItemStack(), 0.01d,0.011d));
     }
 
     @EventHandler
@@ -54,17 +60,27 @@ public class PlayerFishingEvent implements Listener {
             if(v < value){//這個v在機率門檻內
 
                 if(reward.reward == null){
-                    double coins = random.nextDouble(50,900);
+                    double coins = random.nextDouble(50,1200);
                     plugin.getEconomy().depositPlayer(player, coins);
-                    player.sendMessage(colors("&6[稀有釣魚] &e"
-                            +String.format("%,.0f",coins)+"元 &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
-                    System.out.println(colors(event.getPlayer().getDisplayName() + " 釣起了 "
-                            +String.format("%,.0f",coins)+"元 &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
+                    if(luckbouns > 0)
+                        player.sendMessage(colors("&6[稀有釣魚] &e"
+                                +String.format("%,.0f",coins)+"元 &b("+df.format(base)+"&2+"+df.format(value-base)+"&b%)&f!"));
+                    else
+                        player.sendMessage(colors("&6[稀有釣魚] &e"
+                                +String.format("%,.0f",coins)+"元 &b("+df.format(base)+"%)&f!"));
+                    plugin.getLogger().info(colors(event.getPlayer().getDisplayName() + " 釣起了 "
+                            +String.format("%,.0f",coins)+"元 &b("+(base)+"&2+"+df.format(value-base)+"&b%)&f!"));
                 }else if(event.getCaught() instanceof Item item){
-                    System.out.println(event.getPlayer().getDisplayName() + " 釣起了 "+reward.reward.getItemMeta().getDisplayName()+"! "+v+" in 100");
-                    item.setItemStack(jadeCore.toItemStack().clone());
-                    player.sendMessage(colors("&6[稀有釣魚] &f"
-                            +jadeCore.toItemStack().getItemMeta().getDisplayName()+" &b("+(base)+"&2+"+(value-base)+"&b%)&f!"));
+                    plugin.getLogger().info(event.getPlayer().getDisplayName() + " 釣起了 "+reward.reward.getItemMeta().getDisplayName()+"! "+v+" in 100");
+                    item.setItemStack(reward.reward.clone());
+                    if(luckbouns > 0)
+                        player.sendMessage(colors("&6[稀有釣魚] &f"
+                                +reward.reward.clone().getItemMeta().getDisplayName()+" &b("+df.format(base)+"&2+"+df.format(value-base)+"&b%)&f!"));
+                    else
+                        player.sendMessage(colors("&6[稀有釣魚] &f"
+                                +reward.reward.clone().getItemMeta().getDisplayName()+" &b("+df.format(base)+"%)&f!"));
+                    if(value < 0.05d)
+                        Bukkit.broadcastMessage(colors("&6[廣播] &b"+event.getPlayer().getDisplayName()+"&f 釣起了 "+reward.reward.getItemMeta().getDisplayName()+"&f!"));
 
                 }
             }

@@ -46,7 +46,7 @@ public abstract class PureGoldenTools  {
         lore.add("");
         lore.add(colors(getMaterialRate().toLoreNoColor()+getTypeName()));
         meta.setLore(lore);
-        //meta.setCustomModelData(getCustomModelData());
+        meta.setCustomModelData(getCustomModelData());
         itemStack.setItemMeta(meta);
 
         otherSetup();
