@@ -31,12 +31,12 @@ public class PureGoldenAxe extends PureGoldenTools {
 
     @Override
     public Material getMaterailType() {
-        return Material.GOLDEN_PICKAXE;
+        return Material.GOLDEN_AXE;
     }
 
     @Override
     public int getCustomModelData() {
-        return PureGoldenTools.CMD_PURE_GOLDEN_PICKAXE;
+        return PureGoldenTools.CMD_PURE_GOLDEN_AXE;
     }
 
     @Override

@@ -15,6 +15,7 @@ public abstract class PureGoldenTools  {
 
     public static final int CMD_PURE_GOLDEN_PICKAXE = 7001;
     public static final int CMD_PURE_GOLDEN_SWORD = 7002;
+    public static final int CMD_PURE_GOLDEN_AXE = 7003;
 
     public ItemStack itemStack;
     private NewTMSv8 plugin;
