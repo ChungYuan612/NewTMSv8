@@ -175,6 +175,7 @@ public class Bard extends Class implements Listener {
             id = "仰慕";
             if(plugin.getMana().costMana(player,admireCostMana)){
                 List<Entity> entities = player.getNearbyEntities(12, 12, 12);
+                entities.add(player);
                 for (Entity entity : entities) {
                     if (entity instanceof Player target) {
                         target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 20, 1));

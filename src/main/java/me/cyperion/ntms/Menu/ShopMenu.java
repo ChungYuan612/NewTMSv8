@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +65,15 @@ public class ShopMenu extends Menu {
             }
             if(this.plugin.getEconomy().getBalance(player) >= price && player.getInventory().firstEmpty() != -1){
                 this.plugin.getEconomy().withdrawPlayer(player, price);
-                giveItem(player, item.item.clone(),amount);
+                ItemStack finalItem = item.item.clone();
+                //專門處理自己的頭顱
+                if(finalItem.getType() == Material.PLAYER_HEAD){
+                    SkullMeta meta = (SkullMeta) finalItem.getItemMeta();
+                    meta.setDisplayName(colors("&b"+player.getName()));
+                    meta.setOwningPlayer(player);
+                    finalItem.setItemMeta(meta);
+                }
+                giveItem(player, finalItem,amount);
                 player.sendMessage(colors("&6[成交] &a你購買了&2"+item.getItemName(this.plugin)+"&a共花費&6"+price+"&a元"));
             }else{
                 player.sendMessage(colors("&6[警告] &c你沒有足夠的錢買這些東西或背包已滿喔._."));

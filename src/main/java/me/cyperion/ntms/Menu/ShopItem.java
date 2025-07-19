@@ -9,6 +9,7 @@ import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ enum ShopItem{
     GRAVEL(Material.GRAVEL, 1, 8,-1),
     CLAY_BALL(Material.CLAY_BALL, 1, 7,-1),
     SLIME_BALL(Material.SLIME_BALL, 1, 25,-1),
-    WEB(Material.COBWEB, 1, 32,-1),
+    GLOW_INK_SAC(Material.GLOW_INK_SAC, 1, 32,-1),
     RED_STONE(Material.REDSTONE, 1, 18,-1),
     QUARTZ(Material.QUARTZ, 1, 9,-1),
     AMETHYST_SHARD(Material.AMETHYST_SHARD, 1, 11,-1),
@@ -39,8 +40,9 @@ enum ShopItem{
     PEARLESCENT_FROGLIGHT(Material.PEARLESCENT_FROGLIGHT, 1, 100,-1),
     VERDANT_FROGLIGHT(Material.VERDANT_FROGLIGHT, 1, 100,-1),
     LIGHT(Material.LIGHT, 1, 100,-1),
-    SADDLE(Material.SADDLE, 1, -1,80),
-    TOTEM_OF_UNDYING(Material.TOTEM_OF_UNDYING, 1, -1,60),
+    PLAYER_HEAD(Material.PLAYER_HEAD, 1, 20,-1),
+    SADDLE(Material.SADDLE, 1, -1,100),
+    TOTEM_OF_UNDYING(Material.TOTEM_OF_UNDYING, 1, -1,80),
     EMERALD(Material.EMERALD, 1, -1,3),
     MYSTERY_TURTLE_EGG(NTMSItems.MYSTERY_TURTLE_EGG, 1, -1,200000),
 
@@ -95,7 +97,13 @@ enum ShopItem{
 
     public ItemStack toDisplay(NewTMSv8 plugin) {
         checkItem(plugin);
+
         ItemStack item = this.item.clone();
+        if(item.getType() == Material.PLAYER_HEAD){
+            SkullMeta meta = (SkullMeta) item.getItemMeta();
+            meta.setDisplayName(colors("&d自己的頭顱"));
+            item.setItemMeta(meta);
+        }
         ItemMeta meta =  item.getItemMeta();
         ArrayList<String> lore;
         if (meta.hasLore()) lore = (ArrayList<String>) meta.getLore();

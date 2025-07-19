@@ -80,6 +80,7 @@ me\cyperion\ntms\Class\Explosion.class
 me\cyperion\ntms\Menu\ClassSelectMenu.class
 me\cyperion\ntms\NSKeyRepo.class
 me\cyperion\ntms\Menu\ShopItem.class
+me\cyperion\ntms\ItemStacks\Tools\PureGoldenAxe.class
 me\cyperion\ntms\Command\WarpCommand.class
 me\cyperion\ntms\SQL\SQLite.class
 me\cyperion\ntms\Command\SigninCommand.class

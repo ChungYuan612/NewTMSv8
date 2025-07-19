@@ -7,6 +7,7 @@ import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.Item.RedWand;
+import me.cyperion.ntms.ItemStacks.Tools.PureGoldenAxe;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenDarkSword;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenPickaxe;
 import me.cyperion.ntms.NewTMSv8;
@@ -87,6 +88,7 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new EnchantedObsidian(plugin).toNMSRecipe());
 
         Bukkit.getServer().addRecipe(new PureGoldenPickaxe(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new PureGoldenAxe(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new PureGoldenDarkSword(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new ObsidianChestplate(plugin).toNMSRecipe());
 
