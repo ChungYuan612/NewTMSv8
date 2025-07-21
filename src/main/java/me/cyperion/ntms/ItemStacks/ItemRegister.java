@@ -7,6 +7,8 @@ import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.Item.RedWand;
+import me.cyperion.ntms.ItemStacks.Item.TreasureCore;
+import me.cyperion.ntms.ItemStacks.Tools.ExplosionBow;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenAxe;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenDarkSword;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenPickaxe;
@@ -33,10 +35,13 @@ public class ItemRegister {
     public static final int CMD_ENCHANTED_SEEDS = 4002; //附魔種子
     public static final int CMD_ENCHANTED_SUGAR = 4001; //附魔蔗糖
     public static final int CMD_REINFINED_LAPIS = 4005; //精煉青金石
-    public static final int CMD_WIRED_ROTTEN = 4006; //破咒肉塊
+    public static final int CMD_WIRED_ROTTEN = 4013; //破咒肉塊
     public static final int CMD_ENCHANTED_OBSIDIAN_PART = 4009; //附魔黑曜石碎片
     public static final int CMD_ENCHANTED_OBSIDIAN = 4010; //附魔黑曜石
     public static final int CMD_GOLDEN_ESSENCE = 4011; //純金元素
+    public static final int CMD_ENCHANTED_STRING = 4012; //附魔線
+    public static final int CMD_JADE_CORE = 4006; //附魔線
+    public static final int CMD_TREASURE_CORE = 40014; //寶藏核心
 
 
     public ItemRegister(NewTMSv8 plugin) {
@@ -65,6 +70,8 @@ public class ItemRegister {
         plugin.getServer().getPluginManager().registerEvents(new SurvivalSpecialBlock(plugin),plugin);
         plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(plugin),plugin);
         plugin.getServer().getPluginManager().registerEvents(new WiredRotten(plugin),plugin);
+        plugin.getServer().getPluginManager().registerEvents(new ExplosionBow(plugin),plugin);
+
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -86,11 +93,15 @@ public class ItemRegister {
 
         Bukkit.getServer().addRecipe(new EnchantedObsidianPart(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new EnchantedObsidian(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new EnchantedString(plugin).toNMSRecipe());
+
+        Bukkit.getServer().addRecipe(new TreasureCore(plugin).toNMSRecipe());
 
         Bukkit.getServer().addRecipe(new PureGoldenPickaxe(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new PureGoldenAxe(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new PureGoldenDarkSword(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new ObsidianChestplate(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new ExplosionBow(plugin).toNMSRecipe());
 
 
         LapisArmor lapisArmor = new LapisArmor(plugin);

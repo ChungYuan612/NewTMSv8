@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Class;
 
+import me.cyperion.ntms.ItemStacks.Tools.ExplosionBow;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
 import net.md_5.bungee.api.ChatMessageType;
@@ -92,8 +93,12 @@ public class Terminator extends Class implements Listener {
                 if(!playerSteps.containsKey(player.getUniqueId())){
                     playerSteps.put(player.getUniqueId(),0);
                 }
-
-                boolean success = plugin.getMana().costMana(player,costManaOnShot);
+                //爆炸弓 魔力消耗增加
+                double manaCost = costManaOnShot;
+                if(ExplosionBow.isExplosionBow(player.getInventory().getItemInMainHand())) {
+                    manaCost++;
+                }
+                boolean success = plugin.getMana().costMana(player,manaCost);
                 if (success) {
                     //發射三支箭矢，一支箭矢往前，另外左右15度的地方各射出一支
 

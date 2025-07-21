@@ -35,6 +35,9 @@ public enum NTMSItems {
     OBSIDIAN_CHESTPLATE,
     PURE_GOLDEN_DARK_SWORD,
     MYSTERY_TURTLE_EGG,
+    ENCHANTED_STRING,
+    TREASURE_CORE,
+    EXPLOSION_BOW,
     ;
     public String getBazaarID(){
         return "NTMS_"+this.name();

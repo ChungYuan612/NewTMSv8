@@ -30,6 +30,7 @@ me\cyperion\ntms\NewTMSv8.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\Bazaar\Event\OrderEvent.class
 me\cyperion\ntms\Command\SignCommand.class
+me\cyperion\ntms\ItemStacks\Item\TreasureCore.class
 me\cyperion\ntms\Bazaar\Data\CommodityMarketAPI$TradeResult.class
 me\cyperion\ntms\ItemStacks\ItemRegister$1.class
 me\cyperion\ntms\Menu\BaseMenu\Menu.class
@@ -38,6 +39,7 @@ me\cyperion\ntms\Bazaar\TradingAPI.class
 me\cyperion\ntms\ItemStacks\NTMSItems.class
 me\cyperion\ntms\ItemStacks\CraftHandler.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\NTMSMaterial.class
+me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedString.class
 me\cyperion\ntms\Monster\RewardItem.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedEnderPearl.class
 me\cyperion\ntms\Event\PlayerAdvanceDoneHandler.class
@@ -103,6 +105,7 @@ me\cyperion\ntms\ItemStacks\Armors\LapisArmor.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\LowerWiredRotten.class
 me\cyperion\ntms\Class\Bard.class
 me\cyperion\ntms\ItemStacks\CraftHandler$1.class
+me\cyperion\ntms\ItemStacks\Tools\ExplosionBow.class
 me\cyperion\ntms\SQL\TradeDatabaseManager.class
 me\cyperion\ntms\Event\PlayerChatHandler.class
 me\cyperion\ntms\ModifierType.class

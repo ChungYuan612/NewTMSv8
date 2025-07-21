@@ -50,12 +50,12 @@ public class ClassSelectMenu extends Menu {
         }
         if(item.getItemMeta().getCustomModelData() == 1008 ) { //TERMINATOR
             if(plugin.getPlayerData(player).getClassType() == ClassType.TERMINATOR) return;
-            if(plugin.getPlayerData(player).getAdvancePoint() < 150) return;
+            if(plugin.getPlayerData(player).getAdvancePoint() < 150 && !player.isOp()) return;
             plugin.getPlayerData(player).setClassType(ClassType.TERMINATOR);
             updateMenu();
         }else if(item.getItemMeta().getCustomModelData() == 1009) { //EXPLOSION
             if(plugin.getPlayerData(player).getClassType() == ClassType.EXPLOSION) return;
-            if(plugin.getPlayerData(player).getAdvancePoint() < 150) return;
+            if(plugin.getPlayerData(player).getAdvancePoint() < 150 && !player.isOp()) return;
             plugin.getPlayerData(player).setClassType(ClassType.EXPLOSION);
             updateMenu();
 

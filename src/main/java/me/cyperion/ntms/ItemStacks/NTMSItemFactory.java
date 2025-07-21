@@ -3,6 +3,7 @@ package me.cyperion.ntms.ItemStacks;
 import me.cyperion.ntms.ItemStacks.Armors.ObsidianChestplate;
 import me.cyperion.ntms.ItemStacks.Item.*;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
+import me.cyperion.ntms.ItemStacks.Tools.ExplosionBow;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenAxe;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenDarkSword;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenPickaxe;
@@ -74,6 +75,12 @@ public class NTMSItemFactory {
             item = new PureGoldenDarkSword(plugin).getItem();
         }else if(name.equals(NTMSItems.MYSTERY_TURTLE_EGG.name())) {
             item = new MysteryTurtleEgg().toItemStack();
+        }else if(name.equals(NTMSItems.ENCHANTED_STRING.name())) {
+            item = new EnchantedString(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.TREASURE_CORE.name())) {
+            item = new TreasureCore(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.EXPLOSION_BOW.name())) {
+            item = new ExplosionBow(plugin).getItemStack();
         }else{
             item = new ItemStack(Material.BARRIER);
         }

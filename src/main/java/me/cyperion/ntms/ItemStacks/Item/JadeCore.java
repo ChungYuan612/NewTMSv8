@@ -1,7 +1,9 @@
 package me.cyperion.ntms.ItemStacks.Item;
 
+import me.cyperion.ntms.ItemStacks.ItemRegister;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFactory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -31,7 +33,7 @@ public class JadeCore{
         meta.setLore(lore);
         meta.addEnchant(Enchantment.UNBREAKING,1,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.setCustomModelData(4006);
+        meta.setCustomModelData(ItemRegister.CMD_JADE_CORE);
         item.setItemMeta(meta);
 
     }
