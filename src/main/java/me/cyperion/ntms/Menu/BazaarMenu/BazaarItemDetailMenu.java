@@ -146,7 +146,7 @@ public class BazaarItemDetailMenu extends Menu {
         lore.add(colors("&7買單量：&e" + marketData.getTotalBuyVolume()));
 
         if (marketData.getLastTradePrice() > 0) {
-            lore.add(colors("&7最近成交價：&6" + String.format("%.2f", marketData.getLastTradePrice()) + " 金幣"));
+            lore.add(colors("&7最近成交價：&6" + String.format("%.2f", marketData.getLastTradePrice()) + " 元"));
         }
 
         meta.setLore(lore);

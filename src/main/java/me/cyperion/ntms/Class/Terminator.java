@@ -110,9 +110,10 @@ public class Terminator extends Class implements Listener {
                     playerSteps.replace(player.getUniqueId(),newValue);
 
                     Vector direction = player.getEyeLocation().getDirection().clone();
-                    shootArrow(player,itemStack, location,direction.clone(),isThird);
+
                     shootArrow(player,itemStack,location,getLeftOffsetVector(player,15),isThird);
                     shootArrow(player,itemStack,location,getLeftOffsetVector(player,-15),isThird);
+                    shootArrow(player,itemStack, location,direction.clone(),isThird);
 
                     player.playSound(player.getLocation(),
                             Sound.ENTITY_SKELETON_SHOOT, 1f, 1);

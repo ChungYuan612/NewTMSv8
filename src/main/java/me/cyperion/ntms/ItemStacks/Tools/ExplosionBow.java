@@ -105,10 +105,18 @@ public class ExplosionBow implements Listener {
         for (Entity entity : nearbyEntities) {
             if(entity instanceof Monster monster && monster.isValid() && !monster.isDead()) {
                 // 計算從中心往外的方向向量
-                Vector knockback = monster.getLocation().toVector().subtract(location.toVector()).normalize().multiply(1.08);
-                knockback.setY(0.08); // 增加一點垂直力，模仿爆風
+                Vector knockback = monster.getLocation().toVector().subtract(location.toVector()).normalize().multiply(0.65);
+                knockback.setY(0.2); // 增加一點垂直力，模仿爆風
                 monster.setVelocity(knockback);
-                monster.damage(3);
+                if(entity instanceof Player){
+                    Player player1 = (Player) entity;
+                    player1.damage(3);
+                }else{
+                    monster.damage(7);
+                }
+            }
+            if(entity instanceof Player player1 && player1.isValid() && !player1.isDead()) {
+                player1.damage(2);
             }
         }
         event.getEntity().remove();

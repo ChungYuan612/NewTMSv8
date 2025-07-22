@@ -26,7 +26,7 @@ public class SurvivalSpecialBlock implements Listener {
     {
         Player player = event.getPlayer();
 
-        if (player.getInventory().getItemInMainHand().getType() == Material.LIGHT &&
+        if (isSpecialBlock(player.getInventory().getItemInMainHand().getType()) &&
                 player.getGameMode() != GameMode.CREATIVE)
         {
             Location location = player.getLocation().getBlock().getLocation();
@@ -39,7 +39,7 @@ public class SurvivalSpecialBlock implements Listener {
                     {
                         Block current = location.clone().add(x, y, z).getBlock();
 
-                        if (current.getType() == Material.LIGHT)
+                        if (isSpecialBlock(current.getType()))
                         {SpawnMarkForBlock(current);}
                     }
                 }
@@ -96,14 +96,14 @@ public class SurvivalSpecialBlock implements Listener {
 
     private boolean isHoldingSpecialBlock(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
-        return item != null && (item.getType() == Material.LIGHT || item.getType() == Material.STRUCTURE_VOID);
+        return item != null && (item.getType() == Material.LIGHT || item.getType() == Material.BARRIER);
     }
 
     /**
      * 檢查方塊是否為特殊方塊
      */
     private boolean isSpecialBlock(Material material) {
-        return material == Material.LIGHT  || material == Material.STRUCTURE_VOID;
+        return material == Material.LIGHT  || material == Material.STRUCTURE_VOID || material == Material.BARRIER;
     }
 
 

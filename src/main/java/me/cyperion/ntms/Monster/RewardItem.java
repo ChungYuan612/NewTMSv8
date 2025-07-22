@@ -43,7 +43,7 @@ public class RewardItem {
         int amount = randomModifier.nextInt(max-min+1)+min;
         ItemStack item = this.itemStack.clone();
         Utils.giveItem(player, item, amount);
-        System.out.println("[掉落] "+player+" 獲得了 "+itemStack.getItemMeta().getDisplayName()+ " value:"+v+" in 100(+luck:"+luckbouns+")");
+        plugin.getLogger().info ("[掉落] "+player+" 獲得了 "+itemStack.getItemMeta().getDisplayName()+ " value:"+v+" in 100(+luck:"+luckbouns+")");
         if(luckbouns > 0){
             player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()
                     +" &b("+(dropChance)+"&2+"+(value-dropChance)+"&b%)&f!"));

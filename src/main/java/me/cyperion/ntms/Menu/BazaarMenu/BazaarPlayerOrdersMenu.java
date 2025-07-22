@@ -284,7 +284,7 @@ public class BazaarPlayerOrdersMenu extends Menu {
                 } else {
                     // 賣單退還物品
                     String productId = order.getProductId();
-                    String itemId = productId.startsWith("ntms:") ? productId.substring(5) : productId;
+                    String itemId = productId.startsWith("NTMS_") ? productId.substring(5) : productId;
 
                     ItemStack item = plugin.getFactory().getNTMSItem(itemId);
                     if (item != null) {

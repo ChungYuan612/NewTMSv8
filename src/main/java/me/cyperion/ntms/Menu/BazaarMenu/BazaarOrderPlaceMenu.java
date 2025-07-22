@@ -97,14 +97,19 @@ public class BazaarOrderPlaceMenu extends Menu {
                 updateDisplays();
                 break;
             case 28: // 價格減少 10
-                if (currentPrice > 10.0) {
-                    currentPrice = Math.round((currentPrice - 10.0) * 100.0) / 100.0;
+                double reduce = 10d;
+                if(event.isShiftClick()) reduce = 100d;
+                if (currentPrice > reduce) {
+                    currentPrice = Math.round((currentPrice - reduce) * 100.0) / 100.0;
+
                     updateDisplays();
                 }
                 break;
             case 30: // 價格增加 10
-                if (currentPrice > 10.0) {
-                    currentPrice = Math.round((currentPrice + 10.0) * 100.0) / 100.0;
+                double increase = 10d;
+                if(event.isShiftClick()) increase = 100d;
+                if (currentPrice > increase) {
+                    currentPrice = Math.round((currentPrice + increase) * 100.0) / 100.0;
                     updateDisplays();
                 }
                 break;
@@ -123,6 +128,16 @@ public class BazaarOrderPlaceMenu extends Menu {
                 }
                 break;
         }
+        //避免超過另一邊的價格
+        CommodityMarketAPI.MarketData marketData = tradingAPI.getMarketData(bazaarItem.getProductId());
+        if(isBuyOrder && currentPrice > marketData.getLowestSellPrice()) {
+            currentPrice = marketData.getLowestSellPrice();
+            updateDisplays();
+        }else if(!isBuyOrder && currentPrice < marketData.getHighestBuyPrice()) {
+            currentPrice = marketData.getHighestBuyPrice();
+            updateDisplays();
+        }
+
     }
 
     @Override
@@ -176,7 +191,7 @@ public class BazaarOrderPlaceMenu extends Menu {
                         currentPrice,
                         player.getUniqueId().toString()
                 );
-                plugin.getLogger().fine(result.toString());
+                plugin.getLogger().fine(result.getMessage());
 
                 if (result.isSuccess()) {
                     player.sendMessage(colors("&a成功下買單！價格：" + String.format("%.2f", currentPrice) +
@@ -204,7 +219,7 @@ public class BazaarOrderPlaceMenu extends Menu {
                         currentPrice,
                         player.getUniqueId().toString()
                 );
-                System.out.println(result.toString());
+                plugin.getLogger().fine(result.getMessage());
 
                 if (result.isSuccess()) {
                     player.sendMessage(colors("&a成功下賣單！價格：" + String.format("%.2f", currentPrice) +
