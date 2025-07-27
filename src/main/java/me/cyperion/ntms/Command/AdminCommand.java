@@ -64,6 +64,9 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             if(name.equalsIgnoreCase("Mana")){
                 plugin.getPlayerData(player).setMana(plugin.getPlayerData(player).getMaxMana());
                 return true;
+            }else if(name.equalsIgnoreCase("Event")){
+                plugin.getTmWorldTimer().triggerEvent();
+                return true;
             }
             ItemStack item;
             item = plugin.getFactory().getNTMSItem(name);
@@ -106,6 +109,7 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             options.add(item.name());
         }
         options.add("Mana");
+        options.add("Event");
     }
 
 }

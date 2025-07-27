@@ -1,7 +1,9 @@
 package me.cyperion.ntms.Monster;
 
+import me.cyperion.ntms.Event.PlayerFishingEvent;
 import me.cyperion.ntms.Event.RaidEvent;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
+import me.cyperion.ntms.ItemStacks.Item.LauNaFishingRod;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.GoldenEssence;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
@@ -35,9 +37,12 @@ public class MonsterRegister implements Listener {
     private final LootItem raidLapis;//突襲掉落物 先放這裡
     private final LootItem emerald;//突襲掉落物 先放這裡
     private final LootItem goldenEssence;//突襲掉落物 先放這裡
+
     private final LootItem normalEmerald;//突襲掉落物 先放這裡
     private final LootItem normalEmeraldBlock;//突襲掉落物 先放這裡
 
+    private final LootItem fishingRodBase;//釣魚掉落物(老衲) 先放這裡
+    private final LootItem goldenEssenceLess;//釣魚掉落物(老衲) 先放這裡
 
     public MonsterRegister(NewTMSv8 plugin) {
         this.plugin = plugin;
@@ -48,6 +53,9 @@ public class MonsterRegister implements Listener {
         raidLapis = new LootItem(new ReinfinedLapis(plugin).toItemStack(),1,1,4);
         emerald = new LootItem(new Emerald_Coins().toItemStack(),1,1,0.1);
         goldenEssence = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,5);
+
+        goldenEssenceLess = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,1);
+        fishingRodBase = new LootItem(new LauNaFishingRod(plugin).toItemStack(),1,1,5);
     }
 
 
@@ -123,6 +131,12 @@ public class MonsterRegister implements Listener {
                 }
             }
             return;
+        }else if(event.getEntity().hasMetadata(PlayerFishingEvent.META_FISHING_BUFF)){
+            event.getDrops().clear();
+            goldenEssenceLess.tryDropLoot(event.getEntity().getLocation());
+            fishingRodBase.tryDropLoot(event.getEntity().getLocation());
+            plugin.getLogger().info("老衲死了");
+
         }
         if(!customMobSpawn) return;
         if (!twMobs.containsKey(event.getEntity())) return;

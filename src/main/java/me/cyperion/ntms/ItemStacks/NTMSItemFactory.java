@@ -81,6 +81,10 @@ public class NTMSItemFactory {
             item = new TreasureCore(plugin).toItemStack();
         }else if(name.equals(NTMSItems.EXPLOSION_BOW.name())) {
             item = new ExplosionBow(plugin).getItemStack();
+        }else if(name.equals(NTMSItems.LAUNA_FISHING_ROD_BASE.name())) {
+            item = new LauNaFishingRod(plugin).toItemStack();
+        }else if(name.equals(NTMSItems.LAUNA_FISHING_ROD.name())) {
+            item = new LauNaFishingRod(plugin).toItemStackPlus();
         }else{
             item = new ItemStack(Material.BARRIER);
         }

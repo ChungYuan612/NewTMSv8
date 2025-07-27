@@ -27,6 +27,8 @@ public class PlayerJoinServerController implements Listener {
         plugin.getTwPlayerSideBoard().refreshTimer(player,true);
 
 
+
+
         if(plugin.getConfig().contains(player.getUniqueId().toString()))
             player.setPlayerListName(
                     colors(
@@ -58,6 +60,9 @@ public class PlayerJoinServerController implements Listener {
                 player,
                 new PlayerData(plugin,player)
         );
+
+        //記分板，只是為了顯示在底下，所以挪來底下觸發
+        plugin.getTwPlayerSideBoard().refreshEventScoreboard(player);
 
     }
 }

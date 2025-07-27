@@ -19,6 +19,7 @@ import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.Player.PlayerQuitServer;
 import me.cyperion.ntms.SQL.TradeDatabaseManager;
+import me.cyperion.ntms.SideBoard.NTMSEvents;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -73,6 +74,8 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public final boolean enableMana = true;
 
+    public NTMSEvents ntmsEvents;
+
 
     @Override
     public void onEnable() {
@@ -81,7 +84,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "         "+"&6爆炸弓箭更新&f還有很多更新！ &b歡迎加入!")
+                "        "+"&b老衲&f與&d隨機活動更新&f還有很多更新！ &b歡迎加入!")
         );
 
 
@@ -91,12 +94,6 @@ public final class NewTMSv8 extends JavaPlugin {
         getServer().getWorlds().forEach(world ->
                 System.out.println(world.getName())
         );
-        // 檢查是否安裝了 ProtocolLib
-        if (!getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
-            getLogger().severe("需要安裝 ProtocolLib 插件！");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
         //mySQL
         //this.database = new SQLite(this);
         //this.database.load();
@@ -126,6 +123,7 @@ public final class NewTMSv8 extends JavaPlugin {
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
         getServer().getPluginManager().registerEvents(twPlayerSideBoard,this);
         this.twPlayerSideBoard.runTaskTimer(this,0L,8L);//8刻跑一次，一秒2.5次
+        this.ntmsEvents = new NTMSEvents();
 
         //傷害顯示
         //DamageIcon damageIcon = new DamageIcon(this);
@@ -254,6 +252,10 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public TMWorldTimer getTmWorldTimer() {
         return tmWorldTimer;
+    }
+
+    public NTMSEvents getNtmsEvents() {
+        return ntmsEvents;
     }
 
     public NSKeyRepo getNsKeyRepo() {

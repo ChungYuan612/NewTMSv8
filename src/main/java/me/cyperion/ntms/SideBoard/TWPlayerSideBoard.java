@@ -26,6 +26,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     private final NewTMSv8 plugin;
 
     final String MONEY_SBTEAM = "MoneyTeam",
+            EVENT_SBTEAM = "EventTeam",
             TIMER_DATE_SBTEAM = "TimerDateTeam",
             TIMER_HOUR_SBTEAM = "TimerTeam",
             DATE_SBTEAM = "DateTeam",
@@ -44,6 +45,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
             refreshTimer(p,false);
             scoreboard.getTeam(MONEY_SBTEAM)
                     .setPrefix(ChatColor.WHITE + "現金: " + ChatColor.GOLD + String.format("%,.1f", player_coins));
+
         }
     }
 
@@ -56,7 +58,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
 
     //給玩家剛進入伺服器生成一個
     //參考第5季台灣地圖
-    public void createPlayerBoard(Player player){
+    public void createPlayerBoard(Player player ){
 
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = manager.getNewScoreboard();
@@ -75,8 +77,8 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         lore_1_null.setScore(8);
 
         Team timer1_team = scoreboard.registerNewTeam(TIMER_DATE_SBTEAM);
-        timer1_team.addEntry(colors("&b &f"));
-        objective.getScore(colors("&b &f")).setScore(7);
+        timer1_team.addEntry(colors("&b &7"));
+        objective.getScore(colors("&b &7")).setScore(7);
 
         Team timer2_team = scoreboard.registerNewTeam(TIMER_HOUR_SBTEAM);
         timer2_team.addEntry(colors("&c &f"));//RED+WHITE
@@ -86,18 +88,22 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         locate_team.addEntry(colors("&c &a"));//RED+AQUA
         objective.getScore(colors("&c &a")).setScore(5);
 
+        Team event_team = scoreboard.registerNewTeam(EVENT_SBTEAM);
+        event_team.addEntry(colors("&b &f"));//AQUA+ANY
+        objective.getScore(colors("&b &f")).setScore(4);
+
         Score lore_4_null = objective.getScore("  ");
-        lore_4_null.setScore(4);
+        lore_4_null.setScore(3);
 
         Team money_team = scoreboard.registerNewTeam(MONEY_SBTEAM);
         money_team.addEntry(colors("&6 &f"));//GOLD+WHITE
-        objective.getScore(colors("&6 &f")).setScore(3);//MONEY
+        objective.getScore(colors("&6 &f")).setScore(2);//MONEY
 
         Score lore_6_null = objective.getScore(" ");
-        lore_6_null.setScore(2);
+        lore_6_null.setScore(1);
 
         Score lore_7_IP = objective.getScore(colors("&eNTMStore.com"));
-        lore_7_IP.setScore(1);
+        lore_7_IP.setScore(0);
 
         player.setScoreboard(scoreboard);
         player.getScoreboard()
@@ -110,7 +116,7 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
     /**
      *  July 9th <br>
      *  10:30pm☽ <br>
-     *  如果在地獄或終界，則顯示台灣的基礎時間
+     *  如果在地獄或終界，則顯示台灣的基礎時間，allUpdate為true則也要更新日期
      */
     public void refreshTimer(Player player,boolean allUpdate){
         Scoreboard scoreboard = player.getScoreboard();
@@ -145,6 +151,13 @@ public class TWPlayerSideBoard extends BukkitRunnable implements Listener {
         }
         scoreboard.getTeam(LOCATION_SBTEAM)
                 .setPrefix(colors(" &7⏣ &r" +worldText));
+    }
+
+    public void refreshEventScoreboard(Player player){
+        Scoreboard scoreboard = player.getScoreboard();
+        scoreboard.getTeam(EVENT_SBTEAM)
+                .setPrefix(colors(" &b目前活動&f: "+plugin.getNtmsEvents().getNowEvent().getName()));
+        player.sendMessage(colors("&b[活動] "+plugin.getNtmsEvents().getNowEvent().getDescription()));
     }
 
     private String getFormattedDate(String format) {

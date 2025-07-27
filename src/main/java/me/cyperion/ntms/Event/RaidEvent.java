@@ -3,6 +3,7 @@ package me.cyperion.ntms.Event;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.Monster.RewardItem;
 import me.cyperion.ntms.NewTMSv8;
+import me.cyperion.ntms.SideBoard.NTMSEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -225,6 +226,9 @@ public class RaidEvent implements Listener {
             for(Player player : winner){
                 rewardItem.tryDropLoot(player);
                 int p = bouns + (random.nextInt(level*150)-level*80);
+                //突襲活動 獎金乘以2.5
+                if(plugin.getNtmsEvents().getNowEvent() == NTMSEvents.EventType.RADI_BONUS_EVENT)
+                    p *= (int) 2.5;
                 plugin.getEconomy().depositPlayer(player, p);
                 player.sendMessage(colors("&6[突襲資訊] &a你獲得了&6"+p+"&a元的獎金！"));
                 plugin.getPlayerData(player).addRaidPoint(1);

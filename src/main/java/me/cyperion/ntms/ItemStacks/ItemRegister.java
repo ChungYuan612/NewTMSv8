@@ -5,6 +5,7 @@ import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
 import me.cyperion.ntms.ItemStacks.Armors.ObsidianChestplate;
 import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
+import me.cyperion.ntms.ItemStacks.Item.LauNaFishingRod;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
 import me.cyperion.ntms.ItemStacks.Item.RedWand;
 import me.cyperion.ntms.ItemStacks.Item.TreasureCore;
@@ -102,6 +103,9 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new PureGoldenDarkSword(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new ObsidianChestplate(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new ExplosionBow(plugin).toNMSRecipe());
+
+        Bukkit.getServer().addRecipe(new LauNaFishingRod(plugin).getRecipe());
+
 
 
         LapisArmor lapisArmor = new LapisArmor(plugin);

@@ -1,7 +1,9 @@
 package me.cyperion.ntms.SideBoard;
 
 import me.cyperion.ntms.NewTMSv8;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +12,13 @@ import static me.cyperion.ntms.Utils.SpecialChar;
 import static me.cyperion.ntms.Utils.colors;
 
 /**
+ * 管理所有NTMS時間的管理，放在記分板的是別的東西
  * 使用BingAI輔助製作(但是大部分都還是我...)
  */
 public class TMWorldTimer {
     private NewTMSv8 plugin;
+
+    private long lastEventTriggerTime = 0;
 
     public static final String
             WT_YEAR="years",
@@ -37,11 +42,20 @@ public class TMWorldTimer {
         return (int) (60 * (time % 1000) / 1000);
     }
 
+    /**
+     * 這個方法也會處理NTMSEvent的觸發事項
+     */
     private Map<String, Integer> getTime(World world) {
         long time = convertToTime(world);
         int hours = convertTimeToHours(time);
         int minutes = convertTimeToMinutes(time);
         minutes = minutes - minutes % 10;  // Round down to nearest 10 minutes
+
+        if(hours == 6 && minutes == 0 && lastEventTriggerTime + 60000 <= System.currentTimeMillis()){
+            triggerEvent();
+            plugin.getLogger().info("觸發隨機活動");
+            //剩下觸發完後面就各自辦事，這邊不會再做任何步驟，除了刷新記分板
+        }
 
         hours %= 12;
         if(hours == 0)
@@ -50,7 +64,22 @@ public class TMWorldTimer {
         realTime.put(WT_HOUR, hours);
         realTime.put(WT_MINUTE, minutes);
 
+
+
         return realTime;
+    }
+
+    /**
+     * 觸發活動的方法
+     */
+    public void triggerEvent(){
+        lastEventTriggerTime = System.currentTimeMillis();
+        plugin.getNtmsEvents().triggerNewEvent();
+        //刷新記分板，還有發送訊息
+        for(Player player : Bukkit.getOnlinePlayers()){
+            plugin.getTwPlayerSideBoard().refreshEventScoreboard(player);
+            player.playSound(player.getLocation(), "random.levelup", 1, 1);
+        }
     }
 
 
