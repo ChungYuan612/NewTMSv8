@@ -51,7 +51,10 @@ public class TMWorldTimer {
         int minutes = convertTimeToMinutes(time);
         minutes = minutes - minutes % 10;  // Round down to nearest 10 minutes
 
-        if(hours == 6 && minutes == 0 && lastEventTriggerTime + 60000 <= System.currentTimeMillis()){
+        if(world.getName().equals(plugin.MAIN_WORLD_NAME)
+                && hours == 6
+                && minutes == 0
+                && lastEventTriggerTime + 60000 <= System.currentTimeMillis()){
             triggerEvent();
             plugin.getLogger().info("觸發隨機活動");
             //剩下觸發完後面就各自辦事，這邊不會再做任何步驟，除了刷新記分板

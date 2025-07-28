@@ -8,6 +8,7 @@ import me.cyperion.ntms.ItemStacks.Item.Materaial.GoldenEssence;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.NewTMSv8;
+import me.cyperion.ntms.SideBoard.NTMSEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -55,7 +56,7 @@ public class MonsterRegister implements Listener {
         goldenEssence = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,5);
 
         goldenEssenceLess = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,1);
-        fishingRodBase = new LootItem(new LauNaFishingRod(plugin).toItemStack(),1,1,5);
+        fishingRodBase = new LootItem(new LauNaFishingRod(plugin).toItemStack(),1,1,7);
     }
 
 
@@ -126,6 +127,9 @@ public class MonsterRegister implements Listener {
                     if(!player.getWorld().equals(plugin.getTWWorld())) continue;
                     if(!entityCollection.contains(player)) continue;
                     double rewardCoins = random.nextInt(300);
+                    //突襲警報的話金額要x2.5
+                    if(plugin.getNtmsEvents().getNowEvent().equals(NTMSEvents.EventType.RADI_BONUS_EVENT))
+                        rewardCoins *= 2.5;
                     plugin.getEconomy().depositPlayer(player, rewardCoins);
                     player.sendMessage(colors("&6[突襲資訊] &a成功討伐&d奇厄伏守者&a，獲得了&6"+rewardCoins+"&a元的獎金！"));
                 }
@@ -136,6 +140,13 @@ public class MonsterRegister implements Listener {
             goldenEssenceLess.tryDropLoot(event.getEntity().getLocation());
             fishingRodBase.tryDropLoot(event.getEntity().getLocation());
             plugin.getLogger().info("老衲死了");
+            //分紅
+            for(Player player: Bukkit.getOnlinePlayers()){
+                if(player.getLocation().distance(event.getEntity().getLocation()) > 50) continue;
+                double rewardCoins = random.nextInt(50,200);
+                plugin.getEconomy().depositPlayer(player, rewardCoins);
+                player.sendMessage(colors("&6[突襲資訊] &7&l老衲&r&a身上掉落了一些錢，獲得了&6"+rewardCoins+"&a元的分紅！"));
+            }
 
         }
         if(!customMobSpawn) return;

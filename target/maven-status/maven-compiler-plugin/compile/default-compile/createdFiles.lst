@@ -64,6 +64,7 @@ me\cyperion\ntms\Menu\BazaarMenu\BazaarOrderMenu.class
 me\cyperion\ntms\ItemStacks\CartographyBlocker.class
 me\cyperion\ntms\Event\RaidEvent.class
 me\cyperion\ntms\ItemStacks\Item\Emerald_Coins.class
+me\cyperion\ntms\SideBoard\NTMSEvents$EventType.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedObsidian.class
 me\cyperion\ntms\Class\ClassType.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSugar.class
@@ -97,6 +98,7 @@ me\cyperion\ntms\ItemStacks\Item\Materaial\WiredRotten.class
 me\cyperion\ntms\SideBoard\TMWorldTimer.class
 me\cyperion\ntms\ItemStacks\Item\MysteryTurtleEgg.class
 me\cyperion\ntms\Bazaar\Data\BazaarItem.class
+me\cyperion\ntms\ItemStacks\Item\LauNaFishingRod.class
 me\cyperion\ntms\Bazaar\Data\DataAPI.class
 me\cyperion\ntms\ItemStacks\SurvivalSpecialBlock.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\ReinfinedLapis.class
@@ -105,6 +107,7 @@ me\cyperion\ntms\ItemStacks\Armors\LapisArmor.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\LowerWiredRotten.class
 me\cyperion\ntms\Class\Bard.class
 me\cyperion\ntms\ItemStacks\CraftHandler$1.class
+me\cyperion\ntms\SideBoard\NTMSEvents.class
 me\cyperion\ntms\ItemStacks\Tools\ExplosionBow.class
 me\cyperion\ntms\SQL\TradeDatabaseManager.class
 me\cyperion\ntms\Event\PlayerChatHandler.class

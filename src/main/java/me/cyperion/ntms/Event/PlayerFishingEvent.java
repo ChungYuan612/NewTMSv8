@@ -92,16 +92,14 @@ public class PlayerFishingEvent implements Listener {
             //防止釣魚機
             if(!event.getHook().isInOpenWater())
                 rate /=3;
-
-            Player player = event.getPlayer();
-            double value;
-            double base = rate;
             if(isFishingBonusEvent){
-                base *=1.5;//釣魚祭
+                rate *=1.5;//釣魚祭
             }
+            Player player = event.getPlayer();
+            double value = rate;
+            double base = rate;
             double luckbouns = plugin.getPlayerData(player).getLuck();
-            if(luckbouns <= 0) value = rate;
-            else value = rate * (1+luckbouns/100);//機率門檻
+            if(luckbouns > 0) value *= (1+luckbouns/100);//機率門檻
 
             double v = Math.random() * 100;
             if(v < value){//這個v在機率門檻內
