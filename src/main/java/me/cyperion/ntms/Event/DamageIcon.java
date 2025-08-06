@@ -19,6 +19,7 @@ import static me.cyperion.ntms.Utils.colors;
  * Runnable在建構式就註冊上去了，主程式NewTMSv8註冊事件即可<br>
  * <p>關聯：NewTMSv8註冊</p>
  */
+@Deprecated
 public class DamageIcon implements Listener {
 
     private NewTMSv8 plugin;

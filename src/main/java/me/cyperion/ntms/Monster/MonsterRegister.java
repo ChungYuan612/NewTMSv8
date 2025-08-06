@@ -6,6 +6,7 @@ import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.ItemStacks.Item.LauNaFishingRod;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.GoldenEssence;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
+import me.cyperion.ntms.ItemStacks.Item.MysteryTurtleEgg;
 import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.SideBoard.NTMSEvents;
@@ -43,7 +44,7 @@ public class MonsterRegister implements Listener {
     private final LootItem normalEmeraldBlock;//突襲掉落物 先放這裡
 
     private final LootItem fishingRodBase;//釣魚掉落物(老衲) 先放這裡
-    private final LootItem goldenEssenceLess;//釣魚掉落物(老衲) 先放這裡
+    private final LootItem mysteryTurtleEgg;//釣魚掉落物(老衲) 先放這裡
 
     public MonsterRegister(NewTMSv8 plugin) {
         this.plugin = plugin;
@@ -55,7 +56,7 @@ public class MonsterRegister implements Listener {
         emerald = new LootItem(new Emerald_Coins().toItemStack(),1,1,0.1);
         goldenEssence = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,5);
 
-        goldenEssenceLess = new LootItem(new GoldenEssence(plugin).toItemStack(),1,1,1);
+        mysteryTurtleEgg = new LootItem(new MysteryTurtleEgg().toItemStack(),1,1,0.4);
         fishingRodBase = new LootItem(new LauNaFishingRod(plugin).toItemStack(),1,1,7);
     }
 
@@ -137,7 +138,7 @@ public class MonsterRegister implements Listener {
             return;
         }else if(event.getEntity().hasMetadata(PlayerFishingEvent.META_FISHING_BUFF)){
             event.getDrops().clear();
-            goldenEssenceLess.tryDropLoot(event.getEntity().getLocation());
+            mysteryTurtleEgg.tryDropLoot(event.getEntity().getLocation());
             fishingRodBase.tryDropLoot(event.getEntity().getLocation());
             plugin.getLogger().info("老衲死了");
             //分紅
@@ -145,7 +146,7 @@ public class MonsterRegister implements Listener {
                 if(player.getLocation().distance(event.getEntity().getLocation()) > 50) continue;
                 double rewardCoins = random.nextInt(50,200);
                 plugin.getEconomy().depositPlayer(player, rewardCoins);
-                player.sendMessage(colors("&6[突襲資訊] &7&l老衲&r&a身上掉落了一些錢，獲得了&6"+rewardCoins+"&a元的分紅！"));
+                player.sendMessage(colors("&6[釣魚] &7&l老衲&r&a身上掉落了一些錢，獲得了&6"+rewardCoins+"&a元的分紅！"));
             }
 
         }

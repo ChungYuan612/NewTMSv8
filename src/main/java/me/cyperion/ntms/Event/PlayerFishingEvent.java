@@ -73,7 +73,7 @@ public class PlayerFishingEvent implements Listener {
             // 計算向玩家方向的向量
             Location hookLoc = event.getHook().getLocation();
             Location playerLoc = event.getPlayer().getLocation().add(0, 1.5, 0); // 模擬釣鉤目標點
-            Vector velocity = playerLoc.toVector().subtract(hookLoc.toVector()).normalize().multiply(1.05); // 拉力強度調整
+            Vector velocity = playerLoc.toVector().subtract(hookLoc.toVector()).normalize().multiply(1.5); // 拉力強度調整
 
             // 套用速度（拉過去）
             lauNa.setVelocity(velocity);
@@ -124,7 +124,7 @@ public class PlayerFishingEvent implements Listener {
                     else
                         player.sendMessage(colors("&6[稀有釣魚] &f"
                                 +reward.reward.clone().getItemMeta().getDisplayName()+" &b("+df.format(base)+"%)&f!"));
-                    if(value < 0.05d)
+                    if(value < 0.1d)
                         Bukkit.broadcastMessage(colors("&6[廣播] &b"+event.getPlayer().getDisplayName()+"&f 釣起了 "+reward.reward.getItemMeta().getDisplayName()+"&f!"));
 
                 }
