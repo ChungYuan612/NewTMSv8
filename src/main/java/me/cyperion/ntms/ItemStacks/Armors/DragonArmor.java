@@ -1,7 +1,10 @@
 package me.cyperion.ntms.ItemStacks.Armors;
 
-import me.cyperion.ntms.*;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
+import me.cyperion.ntms.Modifier;
+import me.cyperion.ntms.ModifierType;
+import me.cyperion.ntms.NSKeyRepo;
+import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -21,16 +24,12 @@ import java.util.UUID;
 
 import static me.cyperion.ntms.Utils.colors;
 
-/**
- * 綠寶石裝備
- * 關聯：ItemRegister註冊事件等、/admin
- */
-public class EmeraldArmor implements PieceFullBouns , Listener {
+public class DragonArmor implements PieceFullBouns, Listener {
 
     private final NewTMSv8 plugin;
     private ItemStack[] itemStack=new ItemStack[4];
     int luckAdd = 10;
-    int[] touchnessAdd = new int[]{3,3,3,3};
+    int[] touchnessAdd = new int[]{2,2,2,2};
     int[] armors = new int[]{4,8,6,4};
     EquipmentSlotGroup[] solts = new EquipmentSlotGroup[]{
             EquipmentSlotGroup.HEAD,
@@ -38,15 +37,15 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
             EquipmentSlotGroup.LEGS,
             EquipmentSlotGroup.FEET
     };
-    public static final String ARMOR_FAMILY_EMERALD = "armor_family_emerald";
+    public static final String ARMOR_FAMILY_DRAGON = "armor_family_dragon";
 
-    public EmeraldArmor(NewTMSv8 plugin) {
+    public DragonArmor(NewTMSv8 plugin) {
         this.plugin = plugin;
-        setEmeraldArmor();
+        setDragonArmor();
 
     }
 
-    public void setEmeraldArmor(){
+    public void setDragonArmor(){
         itemStack[0] = new ItemStack(Material.LEATHER_HELMET);
 
         itemStack[1] = new ItemStack(Material.LEATHER_CHESTPLATE);
@@ -57,38 +56,38 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
 
         for(int i = 0; i < itemStack.length; i++){
             itemStack[i] = setArmorColor(itemStack[i]);
-            LeatherArmorMeta emerald = (LeatherArmorMeta) itemStack[i].getItemMeta();
-            emerald.setLore(getLores(i));
-            emerald.setDisplayName(colors("&5"+"綠寶石"+armorNames[i]));
-            emerald.addItemFlags(ItemFlag.HIDE_DYE);
-            emerald.setUnbreakable(true);
-            emerald.addAttributeModifier(Attribute.ARMOR,
+            LeatherArmorMeta dragon = (LeatherArmorMeta) itemStack[i].getItemMeta();
+            dragon.setLore(getLores(i));
+            dragon.setDisplayName(colors("&5"+"龍之"+armorNames[i]));
+            dragon.addItemFlags(ItemFlag.HIDE_DYE);
+            dragon.setUnbreakable(true);
+            dragon.addAttributeModifier(Attribute.ARMOR,
                     new AttributeModifier(
                             new NamespacedKey(plugin,"armor_add"+ UUID.randomUUID()),
                             armors[i], AttributeModifier.Operation.ADD_NUMBER, solts[i]));
-            emerald.addAttributeModifier(Attribute.ARMOR_TOUGHNESS,
+            dragon.addAttributeModifier(Attribute.ARMOR_TOUGHNESS,
                     new AttributeModifier(
                             new NamespacedKey(plugin,"armor_touchness_add"+ UUID.randomUUID()),
                             touchnessAdd[i], AttributeModifier.Operation.ADD_NUMBER, solts[i]));
-            PersistentDataContainer container = emerald.getPersistentDataContainer();
+            PersistentDataContainer container = dragon.getPersistentDataContainer();
             container.set(
                     plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_LUCK_ADD)
                     , PersistentDataType.INTEGER, luckAdd);
 
             container.set(
                     plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_NAME)
-                    , PersistentDataType.STRING, ARMOR_FAMILY_EMERALD);
+                    , PersistentDataType.STRING, ARMOR_FAMILY_DRAGON);
 
-            itemStack[i].setItemMeta(emerald);
+            itemStack[i].setItemMeta(dragon);
         }
 
 
     }
 
     private ItemStack setArmorColor(ItemStack itemStack){
-        LeatherArmorMeta emerald = (LeatherArmorMeta) itemStack.getItemMeta();
-        emerald.setColor(Color.LIME);
-        itemStack.setItemMeta(emerald);
+        LeatherArmorMeta dragon = (LeatherArmorMeta) itemStack.getItemMeta();
+        dragon.setColor(Color.LIME);
+        itemStack.setItemMeta(dragon);
         return itemStack;
     }
 
@@ -150,7 +149,7 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
     String[] IDs = {"EmeraldBoots","EmeraldLeggings","EmeraldChestplate","EmeraldHelmet"};
 
     @Override
-    public void checkAllArmor(Player player,ItemStack[] armors) {
+    public void checkAllArmor(Player player, ItemStack[] armors) {
         for(int i = 0;i<4;i++){
             boolean pass = false;
             if(armors[i] != null) {
@@ -159,7 +158,7 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
                         plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_LUCK_ADD))
                         && armors[i].getItemMeta().getPersistentDataContainer().get(
                         plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_NAME)
-                        ,PersistentDataType.STRING).equals(ARMOR_FAMILY_EMERALD)
+                        ,PersistentDataType.STRING).equals(ARMOR_FAMILY_DRAGON)
                 ) {
                     if(plugin.getModifierMain().hasModifier(player,IDs[i])) continue;
 
@@ -168,7 +167,7 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
                                     plugin.getNsKeyRepo().getKey
                                             (NSKeyRepo.KEY_ARMOR_LUCK_ADD),
                                     PersistentDataType.INTEGER);
-                    Modifier modifier = new Modifier(IDs[i],NSKeyRepo.KEY_PD_LUCK,ModifierType.ADD,luckAdd);
+                    Modifier modifier = new Modifier(IDs[i],NSKeyRepo.KEY_PD_LUCK, ModifierType.ADD,luckAdd);
                     plugin.getModifierMain().addModifier(player,modifier);
                     pass = true;
                 }
@@ -189,7 +188,7 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
                     plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_NAME))
                     || !armors[i].getItemMeta().getPersistentDataContainer().get(
                     plugin.getNsKeyRepo().getKey(NSKeyRepo.KEY_ARMOR_NAME)
-                    ,PersistentDataType.STRING).equals(ARMOR_FAMILY_EMERALD)
+                    ,PersistentDataType.STRING).equals(ARMOR_FAMILY_DRAGON)
             ) {
                 //是不是Null
                 //有無ItemMeta
@@ -201,28 +200,28 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
         return true;
     }
 
-    private static HashMap<UUID,Integer> emeraldFullSet = new HashMap<>();
+    private static HashMap<UUID,Integer> dragonFullSet = new HashMap<>();
     @Override
     public void addFullBouns(NewTMSv8 plugin,Player player) {
         if (!plugin.getModifierMain().hasModifier(player,fullSetModifierID)){
-                plugin.getModifierMain().addModifier(
-                        player,
-                        new Modifier(
-                                fullSetModifierID,
-                                NSKeyRepo.KEY_PD_LUCK,
-                                ModifierType.ADD,
-                                10.0
-                        )
-                );
+            plugin.getModifierMain().addModifier(
+                    player,
+                    new Modifier(
+                            fullSetModifierID,
+                            NSKeyRepo.KEY_PD_LUCK,
+                            ModifierType.ADD,
+                            10.0
+                    )
+            );
         }
         //寶石護盾效果
-        emeraldFullSet.putIfAbsent(player.getUniqueId(),0);
-        int count = emeraldFullSet.get(player.getUniqueId());
+        dragonFullSet.putIfAbsent(player.getUniqueId(),0);
+        int count = dragonFullSet.get(player.getUniqueId());
         count++;
         if(count == 4) {
             double health = player.getHealth();
             double maxHealth = player.getAttribute(Attribute.MAX_HEALTH).getValue();
-            emeraldFullSet.put(player.getUniqueId(),0);
+            dragonFullSet.put(player.getUniqueId(),0);
             if(health <=0) return;
             if(health +1 > maxHealth)
                 player.setHealth(maxHealth);
@@ -230,10 +229,10 @@ public class EmeraldArmor implements PieceFullBouns , Listener {
                 player.setHealth(health + 1);
             return;
         }
-        emeraldFullSet.put(player.getUniqueId(),count);
+        dragonFullSet.put(player.getUniqueId(),count);
     }
 
-    private String fullSetModifierID = "emeraldarmor_fullset";
+    private String fullSetModifierID = "dragonarmor_fullset";
     @Override
     public void removeFullBouns(NewTMSv8 plugin,Player player) {
         if(plugin.getModifierMain().hasModifier(player,fullSetModifierID)) {

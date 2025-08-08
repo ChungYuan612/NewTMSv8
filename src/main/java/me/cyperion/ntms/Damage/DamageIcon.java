@@ -1,4 +1,4 @@
-package me.cyperion.ntms.Event;
+package me.cyperion.ntms.Damage;
 
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.World;

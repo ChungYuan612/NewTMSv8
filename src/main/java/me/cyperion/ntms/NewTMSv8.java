@@ -1,5 +1,6 @@
 package me.cyperion.ntms;
 
+import com.loohp.holomobhealth.api.HoloMobHealthAPI;
 import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
 import me.cyperion.ntms.Bazaar.Data.SQLiteDatabase;
 import me.cyperion.ntms.Class.Bard;
@@ -7,6 +8,9 @@ import me.cyperion.ntms.Class.Class;
 import me.cyperion.ntms.Class.Explosion;
 import me.cyperion.ntms.Class.Terminator;
 import me.cyperion.ntms.Command.*;
+import me.cyperion.ntms.Damage.ArmorStandPacket;
+import me.cyperion.ntms.Damage.DamageIcon;
+import me.cyperion.ntms.Damage.DamageIndicator;
 import me.cyperion.ntms.Event.*;
 import me.cyperion.ntms.ItemStacks.CartographyBlocker;
 import me.cyperion.ntms.ItemStacks.CraftHandler;
@@ -74,7 +78,10 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public final boolean enableMana = true;
 
-    public NTMSEvents ntmsEvents;
+    private NTMSEvents ntmsEvents;
+
+    private DamageIndicator damageIndicator;
+    private ArmorStandPacket armorStandPacket;
 
 
     @Override
@@ -118,12 +125,20 @@ public final class NewTMSv8 extends JavaPlugin {
         setupPermissions();
         //setupChat();
 
+        //HoloMobHealthAPI
+
+
         //記分板系統
         this.tmWorldTimer = new TMWorldTimer(this);
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
         getServer().getPluginManager().registerEvents(twPlayerSideBoard,this);
         this.twPlayerSideBoard.runTaskTimer(this,0L,8L);//8刻跑一次，一秒2.5次
         this.ntmsEvents = new NTMSEvents();
+
+        damageIndicator = new DamageIndicator(this);
+        getServer().getPluginManager().registerEvents(damageIndicator,this);
+        armorStandPacket = new ArmorStandPacket();
+        ArmorStandPacket.update();
 
         //傷害顯示
         //DamageIcon damageIcon = new DamageIcon(this);

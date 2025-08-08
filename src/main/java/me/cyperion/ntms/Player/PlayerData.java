@@ -43,6 +43,8 @@ public class PlayerData {
 
     private UUID uuid;
 
+    private double critChance,critDamage;
+
     /**
      * 取得玩家的特殊資料(Mana之類的)，如果沒有則幫他加一個新數值
      * @param player 玩家
@@ -83,6 +85,9 @@ public class PlayerData {
         this.advancePoint = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_ADVANCE_POINT),0);
         this.luck = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_LUCK),0.0);
         this.signinCount = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_TOTAL_SIGNIN_COUNT),0);
+
+        this.critChance = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_CRIT_CHANCE),0d);
+        this.critDamage = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_CRIT_DAMAGE),0d);
 
         this.raidPoint = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_RAID_POINT),0);
         //---更新區---
@@ -366,6 +371,54 @@ public class PlayerData {
                 repo.getKey(NSKeyRepo.KEY_PD_TOTAL_SIGNIN_COUNT),PersistentDataType.INTEGER,getSignInCount() + v
         );
     }
+
+    //CRIT CHANCE
+    public double getCritChance() {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(NSKeyRepo.KEY_PD_CRIT_CHANCE),PersistentDataType.DOUBLE
+        );
+    }
+
+    public void setCritChance(double v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(NSKeyRepo.KEY_PD_CRIT_CHANCE),PersistentDataType.DOUBLE, v
+        );
+    }
+
+    public void addCritChance(double v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(NSKeyRepo.KEY_PD_CRIT_CHANCE),PersistentDataType.DOUBLE,getCritChance() + v
+        );
+    }
+
+    //CRIT DAMAGE
+    public double getCritDamage() {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        return getPlayerPesistentData().get(
+                repo.getKey(NSKeyRepo.KEY_PD_CRIT_DAMAGE),PersistentDataType.DOUBLE
+        );
+    }
+
+    public void setCritDamage(double v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(NSKeyRepo.KEY_PD_CRIT_DAMAGE),PersistentDataType.DOUBLE, v
+        );
+    }
+
+    public void addCritDamage(double v) {
+        NSKeyRepo repo = this.plugin.getNsKeyRepo();
+        this.getPlayerPesistentData().set(
+                repo.getKey(NSKeyRepo.KEY_PD_CRIT_DAMAGE),PersistentDataType.DOUBLE,getCritDamage() + v
+        );
+    }
+
+
+
+
 
     /* ----- */
 

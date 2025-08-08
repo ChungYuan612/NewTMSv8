@@ -2,6 +2,7 @@ package me.cyperion.ntms.SideBoard;
 
 import me.cyperion.ntms.NewTMSv8;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -56,7 +57,7 @@ public class TMWorldTimer {
                 && minutes == 0
                 && lastEventTriggerTime + 60000 <= System.currentTimeMillis()){
             triggerEvent();
-            plugin.getLogger().info("觸發隨機活動");
+            plugin.getLogger().info("觸發隨機活動: " + plugin.getNtmsEvents().getNowEvent().getName());
             //剩下觸發完後面就各自辦事，這邊不會再做任何步驟，除了刷新記分板
         }
 
@@ -81,7 +82,7 @@ public class TMWorldTimer {
         //刷新記分板，還有發送訊息
         for(Player player : Bukkit.getOnlinePlayers()){
             plugin.getTwPlayerSideBoard().refreshEventScoreboard(player);
-            player.playSound(player.getLocation(), "random.levelup", 1, 1);
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
         }
     }
 

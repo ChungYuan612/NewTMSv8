@@ -1,7 +1,7 @@
 name: NewTMSv8
 version: '8.7.1'
 main: me.cyperion.ntms.NewTMSv8
-softdepend: [Vault,Skulls]
+softdepend: [Vault,Skulls,HoloMobHealth,ProtocolLib]
 api-version: '1.21'
 commands:
   admin:
