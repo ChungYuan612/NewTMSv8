@@ -28,11 +28,15 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Comm
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\SigninCommand.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\TpaCommand.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\WarpCommand.java
-C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\DamageIcon.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Damage\ArmorStandPacket.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Damage\DamageIcon.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Damage\DamageIndicator.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\EnderDragonBossSystem.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerAdvanceDoneHandler.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerChatHandler.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerFishingEvent.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\RaidEvent.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Armors\DragonArmor.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Armors\EmeraldArmor.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Armors\LapisArmor.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Armors\ObsidianChestplate.java
@@ -41,6 +45,7 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Item
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\CraftHandler.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\CraftRecipe.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\Emerald_Coins.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\EnderCrystal.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\InfiniteWindCharge.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\JadeCore.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\ItemStacks\Item\LauNaFishingRod.java

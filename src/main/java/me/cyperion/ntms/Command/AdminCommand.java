@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Command;
 
+import me.cyperion.ntms.ItemStacks.Armors.DragonArmor;
 import me.cyperion.ntms.ItemStacks.Armors.EmeraldArmor;
 import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
 import me.cyperion.ntms.ItemStacks.Item.*;
@@ -52,6 +53,8 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(colors("&b魔力✯："+data.getMana()));
             player.sendMessage(colors("&b魔力回復速度✯："+data.getManaReg()));
             player.sendMessage(colors("&b魔力上限✯："+data.getMaxMana()));
+            player.sendMessage(colors("&9爆擊機率："+data.getCritChance()));
+            player.sendMessage(colors("&9爆擊傷害："+data.getCritDamage()));
             player.sendMessage(colors("&a突襲計算："+data.getRaidPoint()));
             player.sendMessage(colors("&d職業類別："+data.getClassType().toString()));
             player.sendMessage(colors("&6成就點數："+data.getAdvancePoint()));
@@ -80,6 +83,8 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
                  items = new EmeraldArmor(plugin).getItemStacks();
             }else if(args[0].equalsIgnoreCase(NTMSItems.LAPIS_ARMOR.name())){
                 items = new LapisArmor(plugin).getItemStacks();
+            }else if(args[0].equalsIgnoreCase(NTMSItems.DRAGON_ARMOR.name())){
+                items = new DragonArmor(plugin).getItemStacks();
             }
             for(int i = 0;i<items.length;i++){
                 if(items[i] != null)

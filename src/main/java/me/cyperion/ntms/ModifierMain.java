@@ -37,6 +37,8 @@ public class ModifierMain {
             double addon=0D,multiply = 1.0;
             double regan_addon=0D,regan_multiply = 1.0;
             double luck_addon=0D,luck_multiply = 1.0;
+            double cc_addon=0D,cc_multiply = 1.0;
+            double cd_addon=0D,cd_multiply = 1.0;
             for(Modifier modifier : list) {
                 //System.out.println(player.getName()+": "+modifier.getNameSpaceKey()+": "+modifier.getValue()+": "+modifier.getID());
 
@@ -47,6 +49,10 @@ public class ModifierMain {
                         regan_addon += modifier.getValue();
                     else if (modifier.getNameSpaceKey().equals(NSKeyRepo.KEY_PD_LUCK))
                         luck_addon += modifier.getValue();
+                    else if (modifier.getNameSpaceKey().equals(NSKeyRepo.KEY_PD_CRIT_CHANCE))
+                        cc_addon += modifier.getValue();
+                    else if (modifier.getNameSpaceKey().equals(NSKeyRepo.KEY_PD_CRIT_DAMAGE))
+                        cd_addon += modifier.getValue();
                 }else if(modifier.getType().equals(ModifierType.MULTIPLY)){
                     if(modifier.getNameSpaceKey().equals(NSKeyRepo.KEY_PD_MAX_MANA))
                         multiply += modifier.getValue();
@@ -54,14 +60,22 @@ public class ModifierMain {
                         regan_multiply += modifier.getValue();
                     else if (modifier.getNameSpaceKey().equals(NSKeyRepo.KEY_PD_LUCK))
                         luck_multiply += modifier.getValue();
+                    else if (modifier.getNameSpaceKey().equals(NSKeyRepo.KEY_PD_CRIT_CHANCE))
+                        cc_multiply += modifier.getValue();
+                    else if (modifier.getNameSpaceKey().equals(NSKeyRepo.KEY_PD_CRIT_DAMAGE))
+                        cd_multiply += modifier.getValue();
                 }
             }
             double maxMana = (Mana.defaultMaxMana + addon) * multiply;
             double manaReg = (Mana.defaultManaRegan + regan_addon) * regan_multiply;
             double luck = (PlayerData.DEFAULT_LUCK + luck_addon) * luck_multiply;
+            double cc = (PlayerData.DEFAULT_CRIT_CHANCE + cc_addon) * cc_multiply;
+            double cd = (PlayerData.DEFAULT_CRIT_DAMAGE + cd_addon) * cd_multiply;
             plugin.getPlayerData(player).setMaxMana(maxMana);
             plugin.getPlayerData(player).setManaReg(manaReg);
             plugin.getPlayerData(player).setLuck(luck);
+            plugin.getPlayerData(player).setCritChance(cc);
+            plugin.getPlayerData(player).setCritDamage(cd);
             //MODIFIER END-------------------------
         }
     }

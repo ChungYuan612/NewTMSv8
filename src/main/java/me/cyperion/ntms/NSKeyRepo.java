@@ -36,6 +36,8 @@ public class NSKeyRepo {
     public static final String KEY_ARMOR_MANA_ADD = "key_armor_mana_add";
     public static final String KEY_ARMOR_LUCK_ADD = "key_armor_mana_add"; //!!!這裡有BUG 但不能修 TODO
     public static final String KEY_ARMOR_LUCK_ADD_FIX = "key_armor_luck_add";
+    public static final String KEY_ARMOR_CRIT_CHANCE_ADD = "key_armor_crit_chance_add";
+    public static final String KEY_ARMOR_CRIT_DAMAGE_ADD = "key_armor_crit_damage_add";
 
 
     public NSKeyRepo() {
@@ -91,7 +93,13 @@ public class NSKeyRepo {
         keyMap.put(KEY_ARMOR_MANA_ADD, NamespacedKey.minecraft(KEY_ARMOR_MANA_ADD));
         //int 魔力回復的裝備標籤
 
+        keyMap.put(KEY_ARMOR_LUCK_ADD_FIX, NamespacedKey.minecraft(KEY_ARMOR_LUCK_ADD_FIX));
+        //int
 
+        keyMap.put(KEY_ARMOR_CRIT_CHANCE_ADD, NamespacedKey.minecraft(KEY_ARMOR_CRIT_CHANCE_ADD));
+        //int 魔力回復的裝備標籤
+        keyMap.put(KEY_ARMOR_CRIT_DAMAGE_ADD, NamespacedKey.minecraft(KEY_ARMOR_CRIT_DAMAGE_ADD));
+        //int 魔力回復的裝備標籤
 
 
     }

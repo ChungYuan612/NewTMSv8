@@ -24,6 +24,8 @@ public class PlayerData {
 
     public static final double DEFAULT_MANA_REG=1.0;
     public static final double DEFAULT_LUCK=0.0;
+    public static final double DEFAULT_CRIT_CHANCE=0.0;
+    public static final double DEFAULT_CRIT_DAMAGE=0.0;
 
     //職業，沒有的話為None
     private ClassType classType;
@@ -86,8 +88,8 @@ public class PlayerData {
         this.luck = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_LUCK),0.0);
         this.signinCount = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_TOTAL_SIGNIN_COUNT),0);
 
-        this.critChance = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_CRIT_CHANCE),0d);
-        this.critDamage = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_CRIT_DAMAGE),0d);
+        this.critChance = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_CRIT_CHANCE),DEFAULT_CRIT_CHANCE);
+        this.critDamage = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_CRIT_DAMAGE),DEFAULT_CRIT_DAMAGE);
 
         this.raidPoint = checkAndSetData(repo.getKey(NSKeyRepo.KEY_PD_RAID_POINT),0);
         //---更新區---

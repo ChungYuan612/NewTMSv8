@@ -40,6 +40,8 @@ public enum NTMSItems {
     EXPLOSION_BOW,
     LAUNA_FISHING_ROD_BASE,
     LAUNA_FISHING_ROD,
+    ENDER_CRYSTAL,
+    DRAGON_ARMOR
     ;
     public String getBazaarID(){
         return "NTMS_"+this.name();

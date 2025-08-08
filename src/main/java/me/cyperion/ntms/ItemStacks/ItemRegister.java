@@ -1,9 +1,6 @@
 package me.cyperion.ntms.ItemStacks;
 
-import me.cyperion.ntms.ItemStacks.Armors.EmeraldArmor;
-import me.cyperion.ntms.ItemStacks.Armors.LapisArmor;
-import me.cyperion.ntms.ItemStacks.Armors.ObsidianChestplate;
-import me.cyperion.ntms.ItemStacks.Armors.PieceFullBouns;
+import me.cyperion.ntms.ItemStacks.Armors.*;
 import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
 import me.cyperion.ntms.ItemStacks.Item.LauNaFishingRod;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
@@ -49,6 +46,7 @@ public class ItemRegister {
         this.plugin = plugin;
         allPieceFullBouns.add(new LapisArmor(plugin));
         allPieceFullBouns.add(new EmeraldArmor(plugin));
+        allPieceFullBouns.add(new DragonArmor(plugin));
         register();
     }
 
@@ -72,6 +70,7 @@ public class ItemRegister {
         plugin.getServer().getPluginManager().registerEvents(new InfiniteWindCharge(plugin),plugin);
         plugin.getServer().getPluginManager().registerEvents(new WiredRotten(plugin),plugin);
         plugin.getServer().getPluginManager().registerEvents(new ExplosionBow(plugin),plugin);
+        plugin.getServer().getPluginManager().registerEvents(new DragonArmor(plugin),plugin);
 
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
@@ -117,6 +116,11 @@ public class ItemRegister {
         ShapedRecipe[] emeraldRecipe = emeraldArmor.toNMSRecipe();
         for(int i = 0; i<4;i++)
             Bukkit.getServer().addRecipe(emeraldRecipe[i]);
+
+//        DragonArmor dragonArmor = new DragonArmor(plugin);
+//        ShapedRecipe[] dragonRecipe = dragonArmor.toNMSRecipe();
+//        for(int i = 0; i<4;i++)
+//            Bukkit.getServer().addRecipe(dragonRecipe[i]);
 
 
         //plugin.getCraftHandler().getRecipes().add(new EnchantedSugar(plugin).getRecipe());
