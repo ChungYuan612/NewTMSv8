@@ -140,6 +140,8 @@ public class TWMainMenu extends Menu {
         lore.add(ChatColor.RED+SpecialChar("❤")+"血量: "+(int)(player.getHealth())+colors("&f/&c")+(int)(player.getHealthScale()));
         lore.add(ChatColor.AQUA+SpecialChar("✯")+"魔力上限: "+(int)(playerData.getMaxMana()));
         lore.add(ChatColor.WHITE+SpecialChar("✦")+"速度: "+(int)((player.getWalkSpeed()+1)*100)+"%");
+        lore.add(ChatColor.BLUE+SpecialChar("◆")+"爆擊機率: "+(int)(playerData.getCritChance())+"%");
+        lore.add(ChatColor.BLUE+SpecialChar("⚔")+"爆擊傷害: "+(int)(playerData.getCritDamage())+"%");
         lore.add(ChatColor.GOLD+SpecialChar("☣")+"成就點數: "+playerData.getAdvancePoint());
         lore.add(ChatColor.BLUE+SpecialChar("☠")+"突襲計算: "+playerData.getRaidPoint());
         lore.add(ChatColor.DARK_GREEN+SpecialChar("⦾")+"累積簽到: "+playerData.getSignInCount());

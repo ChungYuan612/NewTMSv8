@@ -83,6 +83,8 @@ public final class NewTMSv8 extends JavaPlugin {
     private DamageIndicator damageIndicator;
     private ArmorStandPacket armorStandPacket;
 
+    private EnderDragonBossSystem bossSystem;
+
 
     @Override
     public void onEnable() {
@@ -91,7 +93,7 @@ public final class NewTMSv8 extends JavaPlugin {
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "        "+"&b老衲&f與&d隨機活動更新&f還有很多更新！ &b歡迎加入!")
+                "         "+"&9爆擊&f與&d終界BOSS更新&f...還有很多更新！ &b歡迎加入!")
         );
 
 
@@ -140,6 +142,9 @@ public final class NewTMSv8 extends JavaPlugin {
         armorStandPacket = new ArmorStandPacket();
         ArmorStandPacket.update();
 
+        bossSystem = new EnderDragonBossSystem(this);
+        bossSystem.initialize();
+
         //傷害顯示
         //DamageIcon damageIcon = new DamageIcon(this);
         //getServer().getPluginManager().registerEvents(damageIcon,this);
@@ -173,6 +178,7 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("pay").setExecutor(new PayCommand(this));
         getCommand("class").setExecutor(new ClassCommand(this));
         getCommand("sign").setExecutor(new SignCommand(this));
+        getCommand("dragonboss").setExecutor(new DragonBossCommand(this));
 
 
         //TPA 3個指令
@@ -299,6 +305,10 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public CommodityMarketAPI getCommodityMarketAPI() {
         return commodityMarketAPI;
+    }
+
+    public EnderDragonBossSystem getBossSystem() {
+        return bossSystem;
     }
 
     //自定義Config

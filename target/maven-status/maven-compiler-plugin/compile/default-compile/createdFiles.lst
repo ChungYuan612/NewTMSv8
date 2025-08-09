@@ -16,6 +16,7 @@ me\cyperion\ntms\Bazaar\Order.class
 me\cyperion\ntms\Damage\DamageIndicator$1.class
 me\cyperion\ntms\ItemStacks\Tools\PureGoldenPickaxe.class
 me\cyperion\ntms\Menu\BaseMenu\MenuListener.class
+me\cyperion\ntms\Event\EnderDragonBossSystem$4.class
 me\cyperion\ntms\ItemStacks\ItemRegister.class
 me\cyperion\ntms\Class\ClassUpgrade.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSeeds.class
@@ -31,6 +32,7 @@ me\cyperion\ntms\NewTMSv8.class
 me\cyperion\ntms\Utils.class
 me\cyperion\ntms\Bazaar\Event\OrderEvent.class
 me\cyperion\ntms\Command\SignCommand.class
+me\cyperion\ntms\Event\EnderDragonBossSystem$3.class
 me\cyperion\ntms\ItemStacks\Item\TreasureCore.class
 me\cyperion\ntms\Bazaar\Data\CommodityMarketAPI$TradeResult.class
 me\cyperion\ntms\ItemStacks\ItemRegister$1.class
@@ -63,7 +65,9 @@ me\cyperion\ntms\Class\Terminator.class
 me\cyperion\ntms\Menu\BazaarMenu\BazaarOrderPlaceMenu.class
 me\cyperion\ntms\ItemStacks\Item\Stocks.class
 me\cyperion\ntms\Menu\BazaarMenu\BazaarOrderMenu.class
+me\cyperion\ntms\Event\EnderDragonBossSystem$2.class
 me\cyperion\ntms\ItemStacks\CartographyBlocker.class
+me\cyperion\ntms\Command\DragonBossCommand.class
 me\cyperion\ntms\Event\EnderDragonBossSystem$PlayerBossData.class
 me\cyperion\ntms\Event\RaidEvent.class
 me\cyperion\ntms\Damage\DamageIndicator.class
@@ -129,6 +133,7 @@ me\cyperion\ntms\Command\AdminCommand.class
 me\cyperion\ntms\ItemStacks\Item\RedWand.class
 me\cyperion\ntms\Player\PlayerQuitServer.class
 me\cyperion\ntms\Bazaar\Event\OrderCancelledEvent.class
+me\cyperion\ntms\Event\EnderDragonBossSystem$5.class
 me\cyperion\ntms\Bazaar\Data\CommodityMarketAPI$MarketData.class
 me\cyperion\ntms\ItemStacks\Item\JadeCore.class
 me\cyperion\ntms\Monster\LootItem.class

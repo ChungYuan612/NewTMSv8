@@ -44,8 +44,8 @@ public class DragonArmor implements PieceFullBouns, Listener {
     double critDamageAdd = 20;
     int damageAdd = 1;
     double speedAdd = 0.2; // 20% 移動速度增加
-    int[] touchnessAdd = new int[]{3, 3, 3, 3};
-    int[] armors = new int[]{4, 8, 6, 4};
+    int[] touchnessAdd = new int[]{2, 3, 2, 2};
+    int[] armors = new int[]{4, 7, 6, 3};
     EquipmentSlotGroup[] solts = new EquipmentSlotGroup[]{
             EquipmentSlotGroup.HEAD,
             EquipmentSlotGroup.CHEST,
@@ -141,13 +141,13 @@ public class DragonArmor implements PieceFullBouns, Listener {
 
         switch (slot) {
             case 0: // 頭盔
-                lores.add(colors("&f爆擊機率: &9+" + critChanceAdd + "點"));
+                lores.add(colors("&f爆擊機率: &9+" + (int)critChanceAdd + "%"));
                 break;
             case 1: // 胸甲
-                lores.add(colors("&f攻擊力: &9+" + damageAdd + "點"));
+                lores.add(colors("&f攻擊力: &c+" + damageAdd + "點"));
                 break;
             case 2: // 褲子
-                lores.add(colors("&f爆擊傷害: &9+" + critDamageAdd + "點"));
+                lores.add(colors("&f爆擊傷害: &9+" + (int)critDamageAdd + "%"));
                 break;
             case 3: // 鞋子
                 lores.add(colors("&f移動速度: &a+" + (int)(speedAdd * 100) + "%"));
@@ -155,13 +155,14 @@ public class DragonArmor implements PieceFullBouns, Listener {
         }
 
         lores.add(colors(""));
-        lores.add(colors("&f由&5&l終界水晶&r&f重鑄打造而成的"));
-        lores.add(colors("&f傳說裝備，蘊含著遠古龍族的力量"));
-        lores.add(colors("&f，散發著神秘的紫色光芒。"));
+        lores.add(colors("&f由&5龍&f身上的碎片淬鍊而成的"));
+        lores.add(colors("&f傳說裝備，蘊含著遠古龍族的"));
+        lores.add(colors("&f力量，散發著神秘的紫色光芒。"));
         lores.add(colors(""));
         lores.add(colors("&6&l全套加成&r&f： &5&l龍裔瞄準"));
-        lores.add(colors("&f箭矢會自動偵測&c5格&f範圍內的敵人"));
+        lores.add(colors("&f箭矢會自動偵測&c8格&f範圍內的敵人"));
         lores.add(colors("&f並自動轉向追蹤目標"));
+        lores.add(colors("&7對Terminator職業有效"));
         lores.add(colors(" "));
         lores.add(colors("&6&l傳說的" + armorNames[slot]));
         return lores;
@@ -171,6 +172,7 @@ public class DragonArmor implements PieceFullBouns, Listener {
         return itemStack.clone();
     }
 
+    @Deprecated
     public ShapedRecipe[] toNMSRecipe() {
         ItemStack item = new EnderCrystal(plugin).toItemStack();
         ShapedRecipe[] recipes = new ShapedRecipe[4];
@@ -284,8 +286,9 @@ public class DragonArmor implements PieceFullBouns, Listener {
 
     @Override
     public void addFullBouns(NewTMSv8 plugin, Player player) {
+        if(dragonFullSet.containsKey(player.getUniqueId())) return;
         dragonFullSet.put(player.getUniqueId(), true);
-        plugin.getLogger().info("dragonFullSet");
+
     }
 
     @Override
@@ -301,13 +304,18 @@ public class DragonArmor implements PieceFullBouns, Listener {
 
         Player shooter = (Player) event.getEntity().getShooter();
         if (!dragonFullSet.containsKey(shooter.getUniqueId())) return;
-        plugin.getLogger().info("aiming");
+        //plugin.getLogger().info("aiming");
         Arrow arrow = (Arrow) event.getEntity();
+        aiming(shooter,arrow);
+    }
+
+    public void aiming(Player shooter, Arrow arrow){
+
 
         // 啟動箭矢追蹤任務
         new BukkitRunnable() {
             int ticks = 0;
-            final int maxTicks = 100; // 5秒後停止追蹤
+            final int maxTicks = 150; // 7.5秒後停止追蹤
 
             @Override
             public void run() {
@@ -316,12 +324,13 @@ public class DragonArmor implements PieceFullBouns, Listener {
                     return;
                 }
 
-                // 尋找3格範圍內的敵對實體
+                // 尋找8格範圍內的敵對實體
                 LivingEntity target = null;
                 double minDistance = 8.0;
 
                 for (LivingEntity entity : arrow.getWorld().getLivingEntities()) {
                     if (entity == shooter) continue;
+                    if( entity instanceof Player) continue;
                     if (entity.getLocation().distance(arrow.getLocation()) <= minDistance) {
                         target = entity;
                         minDistance = entity.getLocation().distance(arrow.getLocation());
@@ -331,6 +340,7 @@ public class DragonArmor implements PieceFullBouns, Listener {
                 if (target != null) {
                     // 計算朝向目標的向量
                     Vector direction = target.getLocation().add(0, 1, 0).subtract(arrow.getLocation()).toVector();
+                    direction.add(arrow.getVelocity());
                     direction.normalize();
                     direction.multiply(arrow.getVelocity().length()); // 保持原有速度
                     arrow.setVelocity(direction);

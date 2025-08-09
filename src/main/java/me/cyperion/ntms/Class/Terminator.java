@@ -1,5 +1,6 @@
 package me.cyperion.ntms.Class;
 
+import me.cyperion.ntms.ItemStacks.Armors.DragonArmor;
 import me.cyperion.ntms.ItemStacks.Tools.ExplosionBow;
 import me.cyperion.ntms.NewTMSv8;
 import me.cyperion.ntms.Player.PlayerData;
@@ -34,7 +35,7 @@ public class Terminator extends Class implements Listener {
     private final HashMap<UUID,Integer> playerSteps = new HashMap<>();
 
     public double costManaOnShot = 3;
-    private final float DamageBase = 2.0f;//5.5f
+    private final float DamageBase = 2.5f;//5.5f
     private final float DamageMultiplier = 0.3f;//0.5f
     public Terminator(NewTMSv8 plugin) {
         super(plugin);
@@ -128,6 +129,7 @@ public class Terminator extends Class implements Listener {
         }
     }
 
+    private DragonArmor dragonArmor = new DragonArmor(plugin);
     /**
      * Terminator職業被動技能：
      * 總共3層，第3層時重新計算並提高傷害15%，並中毒3秒。
@@ -147,6 +149,8 @@ public class Terminator extends Class implements Listener {
         arrow.setPickupStatus(Arrow.PickupStatus.CREATIVE_ONLY);
         arrow.setDamage(DamageBase + itemStack.getEnchantmentLevel(Enchantment.POWER) * DamageMultiplier);
         arrow.setVelocity(direction.multiply(2.95).clone());
+        if(dragonArmor.isFullSet(player.getInventory().getArmorContents()))
+            dragonArmor.aiming(player,arrow);
 
     }
 

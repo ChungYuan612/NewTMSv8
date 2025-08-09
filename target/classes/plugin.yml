@@ -1,5 +1,5 @@
 name: NewTMSv8
-version: '8.7.1'
+version: '8.8.0'
 main: me.cyperion.ntms.NewTMSv8
 softdepend: [Vault,Skulls,HoloMobHealth,ProtocolLib]
 api-version: '1.21'
@@ -35,3 +35,5 @@ commands:
     usage: /class
   sign:
     description: 物品簽名(特殊物品)
+  dragonboss:
+    description: 管理員用來檢視龍戰的指令

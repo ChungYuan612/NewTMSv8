@@ -18,6 +18,7 @@ import java.util.UUID;
 import static me.cyperion.ntms.ItemStacks.ItemRegister.CMD_TREASURE_CORE;
 import static me.cyperion.ntms.Utils.colors;
 
+@Deprecated
 public class EnderCrystal {
     ItemStack item,frag;
     private NewTMSv8 plugin;
