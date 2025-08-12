@@ -85,7 +85,9 @@ public class NTMSItemFactory {
             item = new LauNaFishingRod(plugin).toItemStack();
         }else if(name.equals(NTMSItems.LAUNA_FISHING_ROD.name())) {
             item = new LauNaFishingRod(plugin).toItemStackPlus();
-        }else if(name.equals(NTMSItems.ENDER_CRYSTAL.name())) {
+        }else if(name.equals(NTMSItems.PURE_WHITE_ENDER_CRYSTAL_FRAGMENT.name())) {
+            item = new EnderCrystal(plugin).toItemStackFragment();
+        }else if(name.equals(NTMSItems.PURE_WHITE_ENDER_CRYSTAL.name())) {
             item = new EnderCrystal(plugin).toItemStack();
         }else{
             item = new ItemStack(Material.BARRIER);

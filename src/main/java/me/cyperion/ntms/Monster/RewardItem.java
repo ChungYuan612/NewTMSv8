@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -18,6 +19,7 @@ public class RewardItem {
     private int min = 1,max = 1;
     private double dropChance;
     private static Random randomModifier = new Random();
+    private final DecimalFormat df = new DecimalFormat("#.###");
 
     public RewardItem(NewTMSv8 plugin, ItemStack itemStack, double dropChance) {
         this.plugin = plugin;
@@ -46,10 +48,10 @@ public class RewardItem {
         plugin.getLogger().info ("[掉落] "+player+" 獲得了 "+itemStack.getItemMeta().getDisplayName()+ " value:"+v+" in 100(+luck:"+luckbouns+")");
         if(luckbouns > 0){
             player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()
-                    +" &b("+(dropChance)+"&2+"+(value-dropChance)+"&b%)&f!"));
+                    +" &b("+df.format(dropChance)+"&2+"+df.format(value-dropChance)+"&b%)&f!"));
         }else{
             player.sendMessage(colors("&6[掉落] &f"+itemStack.getItemMeta().getDisplayName()
-                    +" &b("+(dropChance)+"%)!"));
+                    +" &b("+df.format(dropChance)+"%)!"));
         }
 
 

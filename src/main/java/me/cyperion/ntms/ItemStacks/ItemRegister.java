@@ -1,11 +1,8 @@
 package me.cyperion.ntms.ItemStacks;
 
 import me.cyperion.ntms.ItemStacks.Armors.*;
-import me.cyperion.ntms.ItemStacks.Item.InfiniteWindCharge;
-import me.cyperion.ntms.ItemStacks.Item.LauNaFishingRod;
+import me.cyperion.ntms.ItemStacks.Item.*;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.*;
-import me.cyperion.ntms.ItemStacks.Item.RedWand;
-import me.cyperion.ntms.ItemStacks.Item.TreasureCore;
 import me.cyperion.ntms.ItemStacks.Tools.ExplosionBow;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenAxe;
 import me.cyperion.ntms.ItemStacks.Tools.PureGoldenDarkSword;
@@ -40,6 +37,8 @@ public class ItemRegister {
     public static final int CMD_ENCHANTED_STRING = 4012; //附魔線
     public static final int CMD_JADE_CORE = 4006; //附魔線
     public static final int CMD_TREASURE_CORE = 40014; //寶藏核心
+    public static final int CMD_PURE_WHITE_END_CRYSTAL = 4014; //純白終界水晶
+    public static final int CMD_PURE_WHITE_END_CRYSTAL_FRAGMENT = 4015; //終界水晶碎片
 
 
     public ItemRegister(NewTMSv8 plugin) {
@@ -96,6 +95,7 @@ public class ItemRegister {
         Bukkit.getServer().addRecipe(new EnchantedString(plugin).toNMSRecipe());
 
         Bukkit.getServer().addRecipe(new TreasureCore(plugin).toNMSRecipe());
+        Bukkit.getServer().addRecipe(new EnderCrystal(plugin).getRecipe());
 
         Bukkit.getServer().addRecipe(new PureGoldenPickaxe(plugin).toNMSRecipe());
         Bukkit.getServer().addRecipe(new PureGoldenAxe(plugin).toNMSRecipe());

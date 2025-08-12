@@ -7,10 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -162,7 +159,7 @@ public class DragonArmor implements PieceFullBouns, Listener {
         lores.add(colors("&6&l全套加成&r&f： &5&l龍裔瞄準"));
         lores.add(colors("&f箭矢會自動偵測&c8格&f範圍內的敵人"));
         lores.add(colors("&f並自動轉向追蹤目標"));
-        lores.add(colors("&7對Terminator職業有效"));
+        //lores.add(colors("&7&o對Terminator職業有效"));
         lores.add(colors(" "));
         lores.add(colors("&6&l傳說的" + armorNames[slot]));
         return lores;
@@ -315,7 +312,7 @@ public class DragonArmor implements PieceFullBouns, Listener {
         // 啟動箭矢追蹤任務
         new BukkitRunnable() {
             int ticks = 0;
-            final int maxTicks = 150; // 7.5秒後停止追蹤
+            final int maxTicks = 140; // 7秒後停止追蹤
 
             @Override
             public void run() {
@@ -330,7 +327,9 @@ public class DragonArmor implements PieceFullBouns, Listener {
 
                 for (LivingEntity entity : arrow.getWorld().getLivingEntities()) {
                     if (entity == shooter) continue;
-                    if( entity instanceof Player) continue;
+                    if (entity instanceof Player) continue;
+                    if (entity instanceof Enderman) continue;
+                    if (!(entity instanceof Monster)) continue;
                     if (entity.getLocation().distance(arrow.getLocation()) <= minDistance) {
                         target = entity;
                         minDistance = entity.getLocation().distance(arrow.getLocation());

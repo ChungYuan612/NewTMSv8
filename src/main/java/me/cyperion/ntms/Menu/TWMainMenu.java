@@ -143,7 +143,7 @@ public class TWMainMenu extends Menu {
         lore.add(ChatColor.BLUE+SpecialChar("◆")+"爆擊機率: "+(int)(playerData.getCritChance())+"%");
         lore.add(ChatColor.BLUE+SpecialChar("⚔")+"爆擊傷害: "+(int)(playerData.getCritDamage())+"%");
         lore.add(ChatColor.GOLD+SpecialChar("☣")+"成就點數: "+playerData.getAdvancePoint());
-        lore.add(ChatColor.BLUE+SpecialChar("☠")+"突襲計算: "+playerData.getRaidPoint());
+        lore.add(ChatColor.DARK_PURPLE+SpecialChar("☠")+"突襲計算: "+playerData.getRaidPoint());
         lore.add(ChatColor.DARK_GREEN+SpecialChar("⦾")+"累積簽到: "+playerData.getSignInCount());
         lore.add(ChatColor.GREEN+SpecialChar("☘")+"幸運值: "+String.format("%.1f",playerData.getLuck()));
         lore.add("");

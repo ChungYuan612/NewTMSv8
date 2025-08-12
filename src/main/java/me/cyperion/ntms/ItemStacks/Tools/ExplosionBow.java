@@ -97,7 +97,7 @@ public class ExplosionBow implements Listener {
 
         location.getWorld().spawnParticle(Particle.EXPLOSION, location, 2);
         location.getWorld().spawnParticle(Particle.FLAME, location, 1, 0.5, 0.5, 0.5, 0.02);
-        Collection<Entity> nearbyEntities= location.getWorld().getNearbyEntities(location, 2, 2, 2, entity -> {
+        Collection<Entity> nearbyEntities= location.getWorld().getNearbyEntities(location, 2.6, 2.6, 2.6, entity -> {
             if(entity instanceof Monster || entity instanceof Player)
                 return true;
             return false;
@@ -108,15 +108,10 @@ public class ExplosionBow implements Listener {
                 Vector knockback = monster.getLocation().toVector().subtract(location.toVector()).normalize().multiply(0.65);
                 knockback.setY(0.2); // 增加一點垂直力，模仿爆風
                 monster.setVelocity(knockback);
-                if(entity instanceof Player){
-                    Player player1 = (Player) entity;
-                    player1.damage(3);
-                }else{
-                    monster.damage(7);
-                }
+                monster.damage(8,player);
             }
             if(entity instanceof Player player1 && player1.isValid() && !player1.isDead()) {
-                player1.damage(2);
+                player1.damage(2,player);
             }
         }
         event.getEntity().remove();

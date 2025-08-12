@@ -42,7 +42,7 @@ public class ShopMenu extends Menu {
 
     @Override
     public String getMenuName() {
-        return colors("&2商城 &7(第" + currentPage + "頁)");
+        return colors("&2商城");
     }
 
     @Override

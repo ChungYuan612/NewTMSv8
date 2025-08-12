@@ -49,8 +49,12 @@ public class EnderDragonBossSystem implements Listener {
     // 主插件實例
     private final NewTMSv8 plugin;
 
+    //物品類別
+    private DragonArmor dragonArmor;
+    private me.cyperion.ntms.ItemStacks.Item.EnderCrystal enderCrystal;
+
     // BOSS增強配置
-    private static final double BOSS_MAX_HEALTH = 300.0;
+    private static final double BOSS_MAX_HEALTH = 800.0;
     private static final int SKILL_COOLDOWN = 200; // 10秒 (20 ticks/sec)
     private static final int FIREBALL_COOLDOWN = 80; // 4秒
 
@@ -59,10 +63,10 @@ public class EnderDragonBossSystem implements Listener {
 
     // 權重配置
     private static final Map<Integer, Integer> RANK_WEIGHTS = Map.of(
-            1, 45,  // 第1名
-            2, 35,  // 第2名
-            3, 23,  // 第3名
-            4, 13   // 第4名及以後 (默認值)
+            1, 40,  // 第1名
+            2, 36,  // 第2名
+            3, 28,  // 第3名
+            4, 14   // 第4名及以後 (默認值)
     );
 
     /**
@@ -70,6 +74,8 @@ public class EnderDragonBossSystem implements Listener {
      */
     public EnderDragonBossSystem(NewTMSv8 plugin) {
         this.plugin = plugin;
+        dragonArmor = new DragonArmor(plugin);
+        enderCrystal = new me.cyperion.ntms.ItemStacks.Item.EnderCrystal(plugin);
         this.dataFolder = new File(plugin.getDataFolder(), "boss_data");
         if (!dataFolder.exists()) {
             dataFolder.mkdirs();
@@ -634,7 +640,7 @@ public class EnderDragonBossSystem implements Listener {
         if (!event.getEntity().equals(currentBoss)) return;
 
         Player damager = null;
-
+        boolean isProjectile = false;
         // 判斷傷害來源
         if (event.getDamager() instanceof Player) {
             damager = (Player) event.getDamager();
@@ -642,6 +648,7 @@ public class EnderDragonBossSystem implements Listener {
             Projectile projectile = (Projectile) event.getDamager();
             if (projectile.getShooter() instanceof Player) {
                 damager = (Player) projectile.getShooter();
+                isProjectile = true;
             }
         }
 
@@ -650,6 +657,12 @@ public class EnderDragonBossSystem implements Listener {
             if (!isInMainIsland(damager.getLocation())) {
                 damager.sendMessage(ChatColor.RED + "⚠ 只有在本島範圍內的傷害才會被計算！");
                 return;
+            }
+            if(isProjectile && enderCrystal.isHoldingThis(damager)){
+                event.setDamage(event.getDamage() * 1.2);
+            }
+            if(event.getDamage() > BOSS_MAX_HEALTH/10){ //每次最多造成10%傷害，防止秒殺
+                event.setDamage(BOSS_MAX_HEALTH/10);
             }
 
             PlayerBossData data = getPlayerData(damager.getUniqueId());
@@ -678,9 +691,9 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 處理水晶破壞事件
+     * 處理水晶破壞事件 棄用
      */
-    @EventHandler
+    @Deprecated
     public void onBlockBreak(BlockBreakEvent event) {
         if (!bossActive) return;
 
@@ -828,12 +841,12 @@ public class EnderDragonBossSystem implements Listener {
      * 獲取排名符號
      */
     private String getRankSymbol(int rank) {
-        switch (rank) {
-            case 1: return ChatColor.GOLD + "👑";
-            case 2: return ChatColor.WHITE + "🥈";
-            case 3: return ChatColor.YELLOW + "🥉";
-            default: return ChatColor.GRAY + "🏅";
-        }
+        return switch (rank) {
+            case 1 -> ChatColor.GOLD + "👑";
+            case 2 -> ChatColor.WHITE + "🥈";
+            case 3 -> ChatColor.YELLOW + "🥉";
+            default -> ChatColor.GRAY + "🏅";
+        };
     }
 
     /**
@@ -888,6 +901,7 @@ public class EnderDragonBossSystem implements Listener {
      * TODO: 自定義獎勵分配方法
      * 在這裡實現你的特殊獎勵邏輯
      */
+
     private void distributeCustomRewards(Player player, int weight, int rank) {
         // TODO: 在這裡添加你的自定義獎勵邏輯
         // 例如：
@@ -898,24 +912,32 @@ public class EnderDragonBossSystem implements Listener {
         // - 成就解鎖等等
         // 排名獎勵
         List<ItemStack> rewards = new ArrayList<>();
+
+        rewards.add(new ItemStack(Material.NETHERITE_SCRAP, weight / 10));
+        player.sendMessage(colors(String.format("&f +&9%dx&f獄隨碎片！",weight / 10)));
+
         if (rank == 1) {
             rewards.add(createCustomItem(Material.DRAGON_HEAD, "§6終界龍征服者", "§7擊敗增強終界龍的證明"));
 
         }
         if(weight >= 40){
-            double left = weight - 40;
-            DragonArmor dragonArmor = new DragonArmor(plugin);
+            double left = weight - 39;
+
             for(int i = 0;i<4;i++){
                 RewardItem dragonReward = new RewardItem(plugin,dragonArmor.getItemStacks()[i], Math.round(6 + left /4));
                 dragonReward.tryDropLoot(player);
             }
         }
 
+        if(weight >= 45){
+            RewardItem endCrystalReward = new RewardItem(plugin,enderCrystal.toItemStackFragment(), 10);
+            endCrystalReward.tryDropLoot(player);
+        }
+
         RewardItem emerald = new RewardItem(plugin,new Emerald_Coins().toItemStack(),5);
         emerald.tryDropLoot(player);
 
-        rewards.add(new ItemStack(Material.NETHERITE_SCRAP, weight / 10));
-        player.sendMessage(colors(String.format("&f +&9%dx&f獄隨碎片！",weight / 10)));
+
 
 
         for(ItemStack itemStack:rewards){
