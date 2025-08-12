@@ -18,6 +18,7 @@ me\cyperion\ntms\ItemStacks\Tools\PureGoldenPickaxe.class
 me\cyperion\ntms\Menu\BaseMenu\MenuListener.class
 me\cyperion\ntms\Event\EnderDragonBossSystem$4.class
 me\cyperion\ntms\ItemStacks\ItemRegister.class
+me\cyperion\ntms\Event\EnderDragonBossSystem$7.class
 me\cyperion\ntms\Class\ClassUpgrade.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedSeeds.class
 me\cyperion\ntms\ItemStacks\Item\Stocks$StockType.class
@@ -73,6 +74,7 @@ me\cyperion\ntms\Event\RaidEvent.class
 me\cyperion\ntms\Damage\DamageIndicator.class
 me\cyperion\ntms\ItemStacks\Item\Emerald_Coins.class
 me\cyperion\ntms\SideBoard\NTMSEvents$EventType.class
+me\cyperion\ntms\Event\EnderDragonBossSystem$8.class
 me\cyperion\ntms\ItemStacks\Item\Materaial\EnchantedObsidian.class
 me\cyperion\ntms\ItemStacks\Armors\DragonArmor.class
 me\cyperion\ntms\Class\ClassType.class
@@ -124,6 +126,7 @@ me\cyperion\ntms\ItemStacks\CraftHandler$1.class
 me\cyperion\ntms\SideBoard\NTMSEvents.class
 me\cyperion\ntms\ItemStacks\Tools\ExplosionBow.class
 me\cyperion\ntms\SQL\TradeDatabaseManager.class
+me\cyperion\ntms\Event\EnderDragonBossSystem$6.class
 me\cyperion\ntms\Event\PlayerChatHandler.class
 me\cyperion\ntms\ModifierType.class
 me\cyperion\ntms\Command\ClassCommand.class

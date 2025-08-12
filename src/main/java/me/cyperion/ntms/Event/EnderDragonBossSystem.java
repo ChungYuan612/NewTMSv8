@@ -769,7 +769,7 @@ public class EnderDragonBossSystem implements Listener {
         if (!bossActive || !(event.getEntity() instanceof EnderDragon)) return;
         if (!event.getEntity().equals(currentBoss)) return;
 
-        endBossFight();
+        endBossFight(false);
     }
 
     /**
@@ -829,7 +829,7 @@ public class EnderDragonBossSystem implements Listener {
     /**
      * 修復版的結束BOSS戰方法
      */
-    private void endBossFight() {
+    private void endBossFight(boolean isForceStop) {
         if (!bossActive) {
             return;
         }
@@ -840,26 +840,32 @@ public class EnderDragonBossSystem implements Listener {
         bossActive = false;
         long fightDuration = System.currentTimeMillis() - bossStartTime;
 
-        // 只為仍在終界的玩家更新生存時間
-        for (UUID playerId : playerData.keySet()) {
-            Player player = Bukkit.getPlayer(playerId);
-            if (player != null && player.isOnline() && isEndWorld(player.getWorld())) {
-                playerData.get(playerId).setSurvivalTime(fightDuration);
-            } else if (player != null && player.isOnline()) {
-                // 玩家不在終界，使用戰鬥開始到玩家離開終界的時間
-                playerData.get(playerId).setSurvivalTime(fightDuration);
+        if(!isForceStop) {
+            // 只為仍在終界的玩家更新生存時間
+            for (UUID playerId : playerData.keySet()) {
+                Player player = Bukkit.getPlayer(playerId);
+                if (player != null && player.isOnline() && isEndWorld(player.getWorld())) {
+                    playerData.get(playerId).setSurvivalTime(fightDuration);
+                } else if (player != null && player.isOnline()) {
+                    // 玩家不在終界，使用戰鬥開始到玩家離開終界的時間
+                    playerData.get(playerId).setSurvivalTime(fightDuration);
+                }
             }
+
+
+            // 生成排行榜
+            List<LeaderboardEntry> leaderboard = generateLeaderboard();
+
+            // 顯示結果
+            displayResults(leaderboard, fightDuration);
+
+            // 給予獎勵
+            distributeRewards(leaderboard);
+
+        }else if (isForceStop){
+            currentBoss.remove();
+            plugin.getLogger().info("已強制結束掉Boss戰鬥。");
         }
-
-        // 生成排行榜
-        List<LeaderboardEntry> leaderboard = generateLeaderboard();
-
-        // 顯示結果
-        displayResults(leaderboard, fightDuration);
-
-        // 分配獎勵 - 只給在線玩家
-        distributeRewards(leaderboard);
-
         // 清理數據
         currentBoss = null;
         currentBossUUID = null;
@@ -1055,7 +1061,7 @@ public class EnderDragonBossSystem implements Listener {
         // 停止所有任務
         stopAllTasks();
 
-        endBossFight();
+        endBossFight(true);
         return true;
     }
 
@@ -1185,7 +1191,7 @@ public class EnderDragonBossSystem implements Listener {
         // 檢查BOSS是否還存在
         if (currentBoss.isDead() || !currentBoss.isValid()) {
             plugin.getLogger().warning("BOSS已死亡或無效，結束戰鬥");
-            endBossFight();
+            endBossFight(true);
             return;
         }
 
