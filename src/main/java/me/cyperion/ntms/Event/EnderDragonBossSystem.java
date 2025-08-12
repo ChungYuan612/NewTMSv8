@@ -164,42 +164,61 @@ public class EnderDragonBossSystem implements Listener {
                     for (Entity entity : theEnd.getEntities()) {
                         if (entity instanceof EnderDragon && entity.getUniqueId().equals(currentBossUUID)) {
                             currentBoss = (EnderDragon) entity;
-                            resumeBossFight();
+
+                            // 檢查BOSS是否還活著
+                            if (!currentBoss.isDead()) {
+                                resumeBossFight();
+                            } else {
+                                plugin.getLogger().info("檢測到已死亡的BOSS，清理數據");
+                                cleanupBossData();
+                            }
                             return;
                         }
                     }
                 }
 
                 // 如果沒找到BOSS龍，清理數據
-                currentBossUUID = null;
-                bossActive = false;
-                saveBossData();
+                plugin.getLogger().info("未找到對應的BOSS龍，清理數據");
+                cleanupBossData();
             }
         }.runTaskLater(plugin, 60L); // 3秒後檢查
     }
 
     /**
-     * 恢復BOSS戰
+     * 修復版的恢復BOSS戰方法 plus
      */
     private void resumeBossFight() {
         if (currentBoss == null || currentBoss.isDead()) {
+            plugin.getLogger().warning("無法恢復BOSS戰 - BOSS不存在或已死亡");
+            cleanupBossData();
             return;
         }
 
         bossActive = true;
 
         // 確保BOSS屬性正確
-        currentBoss .setMaxHealth(BOSS_MAX_HEALTH);
-        currentBoss.setCustomName(ChatColor.DARK_PURPLE + "增強終界龍");
-        currentBoss.setCustomNameVisible(true);
+        try {
+            currentBoss.setMaxHealth(BOSS_MAX_HEALTH);
+            currentBoss.setCustomName(ChatColor.DARK_PURPLE + "終界龍");
+            currentBoss.setCustomNameVisible(true);
 
-        // 重新開始技能循環
-        startBossSkillCycle();
+            // 重新開始技能循環
+            startBossSkillCycle();
 
-        Bukkit.broadcastMessage(ChatColor.GOLD + "===============================");
-        Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "    🐲 BOSS戰已恢復！ 🐲");
-        Bukkit.broadcastMessage(ChatColor.YELLOW + "繼續戰鬥，數據已保留！");
-        Bukkit.broadcastMessage(ChatColor.GOLD + "===============================");
+            // 開始自動保存
+            startAutoSave();
+
+            plugin.getLogger().info("BOSS戰已成功恢復");
+
+            Bukkit.broadcastMessage(ChatColor.GOLD + "===============================");
+            Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "    🐲 BOSS戰已恢復！ 🐲");
+            Bukkit.broadcastMessage(ChatColor.YELLOW + "繼續戰鬥，數據已保留！");
+            Bukkit.broadcastMessage(ChatColor.GOLD + "===============================");
+
+        } catch (Exception e) {
+            plugin.getLogger().severe("恢復BOSS戰時發生錯誤: " + e.getMessage());
+            cleanupBossData();
+        }
     }
 
     /**
@@ -258,7 +277,7 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 使用現有終界龍開始BOSS戰
+     * 使用現有終界龍開始BOSS戰 plus
      */
     private void startBossFightWithExistingDragon(EnderDragon dragon) {
         // 清理舊數據
@@ -276,6 +295,9 @@ public class EnderDragonBossSystem implements Listener {
         // 開始BOSS技能循環
         startBossSkillCycle();
 
+        // 開始自動保存
+        startAutoSave();
+
         // 保存數據
         saveBossData();
 
@@ -284,6 +306,8 @@ public class EnderDragonBossSystem implements Listener {
         Bukkit.broadcastMessage(ChatColor.GOLD + StringUtils.center("    🐲 終界龍重生！BOSS戰開始！ 🐲",40,' '));
         Bukkit.broadcastMessage(ChatColor.YELLOW + StringUtils.center("血量: " + ChatColor.RED + (int)BOSS_MAX_HEALTH + "❤",40,' '));
         Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "===============================");
+
+        plugin.getLogger().info("使用現有終界龍開始BOSS戰");
     }
 
     /**
@@ -397,14 +421,18 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 定期保存數據
+     * 改進的自動保存，增加系統檢查
      */
     private void startAutoSave() {
         new BukkitRunnable() {
             @Override
             public void run() {
                 if (bossActive) {
+                    // 每次自動保存時也檢查系統狀態
+                    validateAndRepairBossSystem();
                     saveBossData();
+                } else {
+                    this.cancel(); // BOSS戰結束時停止自動保存
                 }
             }
         }.runTaskTimerAsynchronously(plugin, 1200L, 1200L); // 每分鐘保存一次
@@ -429,35 +457,69 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 開始BOSS技能循環
+     * 修復後的技能循環系統 - 使用分離的任務
      */
     private void startBossSkillCycle() {
-        new BukkitRunnable() {
-            private int tickCounter = 0;
+        // 停止現有任務
+        stopAllTasks();
 
+        // 技能執行任務
+        skillTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!bossActive || currentBoss == null || currentBoss.isDead() || !isEndWorld(currentBoss.getWorld())) {
+                    plugin.getLogger().warning("BOSS技能任務異常停止 - BOSS狀態檢查失敗");
+                    stopAllTasks();
+                    return;
+                }
+
+                long currentTime = System.currentTimeMillis();
+
+                // 檢查是否有玩家在終界
+                World endWorld = currentBoss.getWorld();
+                boolean hasPlayersInEnd = endWorld.getPlayers().size() > 0;
+
+                if (!hasPlayersInEnd) {
+                    // 如果沒有玩家在終界，延長技能冷卻時間但不停止任務
+                    return;
+                }
+
+                // 執行特殊技能 (每10秒)
+                if (currentTime - lastSkillTime >= 10000) {
+                    executeRandomSkill();
+                    lastSkillTime = currentTime;
+                }
+
+                // 執行火球攻擊 (每4秒)
+                if (currentTime - lastFireballTime >= 4000) {
+                    fireballAttack();
+                    lastFireballTime = currentTime;
+                }
+            }
+        };
+
+        // 血量更新任務
+        healthUpdateTask = new BukkitRunnable() {
             @Override
             public void run() {
                 if (!bossActive || currentBoss == null || currentBoss.isDead()) {
                     this.cancel();
                     return;
                 }
-
-                tickCounter++;
-
-                // 每9秒執行特殊技能
-                if (tickCounter % SKILL_COOLDOWN == 0) {
-                    executeRandomSkill();
-                }
-
-                // 每4秒發射火球
-                if (tickCounter % FIREBALL_COOLDOWN == 0) {
-                    fireballAttack();
-                }
-
-                // 更新血量顯示
                 updateBossHealthDisplay();
             }
-        }.runTaskTimer(plugin, 0L, 1L);
+        };
+
+        // 啟動任務
+        skillTask.runTaskTimer(plugin, 0L, 20L); // 每秒檢查一次
+        healthUpdateTask.runTaskTimer(plugin, 0L, 10L); // 每0.5秒更新血量
+        skillTaskActive = true;
+
+        // 初始化時間
+        lastSkillTime = System.currentTimeMillis();
+        lastFireballTime = System.currentTimeMillis();
+
+        plugin.getLogger().info("BOSS技能循環已啟動");
     }
 
     /**
@@ -576,19 +638,39 @@ public class EnderDragonBossSystem implements Listener {
      * 火球攻擊
      */
     private void fireballAttack() {
-        Collection<? extends Player> players = currentBoss.getWorld().getPlayers();
+        if (currentBoss == null || currentBoss.isDead()) {
+            return;
+        }
+
+        World endWorld = currentBoss.getWorld();
+        Collection<? extends Player> players = endWorld.getPlayers();
+
         if (players.isEmpty()) return;
 
-        Player target = (Player) players.toArray()[new Random().nextInt(players.size())];
+        // 選擇在本島範圍內的玩家
+        List<Player> validTargets = new ArrayList<>();
+        for (Player player : players) {
+            if (isInMainIsland(player.getLocation())) {
+                validTargets.add(player);
+            }
+        }
 
-        Fireball fireball = currentBoss.getWorld().spawn(
-                currentBoss.getLocation().add(currentBoss.getLocation().getDirection().multiply(2)),
-                Fireball.class
-        );
+        if (validTargets.isEmpty()) return;
 
-        Vector direction = target.getLocation().subtract(fireball.getLocation()).toVector().normalize();
-        fireball.setDirection(direction);
-        fireball.setShooter(currentBoss);
+        Player target = validTargets.get(new Random().nextInt(validTargets.size()));
+
+        try {
+            Fireball fireball = currentBoss.getWorld().spawn(
+                    currentBoss.getLocation().add(currentBoss.getLocation().getDirection().multiply(2)),
+                    Fireball.class
+            );
+
+            Vector direction = target.getLocation().subtract(fireball.getLocation()).toVector().normalize();
+            fireball.setDirection(direction);
+            fireball.setShooter(currentBoss);
+        } catch (Exception e) {
+            plugin.getLogger().warning("火球攻擊執行失敗: " + e.getMessage());
+        }
     }
 
     private void sendMessage(String message){
@@ -745,16 +827,26 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 結束BOSS戰
+     * 修復版的結束BOSS戰方法
      */
     private void endBossFight() {
+        if (!bossActive) {
+            return;
+        }
+
+        // 停止所有任務
+        stopAllTasks();
+
         bossActive = false;
         long fightDuration = System.currentTimeMillis() - bossStartTime;
 
-        // 更新玩家生存時間
+        // 只為仍在終界的玩家更新生存時間
         for (UUID playerId : playerData.keySet()) {
             Player player = Bukkit.getPlayer(playerId);
-            if (player != null && player.isOnline()) {
+            if (player != null && player.isOnline() && isEndWorld(player.getWorld())) {
+                playerData.get(playerId).setSurvivalTime(fightDuration);
+            } else if (player != null && player.isOnline()) {
+                // 玩家不在終界，使用戰鬥開始到玩家離開終界的時間
                 playerData.get(playerId).setSurvivalTime(fightDuration);
             }
         }
@@ -765,7 +857,7 @@ public class EnderDragonBossSystem implements Listener {
         // 顯示結果
         displayResults(leaderboard, fightDuration);
 
-        // 分配獎勵
+        // 分配獎勵 - 只給在線玩家
         distributeRewards(leaderboard);
 
         // 清理數據
@@ -776,6 +868,8 @@ public class EnderDragonBossSystem implements Listener {
         // 刪除保存的數據文件
         if (bossDataFile.exists()) bossDataFile.delete();
         if (playerDataFile.exists()) playerDataFile.delete();
+
+        plugin.getLogger().info("BOSS戰已結束，數據已清理");
     }
 
     /**
@@ -850,13 +944,15 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 分配獎勵
+     * 分配獎勵 plus
      */
     private void distributeRewards(List<LeaderboardEntry> leaderboard) {
         for (LeaderboardEntry entry : leaderboard) {
             Player player = Bukkit.getPlayer(entry.getPlayerId());
             if (player != null && player.isOnline()) {
                 giveRewardToPlayer(player, entry.getWeight(), entry.getRank());
+            } else {
+                plugin.getLogger().info("玩家 " + entry.getPlayerName() + " 不在線，無法領取獎勵");
             }
         }
     }
@@ -946,14 +1042,19 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 管理員命令：強制結束BOSS戰
+     * 管理員命令：強制結束BOSS戰 plus
      */
     public boolean forceEndBossFight() {
         if (!bossActive) {
             return false;
         }
 
+        plugin.getLogger().info("管理員強制結束BOSS戰");
         Bukkit.broadcastMessage(ChatColor.RED + "管理員強制結束了BOSS戰！");
+
+        // 停止所有任務
+        stopAllTasks();
+
         endBossFight();
         return true;
     }
@@ -1004,7 +1105,7 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 手動開始BOSS戰 (用於測試或管理員命令)
+     * 手動開始BOSS戰 (用於測試或管理員命令) plus
      */
     public boolean startBossFight(World world, Location spawnLocation) {
         if (bossActive) {
@@ -1036,14 +1137,183 @@ public class EnderDragonBossSystem implements Listener {
 
         // 廣播開始消息
         Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "===============================");
-        Bukkit.broadcastMessage(ChatColor.GOLD + "    🐲 終界龍BOSS戰開始！ 🐲");
+        Bukkit.broadcastMessage(ChatColor.GOLD + "    🐲 終界龍BOSS戰開始！ 管理員模式🐲");
         Bukkit.broadcastMessage(ChatColor.YELLOW + "血量: " + ChatColor.RED + (int)BOSS_MAX_HEALTH + "❤");
-        Bukkit.broadcastMessage(ChatColor.GRAY + "只有在本島戰鬥才計算傷害！");
         Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "===============================");
 
+        plugin.getLogger().info("手動開始BOSS戰");
         return true;
     }
 
+
+    // 在 EnderDragonBossSystem 類中添加以下代碼
+
+    // 添加新的實例變量
+    private BukkitRunnable skillTask;
+    private BukkitRunnable healthUpdateTask;
+    private boolean skillTaskActive = false;
+    private long lastSkillTime = 0;
+    private long lastFireballTime = 0;
+
+
+
+    /**
+     * 停止所有運行中的任務
+     */
+    private void stopAllTasks() {
+        if (skillTask != null && !skillTask.isCancelled()) {
+            skillTask.cancel();
+            plugin.getLogger().info("技能任務已停止");
+        }
+
+        if (healthUpdateTask != null && !healthUpdateTask.isCancelled()) {
+            healthUpdateTask.cancel();
+            plugin.getLogger().info("血量更新任務已停止");
+        }
+
+        skillTaskActive = false;
+    }
+
+    /**
+     * 檢查並修復BOSS系統狀態
+     */
+    private void validateAndRepairBossSystem() {
+        if (!bossActive || currentBoss == null) {
+            return;
+        }
+
+        // 檢查BOSS是否還存在
+        if (currentBoss.isDead() || !currentBoss.isValid()) {
+            plugin.getLogger().warning("BOSS已死亡或無效，結束戰鬥");
+            endBossFight();
+            return;
+        }
+
+        // 檢查技能任務是否還在運行
+        if (!skillTaskActive || skillTask == null || skillTask.isCancelled()) {
+            plugin.getLogger().warning("檢測到技能任務異常，正在重啟...");
+            startBossSkillCycle();
+        }
+
+        // 確保BOSS屬性正確
+        if (currentBoss.getMaxHealth() != BOSS_MAX_HEALTH) {
+            currentBoss.setMaxHealth(BOSS_MAX_HEALTH);
+            plugin.getLogger().info("已修復BOSS最大血量");
+        }
+
+        // 確保BOSS名稱正確
+        if (currentBoss.getCustomName() == null || !currentBoss.getCustomName().contains("終界龍")) {
+            updateBossHealthDisplay();
+            plugin.getLogger().info("已修復BOSS顯示名稱");
+        }
+    }
+
+    /**
+     * 玩家進入終界事件監聽 - 添加到現有的事件處理中
+     */
+    @EventHandler
+    public void onPlayerChangedWorld(org.bukkit.event.player.PlayerChangedWorldEvent event) {
+        Player player = event.getPlayer();
+        World toWorld = player.getWorld();
+
+        // 如果玩家進入終界且BOSS戰正在進行
+        if (bossActive && isEndWorld(toWorld)) {
+            // 延遲檢查系統狀態
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    validateAndRepairBossSystem();
+
+                    // 如果玩家之前參與過戰鬥，歡迎回來
+                    if (playerData.containsKey(player.getUniqueId())) {
+                        player.sendMessage(ChatColor.GOLD + "歡迎回到BOSS戰！你的數據已保留。");
+                        player.sendMessage(getPlayerStats(player));
+                    }
+                }
+            }.runTaskLater(plugin, 20L); // 1秒後檢查
+        }
+    }
+
+    /**
+     * 區塊載入事件 - 確保BOSS區域載入後系統正常
+     */
+    @EventHandler
+    public void onChunkLoad(ChunkLoadEvent event) {
+        if (!bossActive || !isEndWorld(event.getWorld())) {
+            return;
+        }
+
+        // 檢查載入的區塊是否包含BOSS
+        if (currentBoss != null) {
+            Chunk bossChunk = currentBoss.getLocation().getChunk();
+            if (event.getChunk().getX() == bossChunk.getX() &&
+                    event.getChunk().getZ() == bossChunk.getZ()) {
+
+                // BOSS區塊被載入，驗證系統狀態
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        validateAndRepairBossSystem();
+                    }
+                }.runTaskLater(plugin, 10L); // 0.5秒後檢查
+            }
+        }
+    }
+
+
+
+    /**
+     * 清理BOSS數據
+     */
+    private void cleanupBossData() {
+        currentBossUUID = null;
+        bossActive = false;
+        stopAllTasks();
+        saveBossData();
+        plugin.getLogger().info("已清理無效的BOSS數據");
+    }
+
+
+
+
+
+    /**
+     * 添加系統狀態檢查命令方法
+     */
+    public String getSystemStatus() {
+        StringBuilder status = new StringBuilder();
+        status.append(ChatColor.GOLD).append("=== BOSS系統狀態 ===\n");
+        status.append(ChatColor.YELLOW).append("BOSS戰活躍: ").append(bossActive ? "是" : "否").append("\n");
+
+        if (bossActive) {
+            status.append(ChatColor.YELLOW).append("BOSS存在: ").append(currentBoss != null && !currentBoss.isDead() ? "是" : "否").append("\n");
+            status.append(ChatColor.YELLOW).append("技能任務運行: ").append(skillTaskActive && skillTask != null && !skillTask.isCancelled() ? "是" : "否").append("\n");
+            status.append(ChatColor.YELLOW).append("血量更新運行: ").append(healthUpdateTask != null && !healthUpdateTask.isCancelled() ? "是" : "否").append("\n");
+
+            if (currentBoss != null && !currentBoss.isDead()) {
+                World endWorld = currentBoss.getWorld();
+                status.append(ChatColor.YELLOW).append("終界玩家數量: ").append(endWorld.getPlayers().size()).append("\n");
+                status.append(ChatColor.YELLOW).append("BOSS血量: ").append(String.format("%.1f/%.1f", currentBoss.getHealth(), BOSS_MAX_HEALTH)).append("\n");
+            }
+
+            status.append(ChatColor.YELLOW).append("參與玩家: ").append(playerData.size()).append("人\n");
+        }
+
+        return status.toString();
+    }
+
+    /**
+     * 強制修復系統的管理員方法
+     */
+    public boolean forceRepairSystem() {
+        if (!bossActive) {
+            return false;
+        }
+
+        plugin.getLogger().info("管理員觸發強制修復系統");
+        validateAndRepairBossSystem();
+        return true;
+    }
 
 
     /**
@@ -1063,13 +1333,18 @@ public class EnderDragonBossSystem implements Listener {
     }
 
     /**
-     * 關閉系統
+     * 關閉系統 plus
      */
     public void shutdown() {
+        // 停止所有運行中的任務
+        stopAllTasks();
+
         if (bossActive) {
             saveBossData();
             plugin.getLogger().info("BOSS戰數據已保存");
         }
+
+        plugin.getLogger().info("終界龍BOSS系統已關閉");
     }
     /**
      * 檢查世界是否為終界

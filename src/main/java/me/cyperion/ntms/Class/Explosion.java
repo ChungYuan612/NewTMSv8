@@ -10,10 +10,7 @@ import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Warden;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -293,12 +290,12 @@ public class Explosion extends Class implements Listener {
         double finalDamage = DAMAGE + Math.pow(plugin.getPlayerData(player).getMaxMana(), 1.5d); //傷害為 600 + MaxMana^1.5
         // 2. 對範圍內所有敵對生物造成傷害
         for (Entity e : world.getNearbyEntities(center, EXPLOSION_RANGE, EXPLOSION_RANGE*2, EXPLOSION_RANGE)) {
-            if (e instanceof Monster) {
+            if (e instanceof Enemy) {
                 if(e.hasMetadata(RaidEvent.META_RAID_BUFF) && e instanceof Warden warden){
                     Bukkit.broadcastMessage(colors("&c[BOSS] &d"+warden.getCustomName()+"&f: "+wardenMessages[random.nextInt(wardenMessages.length)]));
                 }
                 // 造成傷害
-                Monster monster = (Monster) e;
+                Enemy monster = (Monster) e;
                 monster.damage(DAMAGE+finalDamage, player);
                 // 顯示傷害指示粒子
                 world.spawnParticle(Particle.DAMAGE_INDICATOR, e.getLocation().add(0, 1, 0), 20);

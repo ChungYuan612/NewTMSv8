@@ -10,10 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -98,12 +95,12 @@ public class ExplosionBow implements Listener {
         location.getWorld().spawnParticle(Particle.EXPLOSION, location, 2);
         location.getWorld().spawnParticle(Particle.FLAME, location, 1, 0.5, 0.5, 0.5, 0.02);
         Collection<Entity> nearbyEntities= location.getWorld().getNearbyEntities(location, 2.6, 2.6, 2.6, entity -> {
-            if(entity instanceof Monster || entity instanceof Player)
+            if(entity instanceof Enemy || entity instanceof Player)
                 return true;
             return false;
         });
         for (Entity entity : nearbyEntities) {
-            if(entity instanceof Monster monster && monster.isValid() && !monster.isDead()) {
+            if(entity instanceof Enemy monster && monster.isValid() && !monster.isDead()) {
                 // 計算從中心往外的方向向量
                 Vector knockback = monster.getLocation().toVector().subtract(location.toVector()).normalize().multiply(0.65);
                 knockback.setY(0.2); // 增加一點垂直力，模仿爆風

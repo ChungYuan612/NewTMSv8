@@ -329,7 +329,7 @@ public class DragonArmor implements PieceFullBouns, Listener {
                     if (entity == shooter) continue;
                     if (entity instanceof Player) continue;
                     if (entity instanceof Enderman) continue;
-                    if (!(entity instanceof Monster)) continue;
+                    if (!(entity instanceof Enemy)) continue;
                     if (entity.getLocation().distance(arrow.getLocation()) <= minDistance) {
                         target = entity;
                         minDistance = entity.getLocation().distance(arrow.getLocation());

@@ -5,9 +5,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class DragonBossCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DragonBossCommand implements CommandExecutor, TabCompleter {
     private NewTMSv8 plugin;
 
     public DragonBossCommand(NewTMSv8 plugin) {
@@ -17,7 +24,7 @@ public class DragonBossCommand implements CommandExecutor {
     // 管理員命令示例
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("draganboss")) {
+        if (command.getName().equalsIgnoreCase("dragonboss")) {
             if (!sender.hasPermission("draganboss.admin")) {
                 sender.sendMessage(ChatColor.RED + "你沒有權限使用此命令！");
                 return true;
@@ -59,6 +66,10 @@ public class DragonBossCommand implements CommandExecutor {
                         sender.sendMessage(ChatColor.RED + "只有玩家可以查看統計！");
                     }
                     break;
+                case "repair":
+                    plugin.getBossSystem().forceRepairSystem();
+                    sender.sendMessage(ChatColor.GREEN + "強制修復系統完畢！");
+                    break;
 
                 default:
                     sender.sendMessage(ChatColor.RED + "未知的子命令！");
@@ -66,5 +77,22 @@ public class DragonBossCommand implements CommandExecutor {
             return true;
         }
         return false;
+    }
+
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] args) {
+        List<String> completions = new ArrayList<>();
+
+        if(args.length == 1) {
+            List<String> options = new ArrayList<>();
+            options.add("start");
+            options.add("end");
+            options.add("status");
+            options.add("stats");
+            options.add("repair");
+            StringUtil.copyPartialMatches(args[0],options,completions);
+        }
+        return completions;
     }
 }

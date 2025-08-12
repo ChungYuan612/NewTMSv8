@@ -179,6 +179,7 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("class").setExecutor(new ClassCommand(this));
         getCommand("sign").setExecutor(new SignCommand(this));
         getCommand("dragonboss").setExecutor(new DragonBossCommand(this));
+        getCommand("dragonboss").setTabCompleter(new DragonBossCommand(this));
 
 
         //TPA 3個指令
