@@ -143,6 +143,7 @@ public class MonsterRegister implements Listener {
             plugin.getLogger().info("老衲死了");
             //分紅
             for(Player player: Bukkit.getOnlinePlayers()){
+                if(!player.getWorld().equals(event.getEntity().getWorld())) continue;
                 if(player.getLocation().distance(event.getEntity().getLocation()) > 50) continue;
                 double rewardCoins = random.nextInt(50,200);
                 plugin.getEconomy().depositPlayer(player, rewardCoins);

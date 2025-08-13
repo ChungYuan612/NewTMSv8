@@ -863,7 +863,8 @@ public class EnderDragonBossSystem implements Listener {
             distributeRewards(leaderboard);
 
         }else if (isForceStop){
-            currentBoss.remove();
+            currentBoss.setPhase(EnderDragon.Phase.DYING);
+            Bukkit.broadcastMessage(ChatColor.RED + "討伐失敗，終界龍已重置");
             plugin.getLogger().info("已強制結束掉Boss戰鬥。");
         }
         // 清理數據
