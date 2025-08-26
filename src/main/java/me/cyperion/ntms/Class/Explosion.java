@@ -295,7 +295,7 @@ public class Explosion extends Class implements Listener {
                     Bukkit.broadcastMessage(colors("&c[BOSS] &d"+warden.getCustomName()+"&f: "+wardenMessages[random.nextInt(wardenMessages.length)]));
                 }
                 // 造成傷害
-                Enemy monster = (Monster) e;
+                Enemy monster = (Enemy) e;
                 monster.damage(DAMAGE+finalDamage, player);
                 // 顯示傷害指示粒子
                 world.spawnParticle(Particle.DAMAGE_INDICATOR, e.getLocation().add(0, 1, 0), 20);

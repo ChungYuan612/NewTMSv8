@@ -55,7 +55,7 @@ public class PlayerFishingEvent implements Listener {
         this.plugin = plugin;
         fishingRewardList.add(new FishingReward(jadeCore.toItemStack(), 0.85d,1.0d));
         fishingRewardList.add(new FishingReward(null, 3d,3.5d));
-        fishingRewardList.add(new FishingReward(mysteryTurtleEgg.toItemStack(), 0.01d,0.011d));
+        fishingRewardList.add(new FishingReward(mysteryTurtleEgg.toItemStack(), 0.02d,0.022d));
     }
 
     @EventHandler
