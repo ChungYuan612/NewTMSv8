@@ -27,7 +27,11 @@ public class PlayerChatHandler implements Listener {
         String message = event.getMessage();
         Player player = event.getPlayer();
         String prefix = getPerfix(player);
-        String s = colors(plugin.getConfig().getStringList(player.getUniqueId().toString()).get(2));
+        String sp = "&7";
+        try{
+            sp = plugin.getConfig().getStringList(player.getUniqueId().toString()).get(2);
+        } catch (Exception _) { }
+        String s = colors(sp);
         if(message.startsWith("&"))
             message = colors(message);
         event.setMessage(message.trim());

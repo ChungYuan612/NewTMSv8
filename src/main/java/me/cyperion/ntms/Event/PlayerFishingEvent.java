@@ -51,6 +51,8 @@ public class PlayerFishingEvent implements Listener {
 
     private final int lauNaHealth = 40;
 
+    private int fishingNoTurtleEgg = 0;
+
     public PlayerFishingEvent(NewTMSv8 plugin) {
         this.plugin = plugin;
         fishingRewardList.add(new FishingReward(jadeCore.toItemStack(), 0.85d,1.0d));
@@ -96,6 +98,11 @@ public class PlayerFishingEvent implements Listener {
                 rate *=1.5;//釣魚祭
             }
             Player player = event.getPlayer();
+            if(reward.rainyRate == 0.022d){
+                if(fishingNoTurtleEgg>0)
+                    rate += fishingNoTurtleEgg * 0.001;
+                if(rate >1) rate = 1;
+            }
             double value = rate;
             double base = rate;
             double luckbouns = plugin.getPlayerData(player).getLuck();
@@ -103,6 +110,10 @@ public class PlayerFishingEvent implements Listener {
 
             double v = Math.random() * 100;
             if(v < value){//這個v在機率門檻內
+
+                if(reward.rainyRate == 0.022d){
+                    fishingNoTurtleEgg = 0;
+                }
 
                 if(reward.reward == null){
                     double coins = random.nextDouble(50,1200);
@@ -124,7 +135,7 @@ public class PlayerFishingEvent implements Listener {
                     else
                         player.sendMessage(colors("&6[稀有釣魚] &f"
                                 +reward.reward.clone().getItemMeta().getDisplayName()+" &b("+df.format(base)+"%)&f!"));
-                    if(value < 0.1d)
+                    if(value < 0.75d)
                         Bukkit.broadcastMessage(colors("&6[廣播] &b"+event.getPlayer().getDisplayName()+"&f 釣起了 "+reward.reward.getItemMeta().getDisplayName()+"&f!"));
 
                 }
