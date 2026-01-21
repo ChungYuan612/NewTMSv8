@@ -73,7 +73,8 @@ public class DamageIndicator implements Listener {
                     }
                 }
                 for (String each : HoloMobHealth.disabledMobNamesContains) {
-                    if (ChatColorUtils.stripColor(customName.toLowerCase()).contains(ChatColorUtils.stripColor(ChatColorUtils.translateAlternateColorCodes('&', each).toLowerCase()))) {
+                    if (ChatColorUtils.stripColor(customName.toLowerCase())
+                            .contains(ChatColorUtils.stripColor(ChatColorUtils.translateAlternateColorCodes('&', each).toLowerCase()))) {
                         return;
                     }
                 }

@@ -1,6 +1,5 @@
 package me.cyperion.ntms;
 
-import com.loohp.holomobhealth.api.HoloMobHealthAPI;
 import me.cyperion.ntms.Bazaar.Data.CommodityMarketAPI;
 import me.cyperion.ntms.Bazaar.Data.SQLiteDatabase;
 import me.cyperion.ntms.Class.Bard;
@@ -12,6 +11,7 @@ import me.cyperion.ntms.Damage.ArmorStandPacket;
 import me.cyperion.ntms.Damage.DamageIcon;
 import me.cyperion.ntms.Damage.DamageIndicator;
 import me.cyperion.ntms.Event.*;
+import me.cyperion.ntms.Event.EventDetail.ScratchManager;
 import me.cyperion.ntms.ItemStacks.CartographyBlocker;
 import me.cyperion.ntms.ItemStacks.CraftHandler;
 import me.cyperion.ntms.ItemStacks.ItemRegister;
@@ -23,7 +23,7 @@ import me.cyperion.ntms.Player.PlayerData;
 import me.cyperion.ntms.Player.PlayerJoinServerController;
 import me.cyperion.ntms.Player.PlayerQuitServer;
 import me.cyperion.ntms.SQL.TradeDatabaseManager;
-import me.cyperion.ntms.SideBoard.NTMSEvents;
+import me.cyperion.ntms.Event.NTMSEvents;
 import me.cyperion.ntms.SideBoard.TWPlayerSideBoard;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -49,6 +49,7 @@ import static me.cyperion.ntms.Utils.colors;
 public final class NewTMSv8 extends JavaPlugin {
 
     private TradeDatabaseManager dbManager;
+    private Configuration scratchConfig;
 
     public boolean UNDER_MAINTENANCE = false; //是否正在維修
     private TMWorldTimer tmWorldTimer;
@@ -85,16 +86,20 @@ public final class NewTMSv8 extends JavaPlugin {
 
     private EnderDragonBossSystem bossSystem;
 
+    private ScratchManager scratchManager;
+
 
     @Override
     public void onEnable() {
         //this.getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+        scratchConfig = getConfigFile("scratch.yml");
 
         getServer().setMotd(colors(
                 "              "+"&6&lNTMS &e臺灣地圖伺服器 &a"+getConfig().getString("Version") + "\n" +
-                "         "+"&9爆擊&f與&d終界BOSS更新&f...還有很多更新！ &b歡迎加入!")
+                "       "+"&d海龜蛋RNG&f與&6全民樂透&f...還有很多更新！ &b歡迎加入!")
         );
+
 
 
         //資源界
@@ -135,7 +140,10 @@ public final class NewTMSv8 extends JavaPlugin {
         this.twPlayerSideBoard = new TWPlayerSideBoard(this);
         getServer().getPluginManager().registerEvents(twPlayerSideBoard,this);
         this.twPlayerSideBoard.runTaskTimer(this,0L,8L);//8刻跑一次，一秒2.5次
-        this.ntmsEvents = new NTMSEvents();
+        this.ntmsEvents = new NTMSEvents(this);
+        //樂透刮刮樂活動系統
+        this.scratchManager = new ScratchManager(this);
+        this.scratchManager.initialize();
 
         damageIndicator = new DamageIndicator(this);
         getServer().getPluginManager().registerEvents(damageIndicator,this);
@@ -181,6 +189,10 @@ public final class NewTMSv8 extends JavaPlugin {
         getCommand("dragonboss").setExecutor(new DragonBossCommand(this));
         getCommand("dragonboss").setTabCompleter(new DragonBossCommand(this));
 
+        getCommand("scratch").setExecutor(new ScratchCommand(scratchManager));
+        getCommand("scratch_click").setExecutor(new ScratchClickCommand(this));
+
+
 
         //TPA 3個指令
         TpaCommand tpaCommand = new TpaCommand();
@@ -210,7 +222,9 @@ public final class NewTMSv8 extends JavaPlugin {
     @Override
     public void onDisable() {
         super.onDisable();
-        
+        if (scratchManager != null) {
+            scratchManager.shutdown();
+        }
         DamageIcon.damageIcons
                 .forEach((entity, integer) ->
                         entity.remove()
@@ -246,6 +260,10 @@ public final class NewTMSv8 extends JavaPlugin {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         perms = rsp.getProvider();
         return perms != null;
+    }
+
+    public ScratchManager getScratchManager() {
+        return scratchManager;
     }
 
     public World getResourceWorld(){
@@ -310,6 +328,10 @@ public final class NewTMSv8 extends JavaPlugin {
 
     public EnderDragonBossSystem getBossSystem() {
         return bossSystem;
+    }
+
+    public Configuration getScratchConfig() {
+        return scratchConfig;
     }
 
     //自定義Config

@@ -1,0 +1,25 @@
+# 需要點擊幾次才能揭露（預設 5）
+clicks_to_reveal: 5
+
+# 刮刮卡在記憶體中的存活秒數（預設 1200 秒 = 20 分鐘）
+scratch_ttl_seconds: 1200
+
+# 清理過期刮刮卡的間隔秒數
+cleanup_interval_seconds: 20
+
+# 每位玩家在同一場活動最多可刮幾張
+max_per_player_per_event: 3
+
+# 是否透過 Vault 發放經濟（需安裝 Vault 與 Economy provider）
+give_economy: true
+
+# 刮刮樂獎池（weights 用來決定機率）
+prize_pool:
+  - amount: 20
+    weight: 50
+  - amount: 100
+    weight: 35
+  - amount: 500
+    weight: 14
+  - amount: 5000
+    weight: 1

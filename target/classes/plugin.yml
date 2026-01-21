@@ -1,5 +1,5 @@
 name: NewTMSv8
-version: '8.8.2'
+version: '8.8.3'
 main: me.cyperion.ntms.NewTMSv8
 softdepend: [Vault,Skulls,HoloMobHealth,ProtocolLib]
 api-version: '1.21'
@@ -37,3 +37,12 @@ commands:
     description: 物品簽名(特殊物品)
   dragonboss:
     description: 管理員用來檢視龍戰的指令
+  scratch:
+    description: 取得一張刮刮樂
+    usage: /scratch
+  scratch_click:
+    description: (internal) 點擊刮刮樂用，不要手動呼叫
+    usage: /scratch_click <id>
+permissions:
+  scratch.use:
+    default: true

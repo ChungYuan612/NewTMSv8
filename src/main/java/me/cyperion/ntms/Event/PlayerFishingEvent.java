@@ -4,7 +4,6 @@ import me.cyperion.ntms.ItemStacks.Item.JadeCore;
 import me.cyperion.ntms.ItemStacks.Item.LauNaFishingRod;
 import me.cyperion.ntms.ItemStacks.Item.MysteryTurtleEgg;
 import me.cyperion.ntms.NewTMSv8;
-import me.cyperion.ntms.SideBoard.NTMSEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -98,10 +97,11 @@ public class PlayerFishingEvent implements Listener {
                 rate *=1.5;//釣魚祭
             }
             Player player = event.getPlayer();
-            if(reward.rainyRate == 0.022d){
+            if(reward.isTurtleEgg()){
                 if(fishingNoTurtleEgg>0)
                     rate += fishingNoTurtleEgg * 0.001;
                 if(rate >1) rate = 1;
+                fishingNoTurtleEgg++;
             }
             double value = rate;
             double base = rate;
@@ -111,7 +111,7 @@ public class PlayerFishingEvent implements Listener {
             double v = Math.random() * 100;
             if(v < value){//這個v在機率門檻內
 
-                if(reward.rainyRate == 0.022d){
+                if(reward.isTurtleEgg()){
                     fishingNoTurtleEgg = 0;
                 }
 
@@ -206,6 +206,10 @@ public class PlayerFishingEvent implements Listener {
             this.reward = reward;
             this.rate = rate;
             this.rainyRate = rainyRate;
+        }
+
+        boolean isTurtleEgg(){
+            return reward != null && reward.getType() == Material.TURTLE_EGG;
         }
 
     }

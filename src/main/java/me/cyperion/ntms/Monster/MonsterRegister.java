@@ -7,9 +7,8 @@ import me.cyperion.ntms.ItemStacks.Item.LauNaFishingRod;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.GoldenEssence;
 import me.cyperion.ntms.ItemStacks.Item.Materaial.ReinfinedLapis;
 import me.cyperion.ntms.ItemStacks.Item.MysteryTurtleEgg;
-import me.cyperion.ntms.ItemStacks.Item.Stocks;
 import me.cyperion.ntms.NewTMSv8;
-import me.cyperion.ntms.SideBoard.NTMSEvents;
+import me.cyperion.ntms.Event.NTMSEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,7 +22,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 import static me.cyperion.ntms.Monster.LootItem.chanceIn;
 import static me.cyperion.ntms.Utils.colors;

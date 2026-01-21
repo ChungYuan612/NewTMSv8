@@ -3,7 +3,6 @@ package me.cyperion.ntms.Event;
 import me.cyperion.ntms.ItemStacks.Item.Emerald_Coins;
 import me.cyperion.ntms.Monster.RewardItem;
 import me.cyperion.ntms.NewTMSv8;
-import me.cyperion.ntms.SideBoard.NTMSEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

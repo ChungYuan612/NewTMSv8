@@ -25,6 +25,8 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Comm
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\MenuCommand.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\NTMSCommand.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\PayCommand.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\ScratchClickCommand.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\ScratchCommand.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\SignCommand.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\SigninCommand.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Command\TpaCommand.java
@@ -33,6 +35,10 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Dama
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Damage\DamageIcon.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Damage\DamageIndicator.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\EnderDragonBossSystem.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\EventDetail\ScratchEntry.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\EventDetail\ScratchManager.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\NTMSEventChangeEvent.java
+C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\NTMSEvents.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerAdvanceDoneHandler.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerChatHandler.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Event\PlayerFishingEvent.java
@@ -106,7 +112,6 @@ C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\NSKe
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Player\PlayerData.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Player\PlayerJoinServerController.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\Player\PlayerQuitServer.java
-C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\SideBoard\NTMSEvents.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\SideBoard\TMWorldTimer.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\SideBoard\TWPlayerSideBoard.java
 C:\Users\Administrator\IdeaProjects\NewTMSv8\src\main\java\me\cyperion\ntms\SQL\Database.java
