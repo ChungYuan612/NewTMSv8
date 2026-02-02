@@ -35,10 +35,12 @@ public class ScratchManager {
         plugin.getNtmsEvents().signUpEventChangeListener(new NTMSEventChangeEvent() {
             @Override
             public void onEventChange(NTMSEvents.EventType oldEvent, NTMSEvents.EventType newEvent) {
-                if(oldEvent== NTMSEvents.EventType.LOTTERY_BONUS_EVENT){
-                    // reset player counts when event ends
-                    refreshCounts();
-                    plugin.getLogger().info("[ScratchManager] 刮刮樂活動結束，已重置玩家記數。");
+                // 當離開或進入刮刮樂活動時都重置狀態，避免上一輪遺留影響下一輪
+                if (oldEvent == NTMSEvents.EventType.LOTTERY_BONUS_EVENT
+                        || newEvent == NTMSEvents.EventType.LOTTERY_BONUS_EVENT) {
+                    refreshCounts();       // 清空 playerCounts
+                    scratchMap.clear();    // 清空現存刮刮卡
+                    plugin.getLogger().info("[ScratchManager] 刮刮樂活動狀態改變（old=" + oldEvent + " new=" + newEvent + "），已重置玩家記數與刮刮卡。");
                 }
             }
         });
